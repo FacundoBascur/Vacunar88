@@ -3,7 +3,7 @@ package Entidades;
 
 
 public class Laboratorio {
-    private int idLaboratorio;
+  
     private int cuit;
     private String nombreLab;
     private String pais;
@@ -19,20 +19,10 @@ public class Laboratorio {
         this.domicilioCom = domicilioCom;
     }
 
-    public Laboratorio(int idLaboratorio, int cuit, String nombreLab, String pais, String domicilioCom) {
-        this.idLaboratorio = idLaboratorio;
-        this.cuit = cuit;
+    public Laboratorio(String nombreLab, String pais, String domicilioCom) {
         this.nombreLab = nombreLab;
         this.pais = pais;
         this.domicilioCom = domicilioCom;
-    }
-
-    public int getIdLaboratorio() {
-        return idLaboratorio;
-    }
-
-    public void setIdLaboratorio(int idLaboratorio) {
-        this.idLaboratorio = idLaboratorio;
     }
 
     public int getCuit() {
@@ -69,9 +59,10 @@ public class Laboratorio {
 
     @Override
     public String toString() {
-        return "Laboratorio{" + "idLaboratorio=" + idLaboratorio + ", cuit=" + cuit + ", nombreLab=" + nombreLab + ", pais=" + pais + ", domicilioCom=" + domicilioCom + '}';
+        return "Laboratorio{" + "cuit=" + cuit + ", nombreLab=" + nombreLab + ", pais=" + pais + ", domicilioCom=" + domicilioCom + '}';
     }
-    
+
+   
     
     
     

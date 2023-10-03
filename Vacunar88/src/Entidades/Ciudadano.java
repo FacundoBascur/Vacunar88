@@ -3,42 +3,35 @@ package Entidades;
 
 
 public class Ciudadano {
-    private int idCiudadano;
+   
     private int dni;
     private String nombreCompleto;
     private String email;
     private String celular;
+    private String localidad;
     private String patologia;
     private String ambitoTrabajo;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(int dni, String nombreCompleto, String email, String celular, String patologia, String ambitoTrabajo) {
+    public Ciudadano(int dni, String nombreCompleto, String email, String celular, String localidad, String patologia, String ambitoTrabajo) {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
         this.celular = celular;
+        this.localidad = localidad;
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
     }
 
-    public Ciudadano(int idCiudadano, int dni, String nombreCompleto, String email, String celular, String patologia, String ambitoTrabajo) {
-        this.idCiudadano = idCiudadano;
-        this.dni = dni;
+    public Ciudadano(String nombreCompleto, String email, String celular, String localidad, String patologia, String ambitoTrabajo) {
         this.nombreCompleto = nombreCompleto;
         this.email = email;
         this.celular = celular;
+        this.localidad = localidad;
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
-    }
-
-    public int getIdCiudadano() {
-        return idCiudadano;
-    }
-
-    public void setIdCiudadano(int idCiudadano) {
-        this.idCiudadano = idCiudadano;
     }
 
     public int getDni() {
@@ -73,6 +66,14 @@ public class Ciudadano {
         this.celular = celular;
     }
 
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
     public String getPatologia() {
         return patologia;
     }
@@ -91,10 +92,11 @@ public class Ciudadano {
 
     @Override
     public String toString() {
-        return "Ciudadano{" + "idCiudadano=" + idCiudadano + ", dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + '}';
+        return "Ciudadano{" + "dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", localidad=" + localidad + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + '}';
     }
-    
-    
-    
+
+   
+
+  
     
 }

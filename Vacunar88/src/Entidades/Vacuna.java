@@ -11,28 +11,28 @@ public class Vacuna {
     private double medida;
     private Date fechaVenc;
     private boolean colocada;
-    private Laboratorio idLaboratorio;
+    private Laboratorio cuit;
 
     public Vacuna() {
     }
 
-    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio idLaboratorio) {
-        this.nroSerieDosis = nroSerieDosis;
-        this.marca = marca;
-        this.medida = medida;
-        this.fechaVenc = fechaVenc;
-        this.colocada = colocada;
-        this.idLaboratorio = idLaboratorio;
-    }
-
-    public Vacuna(int idVacuna, int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio idLaboratorio) {
+    public Vacuna(int idVacuna, int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio cuit) {
         this.idVacuna = idVacuna;
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
         this.medida = medida;
         this.fechaVenc = fechaVenc;
         this.colocada = colocada;
-        this.idLaboratorio = idLaboratorio;
+        this.cuit = cuit;
+    }
+
+    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio cuit) {
+        this.nroSerieDosis = nroSerieDosis;
+        this.marca = marca;
+        this.medida = medida;
+        this.fechaVenc = fechaVenc;
+        this.colocada = colocada;
+        this.cuit = cuit;
     }
 
     public int getIdVacuna() {
@@ -83,18 +83,19 @@ public class Vacuna {
         this.colocada = colocada;
     }
 
-    public Laboratorio getIdLaboratorio() {
-        return idLaboratorio;
+    public Laboratorio getCuit() {
+        return cuit;
     }
 
-    public void setIdLaboratorio(Laboratorio idLaboratorio) {
-        this.idLaboratorio = idLaboratorio;
+    public void setCuit(Laboratorio cuit) {
+        this.cuit = cuit;
     }
 
     @Override
     public String toString() {
-        return "Vacuna{" + "idVacuna=" + idVacuna + ", nroSerieDosis=" + nroSerieDosis + ", marca=" + marca + ", medida=" + medida + ", fechaVenc=" + fechaVenc + ", colocada=" + colocada + ", idLaboratorio=" + idLaboratorio + '}';
+        return "Vacuna{" + "idVacuna=" + idVacuna + ", nroSerieDosis=" + nroSerieDosis + ", marca=" + marca + ", medida=" + medida + ", fechaVenc=" + fechaVenc + ", colocada=" + colocada + ", cuit=" + cuit + '}';
     }
-    
+
+   
     
 }

@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 
 public class CitaVacunacion {
-    private int idCita;
+   
     private int codCita;
-    private Ciudadano idCiudadano;
+    private Ciudadano dni;
     private int codRefuerzo;
     private String fechaHoraCita;
     private String centroVacunacion;
@@ -17,9 +17,9 @@ public class CitaVacunacion {
     public CitaVacunacion() {
     }
 
-    public CitaVacunacion(int codCita, Ciudadano idCiudadano, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
+    public CitaVacunacion(int codCita, Ciudadano dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
         this.codCita = codCita;
-        this.idCiudadano = idCiudadano;
+        this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
@@ -27,23 +27,13 @@ public class CitaVacunacion {
         this.idVacuna = idVacuna;
     }
 
-    public CitaVacunacion(int idCita, int codCita, Ciudadano idCiudadano, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
-        this.idCita = idCita;
-        this.codCita = codCita;
-        this.idCiudadano = idCiudadano;
+    public CitaVacunacion(Ciudadano dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
+        this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraVac = fechaHoraVac;
         this.idVacuna = idVacuna;
-    }
-
-    public int getIdCita() {
-        return idCita;
-    }
-
-    public void setIdCita(int idCita) {
-        this.idCita = idCita;
     }
 
     public int getCodCita() {
@@ -54,12 +44,12 @@ public class CitaVacunacion {
         this.codCita = codCita;
     }
 
-    public Ciudadano getIdCiudadano() {
-        return idCiudadano;
+    public Ciudadano getDni() {
+        return dni;
     }
 
-    public void setIdCiudadano(Ciudadano idCiudadano) {
-        this.idCiudadano = idCiudadano;
+    public void setDni(Ciudadano dni) {
+        this.dni = dni;
     }
 
     public int getCodRefuerzo() {
@@ -104,9 +94,8 @@ public class CitaVacunacion {
 
     @Override
     public String toString() {
-        return "CitaVacunacion{" + "idCita=" + idCita + ", codCita=" + codCita + ", idCiudadano=" + idCiudadano + ", codRefuerzo=" + codRefuerzo + ", fechaHoraCita=" + fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", idVacuna=" + idVacuna + '}';
+        return "CitaVacunacion{" + "codCita=" + codCita + ", dni=" + dni + ", codRefuerzo=" + codRefuerzo + ", fechaHoraCita=" + fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", idVacuna=" + idVacuna + '}';
     }
-    
-    
 
+   
 }
