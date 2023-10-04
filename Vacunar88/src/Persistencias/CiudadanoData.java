@@ -37,7 +37,7 @@ String sql= "INSERT INTO ciudadano (dni, nombreCompleto, email, celular, longXci
           JOptionPane.showMessageDialog(null, "Ciudadano registrado correctamente.");
             
        } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos.");
+          JOptionPane.showMessageDialog(null, "Error al conectarse a la tabla ciudadano.");
         }
 
 
