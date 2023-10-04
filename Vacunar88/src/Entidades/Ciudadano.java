@@ -7,29 +7,22 @@ public class Ciudadano {
     private int dni;
     private String nombreCompleto;
     private String email;
-    private String celular;
-    private String localidad;
+    private long celular;
+    private int longXciu;
+    private int latYciu;
     private String patologia;
     private String ambitoTrabajo;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(int dni, String nombreCompleto, String email, String celular, String localidad, String patologia, String ambitoTrabajo) {
+    public Ciudadano(int dni, String nombreCompleto, String email, long celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo) {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
         this.celular = celular;
-        this.localidad = localidad;
-        this.patologia = patologia;
-        this.ambitoTrabajo = ambitoTrabajo;
-    }
-
-    public Ciudadano(String nombreCompleto, String email, String celular, String localidad, String patologia, String ambitoTrabajo) {
-        this.nombreCompleto = nombreCompleto;
-        this.email = email;
-        this.celular = celular;
-        this.localidad = localidad;
+        this.longXciu = longXciu;
+        this.latYciu = latYciu;
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
     }
@@ -58,20 +51,28 @@ public class Ciudadano {
         this.email = email;
     }
 
-    public String getCelular() {
+    public long getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(long celular) {
         this.celular = celular;
     }
 
-    public String getLocalidad() {
-        return localidad;
+    public int getLongXciu() {
+        return longXciu;
     }
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
+    public void setLongXciu(int longXciu) {
+        this.longXciu = longXciu;
+    }
+
+    public int getLatYciu() {
+        return latYciu;
+    }
+
+    public void setLatYciu(int latYciu) {
+        this.latYciu = latYciu;
     }
 
     public String getPatologia() {
@@ -92,11 +93,8 @@ public class Ciudadano {
 
     @Override
     public String toString() {
-        return "Ciudadano{" + "dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", localidad=" + localidad + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + '}';
+        return "Ciudadano{" + "dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", longXciu=" + longXciu + ", latYciu=" + latYciu + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + '}';
     }
 
-   
-
   
-    
 }

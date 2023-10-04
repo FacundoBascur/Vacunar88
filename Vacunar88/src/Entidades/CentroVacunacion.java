@@ -5,22 +5,21 @@ package Entidades;
 public class CentroVacunacion {
     private int codCentro;
     private String nombre;
-    private String localidad;
+    private int longXcentro=8;
+    private int latYcentro=3;
     private CitaVacunacion codCita;
 
     public CentroVacunacion() {
     }
 
-    public CentroVacunacion(int codCentro, String nombre, String localidad, CitaVacunacion codCita) {
+    public CentroVacunacion(int codCentro, String nombre, CitaVacunacion codCita) {
         this.codCentro = codCentro;
         this.nombre = nombre;
-        this.localidad = localidad;
         this.codCita = codCita;
     }
 
-    public CentroVacunacion(String nombre, String localidad, CitaVacunacion codCita) {
+    public CentroVacunacion(String nombre, CitaVacunacion codCita) {
         this.nombre = nombre;
-        this.localidad = localidad;
         this.codCita = codCita;
     }
 
@@ -40,12 +39,20 @@ public class CentroVacunacion {
         this.nombre = nombre;
     }
 
-    public String getLocalidad() {
-        return localidad;
+    public int getLongXcentro() {
+        return longXcentro;
     }
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
+    public void setLongXcentro(int longXcentro) {
+        this.longXcentro = longXcentro;
+    }
+
+    public int getLatYcentro() {
+        return latYcentro;
+    }
+
+    public void setLatYcentro(int latYcentro) {
+        this.latYcentro = latYcentro;
     }
 
     public CitaVacunacion getCodCita() {
@@ -58,10 +65,9 @@ public class CentroVacunacion {
 
     @Override
     public String toString() {
-        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", localidad=" + localidad + ", codCita=" + codCita + '}';
+        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", longXcentro=" + longXcentro + ", latYcentro=" + latYcentro + ", codCita=" + codCita + '}';
     }
-    
-    
+
     
     
     
