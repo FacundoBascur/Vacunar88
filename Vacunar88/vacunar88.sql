@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2023 a las 00:53:31
+-- Tiempo de generación: 05-10-2023 a las 02:30:57
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,12 +63,19 @@ CREATE TABLE `ciudadano` (
   `dni` int(11) NOT NULL,
   `nombreCompleto` varchar(40) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `celular` bigint(20) NOT NULL,
+  `celular` varchar(15) NOT NULL,
   `longXciu` int(11) NOT NULL,
   `latYciu` int(11) NOT NULL,
   `patologia` varchar(20) DEFAULT NULL,
   `ambitoTrabajo` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ciudadano`
+--
+
+INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`, `latYciu`, `patologia`, `ambitoTrabajo`) VALUES
+(32608741, 'Lucas Monzon', 'lucasmonzon@gmail.co', '2214856824', 5, 9, 'Diabetes', 'Educación');
 
 -- --------------------------------------------------------
 
@@ -122,8 +129,7 @@ ALTER TABLE `citavacunacion`
 -- Indices de la tabla `ciudadano`
 --
 ALTER TABLE `ciudadano`
-  ADD PRIMARY KEY (`dni`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD PRIMARY KEY (`dni`);
 
 --
 -- Indices de la tabla `laboratorio`
@@ -166,28 +172,23 @@ ALTER TABLE `vacuna`
 --
 
 --
+-- Filtros para la tabla `centrovacunacion`
+--
+ALTER TABLE `centrovacunacion`
+  ADD CONSTRAINT `centrovacunacion_ibfk_1` FOREIGN KEY (`codCita`) REFERENCES `citavacunacion` (`codCita`);
+
+--
 -- Filtros para la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`codCita`) REFERENCES `centrovacunacion` (`codCita`);
-
---
--- Filtros para la tabla `ciudadano`
---
-ALTER TABLE `ciudadano`
-  ADD CONSTRAINT `ciudadano_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `citavacunacion` (`dni`);
-
---
--- Filtros para la tabla `laboratorio`
---
-ALTER TABLE `laboratorio`
-  ADD CONSTRAINT `laboratorio_ibfk_1` FOREIGN KEY (`cuit`) REFERENCES `vacuna` (`cuit`);
+  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `ciudadano` (`dni`),
+  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`idVacuna`) REFERENCES `vacuna` (`idVacuna`);
 
 --
 -- Filtros para la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  ADD CONSTRAINT `vacuna_ibfk_1` FOREIGN KEY (`idVacuna`) REFERENCES `citavacunacion` (`idVacuna`);
+  ADD CONSTRAINT `vacuna_ibfk_1` FOREIGN KEY (`cuit`) REFERENCES `laboratorio` (`cuit`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
