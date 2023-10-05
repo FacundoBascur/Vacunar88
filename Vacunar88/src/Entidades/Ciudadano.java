@@ -1,9 +1,7 @@
-
 package Entidades;
 
-
 public class Ciudadano {
-   
+
     private int dni;
     private String nombreCompleto;
     private String email;
@@ -12,11 +10,13 @@ public class Ciudadano {
     private int latYciu;
     private String patologia;
     private String ambitoTrabajo;
+    private int dosis;
+    private boolean estado;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(int dni, String nombreCompleto, String email, long celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo) {
+    public Ciudadano(int dni, String nombreCompleto, String email, long celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo, int dosis, boolean estado) {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
@@ -25,6 +25,24 @@ public class Ciudadano {
         this.latYciu = latYciu;
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
+        this.dosis = dosis;
+        this.estado = estado;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public int getDosis() {
+        return dosis;
+    }
+
+    public void setDosis(int dosis) {
+        this.dosis = dosis;
     }
 
     public int getDni() {
@@ -93,8 +111,7 @@ public class Ciudadano {
 
     @Override
     public String toString() {
-        return "Ciudadano{" + "dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", longXciu=" + longXciu + ", latYciu=" + latYciu + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + '}';
+        return "Ciudadano \n" + nombreCompleto + "\nDni: " + dni + "\nContacto: " + celular + "\nPatologia: " + patologia + "\nAmbito Laboral: " + ambitoTrabajo + "\nDosis colocadas: "+dosis+"\nEstado: " + estado;
     }
 
-  
 }
