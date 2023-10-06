@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class CiudadanoData {
@@ -191,7 +190,8 @@ public class CiudadanoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudadanos.");
         }
     }
-public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, long celular, int longXciu, 
+    
+    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, long celular, int longXciu, 
         int latYciu, String patologia, String ambitoTrabajo, int dosis, int dni) {
 
         Ciudadano ciu= null;
