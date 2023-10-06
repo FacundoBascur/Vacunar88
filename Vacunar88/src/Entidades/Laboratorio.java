@@ -4,7 +4,7 @@ package Entidades;
 
 public class Laboratorio {
   
-    private int cuit;
+    private long cuit;
     private String nombreLab;
     private String pais;
     private String domicilioCom;
@@ -12,7 +12,7 @@ public class Laboratorio {
     public Laboratorio() {
     }
 
-    public Laboratorio(int cuit, String nombreLab, String pais, String domicilioCom) {
+    public Laboratorio(long cuit, String nombreLab, String pais, String domicilioCom) {
         this.cuit = cuit;
         this.nombreLab = nombreLab;
         this.pais = pais;
@@ -25,7 +25,7 @@ public class Laboratorio {
         this.domicilioCom = domicilioCom;
     }
 
-    public int getCuit() {
+    public long getCuit() {
         return cuit;
     }
 
