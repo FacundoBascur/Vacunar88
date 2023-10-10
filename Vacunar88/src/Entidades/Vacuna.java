@@ -11,12 +11,12 @@ public class Vacuna {
     private double medida;
     private Date fechaVenc;
     private boolean colocada;
-    private Laboratorio cuit;
+    private String cuit;
 
     public Vacuna() {
     }
 
-    public Vacuna(int idVacuna, int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio cuit) {
+    public Vacuna(int idVacuna, int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, String cuit) {
         this.idVacuna = idVacuna;
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
@@ -26,7 +26,7 @@ public class Vacuna {
         this.cuit = cuit;
     }
 
-    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, Laboratorio cuit) {
+    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, String cuit) {
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
         this.medida = medida;
@@ -83,11 +83,11 @@ public class Vacuna {
         this.colocada = colocada;
     }
 
-    public Laboratorio getCuit() {
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCuit(Laboratorio cuit) {
+    public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 

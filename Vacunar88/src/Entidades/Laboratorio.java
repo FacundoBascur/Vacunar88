@@ -4,32 +4,43 @@ package Entidades;
 
 public class Laboratorio {
   
-    private long cuit;
+   private String cuit;
     private String nombreLab;
     private String pais;
     private String domicilioCom;
+    private boolean estado;
 
     public Laboratorio() {
     }
 
-    public Laboratorio(long cuit, String nombreLab, String pais, String domicilioCom) {
+    public Laboratorio(String cuit, String nombreLab, String pais, String domicilioCom, boolean estado) {
         this.cuit = cuit;
         this.nombreLab = nombreLab;
         this.pais = pais;
         this.domicilioCom = domicilioCom;
+        this.estado = estado;
     }
 
-    public Laboratorio(String nombreLab, String pais, String domicilioCom) {
+    public Laboratorio(String nombreLab, String pais, String domicilioCom, boolean estado) {
         this.nombreLab = nombreLab;
         this.pais = pais;
         this.domicilioCom = domicilioCom;
+        this.estado = estado;
     }
 
-    public long getCuit() {
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getCuit() {
         return cuit;
     }
 
-    public void setCuit(int cuit) {
+    public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 
@@ -59,14 +70,7 @@ public class Laboratorio {
 
     @Override
     public String toString() {
-        return "Laboratorio{" + "cuit=" + cuit + ", nombreLab=" + nombreLab + ", pais=" + pais + ", domicilioCom=" + domicilioCom + '}';
+        return "Laboratorio{" + "cuit=" + cuit + ", nombreLab=" + nombreLab + ", pais=" + pais + ", domicilioCom=" + domicilioCom + ", estado=" + estado + '}';
     }
-
    
-    
-    
-    
-    
-    
-    
 }

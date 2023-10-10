@@ -3,25 +3,31 @@ package Entidades;
 
 
 public class CentroVacunacion {
-    private int codCentro;
+     private int codCentro;
     private String nombre;
-    private int longXcentro=8;
-    private int latYcentro=3;
+    private int longXcentro;
+    private int latYcentro;
     private CitaVacunacion codCita;
 
     public CentroVacunacion() {
     }
 
-    public CentroVacunacion(int codCentro, String nombre, CitaVacunacion codCita) {
+    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, CitaVacunacion codCita) {
         this.codCentro = codCentro;
         this.nombre = nombre;
+        this.longXcentro = longXcentro;
+        this.latYcentro = latYcentro;
         this.codCita = codCita;
     }
 
-    public CentroVacunacion(String nombre, CitaVacunacion codCita) {
+    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, CitaVacunacion codCita) {
         this.nombre = nombre;
+        this.longXcentro = longXcentro;
+        this.latYcentro =latYcentro;
         this.codCita = codCita;
     }
+
+  
 
     public int getCodCentro() {
         return codCentro;
