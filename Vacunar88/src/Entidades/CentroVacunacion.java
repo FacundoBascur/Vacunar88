@@ -7,12 +7,12 @@ public class CentroVacunacion {
     private String nombre;
     private int longXcentro;
     private int latYcentro;
-    private CitaVacunacion codCita;
+    private int codCita;
 
     public CentroVacunacion() {
     }
 
-    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, CitaVacunacion codCita) {
+    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, int codCita) {
         this.codCentro = codCentro;
         this.nombre = nombre;
         this.longXcentro = longXcentro;
@@ -20,7 +20,7 @@ public class CentroVacunacion {
         this.codCita = codCita;
     }
 
-    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, CitaVacunacion codCita) {
+    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, int codCita) {
         this.nombre = nombre;
         this.longXcentro = longXcentro;
         this.latYcentro =latYcentro;
@@ -61,13 +61,15 @@ public class CentroVacunacion {
         this.latYcentro = latYcentro;
     }
 
-    public CitaVacunacion getCodCita() {
+    public int getCodCita() {
         return codCita;
     }
 
-    public void setCodCita(CitaVacunacion codCita) {
+    public void setCodCita(int codCita) {
         this.codCita = codCita;
     }
+
+  
 
     @Override
     public String toString() {

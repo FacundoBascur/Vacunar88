@@ -19,19 +19,22 @@ public class VacunaData {
     con = Conexion.getConexion();
     } 
     
-     public void registrarVac(Vacuna vac) {
+     public void registrarVac(int nroSerieDosis, String marca, double medida, Date fechaVenc, 
+             boolean colocada, String cuit) {
 
+         Vacuna vac=null; 
+         
         String sql = "INSERT INTO vacuna (nroSerieDosis,marca,medida,fechaVenc,colocada, cuit) VALUES (?,?,?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setInt(1, vac.getNroSerieDosis());
-            ps.setString(2, vac.getMarca());
-            ps.setDouble(3, vac.getMedida());
-            ps.setDate(4, (Date) vac.getFechaVenc());
-            ps.setBoolean(5, vac.isColocada());
-            ps.setString(6, vac.getCuit());
+            ps.setInt(1, nroSerieDosis);
+            ps.setString(2, marca);
+            ps.setDouble(3, medida);
+            ps.setDate(4, fechaVenc);
+            ps.setBoolean(5, colocada);
+            ps.setString(6, cuit);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();

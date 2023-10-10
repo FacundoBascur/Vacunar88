@@ -7,17 +7,17 @@ import java.time.LocalDateTime;
 public class CitaVacunacion {
    
     private int codCita;
-    private Ciudadano dni;
+    private int dni;
     private int codRefuerzo;
     private String fechaHoraCita;
     private String centroVacunacion;
     private LocalDateTime fechaHoraVac;
-    private Vacuna idVacuna;
+    private int idVacuna;
 
     public CitaVacunacion() {
     }
 
-    public CitaVacunacion(int codCita, Ciudadano dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
+    public CitaVacunacion(int codCita, int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int idVacuna) {
         this.codCita = codCita;
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
@@ -27,7 +27,7 @@ public class CitaVacunacion {
         this.idVacuna = idVacuna;
     }
 
-    public CitaVacunacion(Ciudadano dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, Vacuna idVacuna) {
+    public CitaVacunacion(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int idVacuna) {
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
@@ -44,13 +44,15 @@ public class CitaVacunacion {
         this.codCita = codCita;
     }
 
-    public Ciudadano getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(Ciudadano dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
+
+   
 
     public int getCodRefuerzo() {
         return codRefuerzo;
@@ -84,13 +86,15 @@ public class CitaVacunacion {
         this.fechaHoraVac = fechaHoraVac;
     }
 
-    public Vacuna getIdVacuna() {
+    public int getIdVacuna() {
         return idVacuna;
     }
 
-    public void setIdVacuna(Vacuna idVacuna) {
+    public void setIdVacuna(int idVacuna) {
         this.idVacuna = idVacuna;
     }
+
+  
 
     @Override
     public String toString() {

@@ -19,18 +19,18 @@ public class CentroVacunacionData {
     con = Conexion.getConexion();
     } 
     
-     public void registrarCentro(CentroVacunacion centro) {
-
+     public void registrarCentro(String nombre, int longXcentro, int latYcentro, int codCita) {
+CentroVacunacion centro=null;
         String sql = "INSERT INTO centrovacunacion (nombre,longXcentro,latYcentro,codCita) VALUES (?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             
-            ps.setString(1, centro.getNombre());
-            ps.setInt(2,centro.getLongXcentro());
-           ps.setInt(3, centro.getLatYcentro());
-          (CitaVacunacion)ps.setInt(4, (centro.getCodCita()));
+            ps.setString(1, nombre);
+            ps.setInt(2, longXcentro);
+           ps.setInt(3, latYcentro);
+          ps.setInt(4, codCita);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();

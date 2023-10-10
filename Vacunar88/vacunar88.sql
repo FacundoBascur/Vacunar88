@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2023 a las 02:30:57
+-- Tiempo de generación: 10-10-2023 a las 02:40:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,19 +63,22 @@ CREATE TABLE `ciudadano` (
   `dni` int(11) NOT NULL,
   `nombreCompleto` varchar(40) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `celular` varchar(15) NOT NULL,
+  `celular` bigint(15) NOT NULL,
   `longXciu` int(11) NOT NULL,
   `latYciu` int(11) NOT NULL,
   `patologia` varchar(20) DEFAULT NULL,
-  `ambitoTrabajo` varchar(30) DEFAULT NULL
+  `ambitoTrabajo` varchar(30) DEFAULT NULL,
+  `dosis` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ciudadano`
 --
 
-INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`, `latYciu`, `patologia`, `ambitoTrabajo`) VALUES
-(32608741, 'Lucas Monzon', 'lucasmonzon@gmail.co', '2214856824', 5, 9, 'Diabetes', 'Educación');
+INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`, `latYciu`, `patologia`, `ambitoTrabajo`, `dosis`, `estado`) VALUES
+(14484524, 'Victor Sueyro', 'lalala', 303456, 3, 9, 'lupus', 'salud', 1, 0),
+(32608743, 'Lionel Messi', 'lionelmessi@gmail.co', 2215489632, 4, 2, 'Hemorroides', 'Seguridad', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -84,10 +87,33 @@ INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`
 --
 
 CREATE TABLE `laboratorio` (
-  `cuit` int(11) NOT NULL,
+  `cuit` varchar(20) NOT NULL,
   `nombreLab` varchar(50) NOT NULL,
   `pais` varchar(20) NOT NULL,
-  `domicilioCom` varchar(30) NOT NULL
+  `domicilioCom` varchar(30) NOT NULL,
+  `estado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `laboratorio`
+--
+
+INSERT INTO `laboratorio` (`cuit`, `nombreLab`, `pais`, `domicilioCom`, `estado`) VALUES
+('3012345670', 'Beijing Institute of Biological Products', 'China', 'No. 6, 2nd Boxing Road, Beijin', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stock`
+--
+
+CREATE TABLE `stock` (
+  `idStock` int(11) NOT NULL,
+  `marca` varchar(50) NOT NULL,
+  `cantidad` int(20) NOT NULL,
+  `codCentro` int(11) NOT NULL,
+  `cuit` varchar(20) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,7 +129,7 @@ CREATE TABLE `vacuna` (
   `medida` double NOT NULL,
   `fechaVenc` date NOT NULL,
   `colocada` tinyint(1) NOT NULL,
-  `cuit` int(11) NOT NULL
+  `cuit` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -138,6 +164,14 @@ ALTER TABLE `laboratorio`
   ADD PRIMARY KEY (`cuit`);
 
 --
+-- Indices de la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`idStock`),
+  ADD UNIQUE KEY `codCentro` (`codCentro`),
+  ADD UNIQUE KEY `cuit` (`cuit`);
+
+--
 -- Indices de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
@@ -162,6 +196,12 @@ ALTER TABLE `citavacunacion`
   MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `idStock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
@@ -183,6 +223,13 @@ ALTER TABLE `centrovacunacion`
 ALTER TABLE `citavacunacion`
   ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `ciudadano` (`dni`),
   ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`idVacuna`) REFERENCES `vacuna` (`idVacuna`);
+
+--
+-- Filtros para la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`codCentro`) REFERENCES `centrovacunacion` (`codCentro`),
+  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`cuit`) REFERENCES `laboratorio` (`cuit`);
 
 --
 -- Filtros para la tabla `vacuna`

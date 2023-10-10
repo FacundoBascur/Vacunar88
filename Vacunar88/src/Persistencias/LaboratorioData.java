@@ -97,7 +97,7 @@ public class LaboratorioData {
             String marca = "";
             double medida = 0;
 
-            switch (lab.getPais().toLowerCase()) {
+            switch (lab.getCuit()) {
                 case "china":
                     marca = "Sinopharm";
                     medida = 0.5;
@@ -111,7 +111,7 @@ public class LaboratorioData {
                     medida = 0.5;
                     break;
                 case "inglaterra":
-                    marca = "Sinopharm";
+                    marca = "Astrazeneca";
                     medida = 0.5;
                     break;
                 default:
@@ -130,6 +130,28 @@ public class LaboratorioData {
 
         return lista;
     }
+  public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, boolean estado) {
 
+        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, estado=? WHERE cuit=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, cuit);
+            ps.setString(2, nombreLab);
+            ps.setString(3, pais );
+            ps.setString(4, domicilioCom);
+            ps.setBoolean(5, estado);
+            ps.setString(6, cuit);
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Laboratorio modificada con éxito.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder al Laboratorio.");
+        }
+
+    }
     
 }

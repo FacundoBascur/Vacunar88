@@ -7,8 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
-import.java.util.Local Date Time;
+
+ import java.time.LocalDateTime;
+
 import javax.swing.JOptionPane;
 
 
@@ -19,20 +20,21 @@ public class CitaVacunacionData {
     con = Conexion.getConexion();
     } 
     
-     public void registrarCita(CitaVacunacion cita) {
-
+     public void registrarCita(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int idVacuna) {
+CitaVacunacion cita=null;
         String sql = "INSERT INTO citavacunacion (dni,codRefuerzo,fechaHoraCita,"
                 + "centroVacunacion,fechaHoraVac,idVacuna) VALUES (?,?,?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setInt(1, (Int)(cita.getDni()));
-            ps.setInt(2, cita.getCodRefuerzo());
-            ps.setString(3, cita.getFechaHoraCita());
-            ps.setDateTime(5,    (cita.getFechaHoraVac());
-            ps.set(Vacuna)(6,cita.getIdVacuna());
-            ps.setString(4, cita.getCentroVacunacion());
+            ps.setInt(1, dni);
+            ps.setInt(2, codRefuerzo);
+            ps.setString(3, fechaHoraCita);
+            ps.setString(4, centroVacunacion);
+            ps.setTimestamp(5, java.sql.Timestamp.valueOf(fechaHoraVac));
+            ps.setInt (6, idVacuna);
+          
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
