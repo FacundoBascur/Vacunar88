@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2023 a las 23:55:34
+-- Tiempo de generación: 08-10-2023 a las 18:15:57
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `vacunar88`
 --
-CREATE DATABASE IF NOT EXISTS `vacunar88` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `vacunar88`;
 
 -- --------------------------------------------------------
 
@@ -63,12 +61,22 @@ CREATE TABLE `ciudadano` (
   `dni` int(11) NOT NULL,
   `nombreCompleto` varchar(40) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `celular` varchar(15) NOT NULL,
+  `celular` bigint(15) NOT NULL,
   `longXciu` int(11) NOT NULL,
   `latYciu` int(11) NOT NULL,
   `patologia` varchar(20) DEFAULT NULL,
-  `ambitoTrabajo` varchar(30) DEFAULT NULL
+  `ambitoTrabajo` varchar(30) DEFAULT NULL,
+  `dosis` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ciudadano`
+--
+
+INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`, `latYciu`, `patologia`, `ambitoTrabajo`, `dosis`, `estado`) VALUES
+(14484524, 'Victor Sueyro', 'lalala', 303456, 3, 9, 'lupus', 'salud', 1, 0),
+(32608743, 'Lionel Messi', 'lionelmessi@gmail.co', 2215489632, 4, 2, 'Hemorroides', 'Seguridad', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -77,10 +85,22 @@ CREATE TABLE `ciudadano` (
 --
 
 CREATE TABLE `laboratorio` (
-  `cuit` int(11) NOT NULL,
+  `cuit` varchar(20) NOT NULL,
   `nombreLab` varchar(50) NOT NULL,
   `pais` varchar(20) NOT NULL,
   `domicilioCom` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `stock`
+--
+
+CREATE TABLE `stock` (
+  `marca` varchar(50) NOT NULL,
+  `cantidad` bigint(20) NOT NULL,
+  `codCentro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -96,7 +116,7 @@ CREATE TABLE `vacuna` (
   `medida` double NOT NULL,
   `fechaVenc` date NOT NULL,
   `colocada` tinyint(1) NOT NULL,
-  `cuit` int(11) NOT NULL
+  `cuit` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -129,6 +149,12 @@ ALTER TABLE `ciudadano`
 --
 ALTER TABLE `laboratorio`
   ADD PRIMARY KEY (`cuit`);
+
+--
+-- Indices de la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD UNIQUE KEY `codCentro` (`codCentro`);
 
 --
 -- Indices de la tabla `vacuna`
@@ -165,28 +191,29 @@ ALTER TABLE `vacuna`
 --
 
 --
+-- Filtros para la tabla `centrovacunacion`
+--
+ALTER TABLE `centrovacunacion`
+  ADD CONSTRAINT `centrovacunacion_ibfk_1` FOREIGN KEY (`codCita`) REFERENCES `citavacunacion` (`codCita`);
+
+--
 -- Filtros para la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`codCita`) REFERENCES `centrovacunacion` (`codCita`);
+  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `ciudadano` (`dni`),
+  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`idVacuna`) REFERENCES `vacuna` (`idVacuna`);
 
 --
--- Filtros para la tabla `ciudadano`
+-- Filtros para la tabla `stock`
 --
-ALTER TABLE `ciudadano`
-  ADD CONSTRAINT `ciudadano_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `citavacunacion` (`dni`);
-
---
--- Filtros para la tabla `laboratorio`
---
-ALTER TABLE `laboratorio`
-  ADD CONSTRAINT `laboratorio_ibfk_1` FOREIGN KEY (`cuit`) REFERENCES `vacuna` (`cuit`);
+ALTER TABLE `stock`
+  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`codCentro`) REFERENCES `centrovacunacion` (`codCentro`);
 
 --
 -- Filtros para la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  ADD CONSTRAINT `vacuna_ibfk_1` FOREIGN KEY (`idVacuna`) REFERENCES `citavacunacion` (`idVacuna`);
+  ADD CONSTRAINT `vacuna_ibfk_1` FOREIGN KEY (`cuit`) REFERENCES `laboratorio` (`cuit`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
