@@ -146,7 +146,14 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-       
+    if(jTNombre.getText().isem || jTLong==null)|| jTLat==null){}<
+    
+    
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed

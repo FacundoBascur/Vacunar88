@@ -20,10 +20,11 @@ public class CitaVacunacionData {
     con = Conexion.getConexion();
     } 
     
-     public void registrarCita(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int idVacuna) {
+     public void registrarCita(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion,
+             LocalDateTime fechaHoraVac, int idVacuna, boolean estado) {
 CitaVacunacion cita=null;
         String sql = "INSERT INTO citavacunacion (dni,codRefuerzo,fechaHoraCita,"
-                + "centroVacunacion,fechaHoraVac,idVacuna) VALUES (?,?,?,?,?,?)";
+                + "centroVacunacion,fechaHoraVac,idVacuna, estado) VALUES (?,?,?,?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -34,6 +35,7 @@ CitaVacunacion cita=null;
             ps.setString(4, centroVacunacion);
             ps.setTimestamp(5, java.sql.Timestamp.valueOf(fechaHoraVac));
             ps.setInt (6, idVacuna);
+            ps.setBoolean(7, estado);
           
             ps.executeUpdate();
 

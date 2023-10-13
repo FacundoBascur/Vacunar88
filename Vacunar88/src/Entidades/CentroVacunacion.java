@@ -7,24 +7,24 @@ public class CentroVacunacion {
     private String nombre;
     private int longXcentro;
     private int latYcentro;
-    private int codCita;
+    private boolean estado;
 
     public CentroVacunacion() {
     }
 
-    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, int codCita) {
+    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, boolean estado) {
         this.codCentro = codCentro;
         this.nombre = nombre;
         this.longXcentro = longXcentro;
         this.latYcentro = latYcentro;
-        this.codCita = codCita;
+        this.estado = estado;
     }
 
-    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, int codCita) {
+    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, boolean estado) {
         this.nombre = nombre;
         this.longXcentro = longXcentro;
         this.latYcentro =latYcentro;
-        this.codCita = codCita;
+        this.estado = estado;
     }
 
   
@@ -61,19 +61,17 @@ public class CentroVacunacion {
         this.latYcentro = latYcentro;
     }
 
-    public int getCodCita() {
-        return codCita;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setCodCita(int codCita) {
-        this.codCita = codCita;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
-
-  
 
     @Override
     public String toString() {
-        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", longXcentro=" + longXcentro + ", latYcentro=" + latYcentro + ", codCita=" + codCita + '}';
+        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", longXcentro=" + longXcentro + ", latYcentro=" + latYcentro + ", estado=" + estado + '}';
     }
 
     
