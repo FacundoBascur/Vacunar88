@@ -28,7 +28,7 @@ public class Main2 extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jMRegistroCentros = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -44,22 +44,38 @@ public class Main2 extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGap(0, 1400, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 777, Short.MAX_VALUE)
+=======
+            .addGap(0, 773, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+>>>>>>> parent of e518226 (Revert "vista registro centros")
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addComponent(escritorio)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(escritorio)
+=======
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+>>>>>>> parent of e518226 (Revert "vista registro centros")
         );
 
         jMenu1.setText("Ciudadanos");
@@ -110,8 +126,13 @@ public class Main2 extends javax.swing.JFrame {
 
         jMenu4.setText("Centros");
 
-        jMenuItem11.setText("Registro");
-        jMenu4.add(jMenuItem11);
+        jMRegistroCentros.setText("Registro");
+        jMRegistroCentros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRegistroCentrosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMRegistroCentros);
 
         jMenuItem12.setText("Búsqueda y modificación");
         jMenu4.add(jMenuItem12);
@@ -144,6 +165,7 @@ public class Main2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
 
     }//GEN-LAST:event_jMenu1ActionPerformed
@@ -160,6 +182,20 @@ public class Main2 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_registroActionPerformed
 
+=======
+    private void jMRegistroCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRegistroCentrosActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        RegistroCentros regis = new  RegistroCentros();
+        regis.setVisible(true);
+        regis.setFrameIcon(null);
+        escritorio.add(regis);
+        escritorio.moveToFront(regis);
+        regis.setLocation(250, 208);
+    }//GEN-LAST:event_jMRegistroCentrosActionPerformed
+
+  
+>>>>>>> parent of e518226 (Revert "vista registro centros")
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -171,6 +207,10 @@ public class Main2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+<<<<<<< HEAD
+=======
+    private javax.swing.JMenuItem jMRegistroCentros;
+>>>>>>> parent of e518226 (Revert "vista registro centros")
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -179,7 +219,6 @@ public class Main2 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -195,6 +234,7 @@ public class Main2 extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
+<<<<<<< HEAD
 /*package Vistas;
 
 import Entidades.Ciudadano;
@@ -205,6 +245,14 @@ import Persistencias.LaboratorioData;
 import Persistencias.StockData;
 
 
+=======
+
+
+
+
+
+/*
+>>>>>>> parent of e518226 (Revert "vista registro centros")
 
 public class Main {
 

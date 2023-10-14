@@ -1,15 +1,17 @@
-
 package Vistas;
 
+import Entidades.CentroVacunacion;
+import Persistencias.CentroVacunacionData;
+import javax.swing.JOptionPane;
 
 public class RegistroCentros extends javax.swing.JInternalFrame {
 
-   
+    CentroVacunacionData centro = new CentroVacunacionData();
+
     public RegistroCentros() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,19 +135,18 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
-       if(jTNombre!=null && jTLong!=null && jTLat!=null){
-       
-       jTNombre.setText("");
-       jTLong.setText("");
-       jTLat.setText("");
-       jCActivo.setSelected(false);
-       
-       
-       
-       }
+        if (jTNombre != null && jTLong != null && jTLat != null) {
+
+            jTNombre.setText("");
+            jTLong.setText("");
+            jTLat.setText("");
+            jCActivo.setSelected(false);
+
+        }
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+<<<<<<< HEAD
 //    if(jTNombre.getText().isem || jTLong==null)|| jTLat==null){}<
 //    
 //    
@@ -154,12 +155,68 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
 //        
 //        
 //        
+=======
+        
+        int cont=0;
+        
+        try {
+            if (jTNombre.getText().isEmpty() || jTLong.getText().isEmpty() || jTLat.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No puede haber campos de texto vacíos.");
+
+            } else if ((jTLong.getText()).length()> 1 || (jTLong.getText()).length() < 1
+                    || (jTLat.getText()).length() < 1 || (jTLat.getText()).length() > 1) {
+                JOptionPane.showMessageDialog(null, "Cantidad de dígitos fuera de rango permitido.");
+
+            } else if (verificar(jTNombre.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
+
+            } else if (verificar(jTLong.getText()) == false || verificar(jTLat.getText()) == false) {
+                JOptionPane.showMessageDialog(null, "Los campos Longitud y Latitud no pueden contener letras.");
+
+            } else {
+
+                for (CentroVacunacion cen : centro.listarCentros()) {
+
+                    if (cen.getNombre() == jTNombre.getText() || (cen.getLongXcentro() == Integer.parseInt(jTLong.getText())
+                            && cen.getLatYcentro() == Integer.parseInt(jTLat.getText()))) {
+                        cont++;
+                        JOptionPane.showMessageDialog(null, "El centro vacunatorio ya se encuentra registrado.");
+
+                    } 
+                    if(cont==0){
+                        centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), Integer.parseInt(jTLong.getText()),
+                                Integer.parseInt(jTLat.getText()), jCActivo.isSelected()));
+                        JOptionPane.showMessageDialog(null, "El centro vacunatorio se registró exitosamente.");
+                        
+                        jTNombre.setText("");
+                jTLong.setText("");
+                jTLat.setText("");
+                jCActivo.setSelected(false);
+                    }
+                }
+              
+
+            }
+              
+>>>>>>> parent of e518226 (Revert "vista registro centros")
     }//GEN-LAST:event_jBGuardarActionPerformed
+catch (NumberFormatException | NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
+        }
+    }
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    public boolean verificar(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
