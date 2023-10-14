@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Entidades.CitaVacunacion;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CentroVacunacionData {
@@ -21,18 +19,18 @@ public class CentroVacunacionData {
     con = Conexion.getConexion();
     } 
     
-     public void registrarCentro(CentroVacunacion centro) {
-
+     public void registrarCentro(String nombre, int longXcentro, int latYcentro, boolean estado) {
+CentroVacunacion centro=null;
         String sql = "INSERT INTO centrovacunacion (nombre,longXcentro,latYcentro,estado) VALUES (?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             
-            ps.setString(1, centro.getNombre());
-            ps.setInt(2, centro.getLongXcentro());
-           ps.setInt(3, centro.getLatYcentro());
-          ps.setBoolean(4, centro.isEstado());
+            ps.setString(1, nombre);
+            ps.setInt(2, longXcentro);
+           ps.setInt(3, latYcentro);
+          ps.setBoolean(4, estado);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -44,7 +42,7 @@ public class CentroVacunacionData {
                 ps.close();
 
             } else {
-                JOptionPane.showMessageDialog(null, "No se pudo obtener el código del centro.");
+                JOptionPane.showMessageDialog(null, "No se pudo obtener el Código del centro.");
             }
 
         } catch (SQLException ex) {
@@ -53,36 +51,7 @@ public class CentroVacunacionData {
 
     }    
     
-     public List<CentroVacunacion> listarCentros() {
-        CentroVacunacion centro = null;
-        List<CentroVacunacion> lista = new ArrayList();
-
-        try {
-
-            String sql = "SELECT * FROM centrovacunacion";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                centro = new CentroVacunacion();
-                centro.setCodCentro(rs.getInt("codCentro"));
-                centro.setNombre(rs.getString("nombre"));
-                centro.setLongXcentro(rs.getInt("longXcentro"));
-                centro.setLatYcentro(rs.getInt("latYcentro"));
-               centro.setEstado(rs.getBoolean("estado"));
-                lista.add(centro);
-
-            }
-            ps.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a CentroVacunación.");
-        }
-
-        return lista;
-
-    }
+    
     
     
 }

@@ -17,7 +17,7 @@ public class Main2 extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        escritorio = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -31,7 +31,7 @@ public class Main2 extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMRegistroCentros = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -43,14 +43,14 @@ public class Main2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
-        escritorio.setLayout(escritorioLayout);
-        escritorioLayout.setHorizontalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 773, Short.MAX_VALUE)
         );
-        escritorioLayout.setVerticalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 452, Short.MAX_VALUE)
         );
 
@@ -58,11 +58,11 @@ public class Main2 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jMenu1.setText("Ciudadanos");
@@ -103,13 +103,8 @@ public class Main2 extends javax.swing.JFrame {
 
         jMenu4.setText("Centros");
 
-        jMRegistroCentros.setText("Registro");
-        jMRegistroCentros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMRegistroCentrosActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMRegistroCentros);
+        jMenuItem11.setText("Registro");
+        jMenu4.add(jMenuItem11);
 
         jMenuItem12.setText("Búsqueda y modificación");
         jMenu4.add(jMenuItem12);
@@ -142,17 +137,6 @@ public class Main2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMRegistroCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRegistroCentrosActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        RegistroCentros regis = new  RegistroCentros();
-        regis.setVisible(true);
-        regis.setFrameIcon(null);
-        escritorio.add(regis);
-        escritorio.moveToFront(regis);
-        regis.setLocation(250, 208);
-    }//GEN-LAST:event_jMRegistroCentrosActionPerformed
-
   
     public static void main(String args[]) {
     
@@ -164,8 +148,7 @@ public class Main2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenuItem jMRegistroCentros;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -174,6 +157,7 @@ public class Main2 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -194,7 +178,16 @@ public class Main2 extends javax.swing.JFrame {
 
 
 
-/*
+/*package Vistas;
+
+import Entidades.Ciudadano;
+import Entidades.Laboratorio;
+import Persistencias.CiudadanoData;
+import Entidades.Stock;
+import Persistencias.LaboratorioData;
+import Persistencias.StockData;
+
+
 
 public class Main {
 
