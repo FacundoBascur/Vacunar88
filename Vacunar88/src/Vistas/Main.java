@@ -43,11 +43,11 @@ public class Main extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 1080, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 418, Short.MAX_VALUE)
+            .addGap(0, 697, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -58,9 +58,7 @@ public class Main extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(escritorio)
-                .addContainerGap())
+            .addComponent(escritorio)
         );
 
         jMenu1.setText(" Ciudadanos");
@@ -74,6 +72,11 @@ public class Main extends javax.swing.JFrame {
         jMenu1.add(registro);
 
         jMenuItem2.setText("Búsqueda y modificaciones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -156,7 +159,7 @@ public class Main extends javax.swing.JFrame {
         CiudadanoNuevo cn = new CiudadanoNuevo();
         cn.setVisible(true);
         cn.setFrameIcon(null);
-        cn.setLocation(361, 163);
+        cn.setLocation(175, 70);
         escritorio.add(cn);
     }//GEN-LAST:event_registroActionPerformed
 
@@ -174,6 +177,16 @@ public class Main extends javax.swing.JFrame {
     private void jMBusqModifCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMBusqModifCentrosActionPerformed
       
     }//GEN-LAST:event_jMBusqModifCentrosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        BuscarModCiud bm = new BuscarModCiud();
+        bm.setVisible(true);
+        bm.setFrameIcon(null);
+        bm.setLocation(130, 85);
+        escritorio.add(bm);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
   
     public static void main(String args[]) {
