@@ -175,7 +175,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMRegistroCenActionPerformed
 
     private void jMBusqModifCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMBusqModifCentrosActionPerformed
-      
+      escritorio.removeAll();
+        escritorio.repaint();
+        BusqModifCentros buscar = new  BusqModifCentros();
+        buscar.setVisible(true);
+        buscar.setFrameIcon(null);
+        escritorio.add(buscar);
+        escritorio.moveToFront(buscar);
+        buscar.setLocation(250, 208); 
     }//GEN-LAST:event_jMBusqModifCentrosActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
