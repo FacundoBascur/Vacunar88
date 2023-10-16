@@ -40,7 +40,7 @@ public class CentroVacunacionData {
             if (rs.next()) {
 
                centro.setCodCentro(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Centro registrado exitosamente.");
+                JOptionPane.showMessageDialog(null, "Centro Vacunatorio registrado exitosamente.");
                 ps.close();
 
             } else {

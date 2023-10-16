@@ -154,7 +154,7 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-           int cont = 0;
+        
 
         try {
             if (jTNombre.getText().isEmpty() || jTLong.getText().isEmpty() || jTLat.getText().isEmpty()) {
@@ -164,49 +164,36 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
                 || (jTLat.getText()).length() < 1 || (jTLat.getText()).length() > 1) {
                 JOptionPane.showMessageDialog(null, "Cantidad de dígitos fuera de rango permitido.");
 
-            } else if (verificar(jTNombre.getText()) == true) {
+            } else if (verificar(jTNombre.getText()) == false) {
                 JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
 
-            } else if (verificar(jTLong.getText()) == false || verificar(jTLat.getText()) == false) {
+            } else if (verificar(jTLong.getText()) == true || verificar(jTLat.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Los campos Longitud y Latitud no pueden contener letras.");
 
-            } else {
-
-                for (CentroVacunacion cen : centro.listarCentros()) {
-
-                    if (cen.getNombre() == jTNombre.getText() || (cen.getLongXcentro() == Integer.parseInt(jTLong.getText())
-                        && cen.getLatYcentro() == Integer.parseInt(jTLat.getText()))) {
-                    cont++;
-                    JOptionPane.showMessageDialog(null, "El centro vacunatorio ya se encuentra registrado.");
-
-                }
-                if (cont == 0) {
+            }  else{
                     centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), Integer.parseInt(jTLong.getText()),
                         Integer.parseInt(jTLat.getText()), jCActivo.isSelected()));
-                JOptionPane.showMessageDialog(null, "El centro vacunatorio se registró exitosamente.");
+                
 
                 jTNombre.setText("");
                 jTLong.setText("");
                 jTLat.setText("");
                 jCActivo.setSelected(false);
+            
             }
-        }
-
-        }
-
-    }                                          
-
-        catch (NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
-        }
+        }catch (NumberFormatException | NullPointerException e) {
+        JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
+        }            
+       
     }//GEN-LAST:event_jBGuardarActionPerformed
  public boolean verificar(String cadena) {
         try {
             Integer.parseInt(cadena);
-            return true;
-        } catch (NumberFormatException e) {
             return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
+ 
  }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
