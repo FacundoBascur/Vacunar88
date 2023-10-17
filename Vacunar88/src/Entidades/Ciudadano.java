@@ -5,7 +5,7 @@ public class Ciudadano {
     private int dni;
     private String nombreCompleto;
     private String email;
-    private long celular;
+    private String celular;
     private int longXciu;
     private int latYciu;
     private String patologia;
@@ -16,7 +16,7 @@ public class Ciudadano {
     public Ciudadano() {
     }
 
-    public Ciudadano(int dni, String nombreCompleto, String email, long celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo, int dosis, boolean estado) {
+    public Ciudadano(int dni, String nombreCompleto, String email, String celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo, int dosis, boolean estado) {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
@@ -69,11 +69,11 @@ public class Ciudadano {
         this.email = email;
     }
 
-    public long getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(long celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

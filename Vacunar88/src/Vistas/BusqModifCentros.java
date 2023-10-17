@@ -46,7 +46,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaAlumnos = new javax.swing.JTable(){
+        jTTablaCentros = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
                 return columnIndex > 0 && columnIndex < 5;
             }
