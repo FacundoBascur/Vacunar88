@@ -197,7 +197,7 @@ public class CentroVacunacionData {
         return centro;
 
     }
-  public void modificarCentroVacunacion(int cod, String nom, int longi, int lati, boolean est) {
+  public void modificarCentroVacunacion(int cod, String nom, int longi, int lati) {
 
         CentroVacunacion centro = null;
         String sql = "UPDATE centrovacunacion SET codCentro=?, nombre=? , longXcentro=? , latYcentro=? WHERE codCentro=? ";
@@ -208,7 +208,7 @@ public class CentroVacunacionData {
             ps.setString(2, nom);
             ps.setInt(3, longi);
             ps.setInt(4, lati);
-            ps.setBoolean(5, est);
+          
             int result = ps.executeUpdate();
 
             if (result == 1) {
