@@ -66,6 +66,11 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTTablaCentros);
 
         jBModificar.setText("Modificar");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
 
         jBAltaBaja.setText("Alta/Baja");
         jBAltaBaja.addActionListener(new java.awt.event.ActionListener() {
@@ -142,11 +147,11 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCOpcionesActionPerformed
-
-        if (jCOpciones.equals("<Seleccionar>")) {
+ String opcion = jCOpciones.getSelectedItem().toString();
+        if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un criterio de búsqueda.");
 
-        } else if (jCOpciones.equals("Todos")) {
+        } else if (opcion.equals("Todos")) {
             tabla.setRowCount(0);
             List<CentroVacunacion> lista = centro.listarCentros();
             for (CentroVacunacion cv : lista) {
@@ -154,7 +159,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                     cv.getLatYcentro(), cv.isEstado()});
             }
 
-        } else if (jCOpciones.equals("Activos")) {
+        } else if (opcion.equals("Activos")) {
             tabla.setRowCount(0);
             List<CentroVacunacion> lista = centro.listarPorEstado(true);
             for (CentroVacunacion cv : lista) {
@@ -162,7 +167,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                     cv.getLatYcentro(), cv.isEstado()});
             }
 
-        } else if (jCOpciones.equals("Inactivos")) {
+        } else if (opcion.equals("Inactivos")) {
             tabla.setRowCount(0);
             List<CentroVacunacion> lista = centro.listarPorEstado(false);
             for (CentroVacunacion cv : lista) {
@@ -171,7 +176,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
             }
 
     }//GEN-LAST:event_jCOpcionesActionPerformed
-        else if (jCOpciones.equals("codCentro")) {
+        else if (opcion.equals("codCentro")) {
             tabla.setRowCount(0);
             JOptionPane.showMessageDialog(null, "Complete el código del Centro Vacunatorio.");
         } else {
@@ -232,7 +237,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                 }
             } else {
                 String[] list = {"Si", "No"};
-                int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del Centro de Vacunación.\n" + nom + " "
+               int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del Centro de Vacunación.\n" + nom + " "
                         + lon + " " + lat + " " + "\n Código Centro = " + codCentro, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                 if (opcion == 0) {
@@ -249,6 +254,10 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBModificarActionPerformed
 
     private void armarTabla() {
         String[] titulos = new String[]{"Código", "Nombre", "Longitud", "Latitud", "Estado"};
