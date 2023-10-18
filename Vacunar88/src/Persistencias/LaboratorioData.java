@@ -107,11 +107,11 @@ public class LaboratorioData {
                     medida = 0.5;
                     break;
                 case "rusia":
-                    marca = "Sputnik v";
+                    marca = "Sputnik V";
                     medida = 0.5;
                     break;
                 case "inglaterra":
-                    marca = "Astrazeneca";
+                    marca = "AstraZeneca";
                     medida = 0.5;
                     break;
                 default:

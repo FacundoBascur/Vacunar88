@@ -343,7 +343,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
 
             if (correcto) {
                 ciuD.registrarCiudadano(new Ciudadano(Integer.parseInt(dni.getText()), nombreCompleto.getText(), email.getText(), nroCel.getText(),
-                        Integer.parseInt(longitud.getText()), Integer.parseInt(latitud.getText()), patoCual.getText(), ambLaboral.getText(), dosis, rbEstado.isSelected()));
+                        Integer.parseInt(longitud.getText()), Integer.parseInt(latitud.getText()), patoCual.getText(), ambLaboral.getText(),0, rbEstado.isSelected()));
             }
             
             nombreCompleto.setText("");

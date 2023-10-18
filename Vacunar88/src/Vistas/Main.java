@@ -129,10 +129,15 @@ public class Main extends javax.swing.JFrame {
 
         jMenu5.setText("Stock");
 
-        jMenuItem11.setText("jMenuItem11");
+        jMenuItem11.setText("Solicitud");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem11);
 
-        jMenuItem12.setText("jMenuItem12");
+        jMenuItem12.setText("Modificacion");
         jMenu5.add(jMenuItem12);
 
         jMenuBar1.add(jMenu5);
@@ -194,6 +199,17 @@ public class Main extends javax.swing.JFrame {
         bm.setLocation(130, 85);
         escritorio.add(bm);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        SolicitudDeStock soli = new SolicitudDeStock();
+        soli.setVisible(true);
+        soli.setFrameIcon(null);
+        soli.setLocation(225,230);
+        escritorio.add(soli);
+        
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
   
     public static void main(String args[]) {
