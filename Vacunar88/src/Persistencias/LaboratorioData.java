@@ -17,9 +17,41 @@ public class LaboratorioData {
     con = Conexion.getConexion();
     }
       
+    public List<Laboratorio> listarTodos(){
+    
+      Laboratorio lab = null;
+      List<Laboratorio> lista = new ArrayList<>();
+        String sql = "SELECT * FROM laboratorio";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                lab = new Laboratorio();
+                lab.setCuit(rs.getString("cuit"));
+                lab.setNombreLab(rs.getString("nombreLab"));
+                lab.setPais(rs.getString("pais"));
+                lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setProducto(rs.getString("producto"));
+                lab.setEstado(rs.getBoolean("estado"));
+                lista.add(lab);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorios.");
+        }
+    
+        return lista;
+    
+    }
+    
     public void registrarLab(Laboratorio lab) {
 
-        String sql = "INSERT INTO laboratorio(cuit,nombreLab,pais,domicilioCom,estado) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO laboratorio(cuit,nombreLab,pais,domicilioCom,producto,estado) VALUES (?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -27,7 +59,8 @@ public class LaboratorioData {
             ps.setString(2, lab.getNombreLab());
             ps.setString(3, lab.getPais());
             ps.setString(4, lab.getDomicilioCom());
-            ps.setBoolean(5, lab.isEstado());
+            ps.setString(5, lab.getProducto());
+            ps.setBoolean(6, lab.isEstado());
 
             ps.executeUpdate();
 
@@ -55,6 +88,7 @@ public class LaboratorioData {
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setProducto(rs.getString("producto"));
                 lab.setEstado(rs.getBoolean("estado"));
             }
 
@@ -149,9 +183,9 @@ public class LaboratorioData {
         return lista;
     }
  
-    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, boolean estado) {
+    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, String producto,boolean estado) {
 
-        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, estado=? WHERE cuit=?";
+        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, producto=?, estado=? WHERE cuit=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -159,8 +193,9 @@ public class LaboratorioData {
             ps.setString(2, nombreLab);
             ps.setString(3, pais );
             ps.setString(4, domicilioCom);
-            ps.setBoolean(5, estado);
-            ps.setString(6, cuit);
+            ps.setString(5, producto);
+            ps.setBoolean(6, estado);
+            ps.setString(7, cuit);
             int result = ps.executeUpdate();
 
             if (result == 1) {

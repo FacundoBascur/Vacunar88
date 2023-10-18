@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import Persistencias.*;
 import java.util.List;
 import javax.swing.JTable;
-import sun.security.provider.VerificationProvider;
 
 public class BuscarModCiud extends javax.swing.JInternalFrame {
 
