@@ -31,8 +31,8 @@ public class Main extends javax.swing.JFrame {
         jMRegistroCen = new javax.swing.JMenuItem();
         jMBusqModifCentros = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jMRegistroLab = new javax.swing.JMenuItem();
+        jMBusqModifLab = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -119,11 +119,21 @@ public class Main extends javax.swing.JFrame {
 
         jMenu4.setText("Laboratorios");
 
-        jMenuItem9.setText("jMenuItem9");
-        jMenu4.add(jMenuItem9);
+        jMRegistroLab.setText("Registro");
+        jMRegistroLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMRegistroLabActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMRegistroLab);
 
-        jMenuItem10.setText("jMenuItem10");
-        jMenu4.add(jMenuItem10);
+        jMBusqModifLab.setText("Búsqueda y Modificaciones");
+        jMBusqModifLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMBusqModifLabActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMBusqModifLab);
 
         jMenuBar1.add(jMenu4);
 
@@ -211,6 +221,28 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMBusqModifLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMBusqModifLabActionPerformed
+     escritorio.removeAll();
+        escritorio.repaint();
+        BusqModifLab buscarLab = new  BusqModifLab();
+        buscarLab.setVisible(true);
+        buscarLab.setFrameIcon(null);
+        escritorio.add(buscarLab);
+        escritorio.moveToFront(buscarLab);
+        buscarLab.setLocation(250, 208); 
+    }//GEN-LAST:event_jMBusqModifLabActionPerformed
+
+    private void jMRegistroLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRegistroLabActionPerformed
+      escritorio.removeAll();
+        escritorio.repaint();
+       RegistroLab RegLab = new  RegistroLab();
+        RegLab.setVisible(true);
+        RegLab.setFrameIcon(null);
+        escritorio.add(RegLab);
+        escritorio.moveToFront(RegLab);
+       RegLab.setLocation(250, 208); 
+    }//GEN-LAST:event_jMRegistroLabActionPerformed
+
   
     public static void main(String args[]) {
       
@@ -243,14 +275,15 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jMBusqModifCentros;
+    private javax.swing.JMenuItem jMBusqModifLab;
     private javax.swing.JMenuItem jMRegistroCen;
     private javax.swing.JMenu jMRegistroCentros;
+    private javax.swing.JMenuItem jMRegistroLab;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
@@ -258,7 +291,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem registro;
     // End of variables declaration//GEN-END:variables
