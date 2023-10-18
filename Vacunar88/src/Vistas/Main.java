@@ -176,7 +176,7 @@ public class Main extends javax.swing.JFrame {
         regis.setFrameIcon(null);
         escritorio.add(regis);
         escritorio.moveToFront(regis);
-        regis.setLocation(250, 208);
+        regis.setLocation(279, 106);
     }//GEN-LAST:event_jMRegistroCenActionPerformed
 
     private void jMBusqModifCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMBusqModifCentrosActionPerformed
@@ -187,7 +187,7 @@ public class Main extends javax.swing.JFrame {
         buscar.setFrameIcon(null);
         escritorio.add(buscar);
         escritorio.moveToFront(buscar);
-        buscar.setLocation(250, 208); 
+        buscar.setLocation(261, 77); 
     }//GEN-LAST:event_jMBusqModifCentrosActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -206,7 +206,7 @@ public class Main extends javax.swing.JFrame {
         SolicitudDeStock soli = new SolicitudDeStock();
         soli.setVisible(true);
         soli.setFrameIcon(null);
-        soli.setLocation(225,230);
+        soli.setLocation(229,220);
         escritorio.add(soli);
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
