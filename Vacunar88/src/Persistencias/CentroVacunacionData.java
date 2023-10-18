@@ -208,7 +208,7 @@ public class CentroVacunacionData {
             ps.setString(2, nom);
             ps.setInt(3, longi);
             ps.setInt(4, lati);
-          
+          ps.setInt(5, cod);
             int result = ps.executeUpdate();
 
             if (result == 1) {

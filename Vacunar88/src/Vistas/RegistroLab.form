@@ -48,7 +48,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jCActivo" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCEstado" min="-2" max="-2" attributes="0"/>
                       <Component id="jTCuit" min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="jTNombre" pref="194" max="32767" attributes="0"/>
                       <Component id="jTPais" alignment="0" max="32767" attributes="0"/>
@@ -92,7 +92,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jCActivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
@@ -115,7 +115,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTDomicilio">
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCActivo">
+        <Component class="javax.swing.JCheckBox" name="jCEstado">
           <Properties>
             <Property name="text" type="java.lang.String" value="  Activo"/>
           </Properties>

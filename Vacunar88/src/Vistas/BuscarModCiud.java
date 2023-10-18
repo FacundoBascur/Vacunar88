@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import Persistencias.*;
 import java.util.List;
 import javax.swing.JTable;
+import sun.security.provider.VerificationProvider;
 
 public class BuscarModCiud extends javax.swing.JInternalFrame {
 
@@ -15,7 +16,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
     public BuscarModCiud() {
         initComponents();
         cabeceraTabla();
-      
+        jtDni.setEnabled(false);
 
     }
 
@@ -37,6 +38,11 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("D.N.I");
 
+        tablaCiudadanos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return columnIndex > 0 && columnIndex < 8;
+            }
+        };
         tablaCiudadanos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -48,6 +54,9 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaCiudadanos.setCellSelectionEnabled(true);
+        tablaCiudadanos.setFocusable(false);
+        tablaCiudadanos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaCiudadanos);
 
         jbBuscar.setText("Buscar");
@@ -58,6 +67,11 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         });
 
         jbModificar.setText("Modificar");
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +114,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jbModificar)
-                                .addGap(35, 35, 35)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(altaBaja)
                                 .addGap(464, 464, 464)
                                 .addComponent(salir))
@@ -166,7 +180,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                     Ciudadano ciu = ciuData.buscarXdni(Integer.parseInt(jtDni.getText()));
 
-                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getLongXciu(), ciu.getLatYciu(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
 
                 }
 
@@ -186,7 +200,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
             } else {
                 for (Ciudadano ciu : lista) {
-                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getLongXciu(), ciu.getLatYciu(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
                 }
 
             }
@@ -202,7 +216,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         } else {
             int dni = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString());
             String nombre = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
-            boolean estado = Boolean.parseBoolean(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 7).toString());
+            boolean estado = Boolean.parseBoolean(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 9).toString());
 
             if (estado) {
                 String[] list = {"Si", "No"};
@@ -237,12 +251,89 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
+            jbBuscarActionPerformed(evt);
+        } else if (opciones.getSelectedItem().toString().equals("< Seleccionar >")) {
+            tabla.setRowCount(0);
+            jtDni.setText("");
+            jtDni.setEnabled(false);
         } else {
+
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(true);
         }
     }//GEN-LAST:event_opcionesActionPerformed
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        boolean correcto = true; // si no hay algun error de formato este se mantiene en true
+        //obtenemos los datos nuevos de la fila seleccionada de la tabla
+        try {
+
+            if (tablaCiudadanos.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para realizar una modificacion");
+                jbBuscarActionPerformed(evt);
+            } else {
+                //guardo dentro de variables los datos que obtengo al seleccionar una fila
+                int dni = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString());
+                Integer dniNuevo = dni; //en este caso el dniNuevo es igual a dni ya que mas adelatne pediremos si desa modificarlo, pero necitamos la variable igualmente
+                String apNomNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
+                String celNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 2).toString();
+                String emailNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 3).toString();
+                int ubX = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 4).toString());
+                int ubY = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 5).toString());
+                String patoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 6).toString();
+                String ambitoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 7).toString();
+                int dosisNu = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 8).toString());
+
+                //condiciones para verificar formato de las casillas
+                if (verificar(apNomNu) || !verificar(celNu) || verificar(emailNu) || verificar(patoNu) || verificar(ambitoNu)) {
+                    JOptionPane.showMessageDialog(null, "Ha ingresado un formato icorrecto, verifique.");
+                    correcto = false;
+                }
+                if (apNomNu.isEmpty() || celNu.isEmpty() || emailNu.isEmpty() || patoNu.isEmpty() || ambitoNu.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Los casilleros no pueden estar vacios.");
+                    correcto = false;
+
+                }
+                
+                //si no ocurrio algun error correcto = true
+                if (correcto) {
+
+                    //pregunto si desea modificar el dni
+                    String[] list = {"Si", "No"};
+                    int opcion = JOptionPane.showOptionDialog(null, " ¿Quiere modificar el Dni?\n" + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                    if (opcion == 0) {
+                        dniNuevo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dni nuevo.")); //cuadro de dialogo donde se le puede ingresar texto y lo guardamos dentro de dniNuevo
+                        if (dniNuevo < 0 || dniNuevo.toString().length() > 9) {
+                            JOptionPane.showMessageDialog(null, "Formato de dni incorrecto.");
+                            correcto = false;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El dni: " + dni + "\nse modifico a: " + dniNuevo);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Dni sin modificar.");
+                    }
+                }
+
+                if (correcto) {
+                    ciuData.modificarCiudadano(dniNuevo, apNomNu, emailNu, celNu, ubX, ubY, patoNu, ambitoNu, dosisNu, dni);
+                    JOptionPane.showMessageDialog(null, "Ciudadano modificado exitosamente.");
+                    jbBuscarActionPerformed(evt);
+                    //JOptionPane.showMessageDialog(null, dni + " " + apNomNu + " " + celNu + " " + emailNu + " " + ubX + " " + ubY + " " + patoNu + " " + ambitoNu + " " + dosisNu);
+                } else {
+                    jbBuscarActionPerformed(evt);
+                }
+
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Formato de DNI y/o Ubicacicones Incorrectas");
+            jbBuscarActionPerformed(evt);
+        }
+
+        //ciuData.modificarCiudadano(dniNu, ambitoNu, emailNu, celNu, ubX, ubY, patoNu, ambitoNu, dosisNu, dniViejo);
+
+    }//GEN-LAST:event_jbModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -260,13 +351,18 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     public void cabeceraTabla() {
 
-        String[] titulos = new String[]{"DNI", "Apellido y Nombre", "N° Cel", "Email", "Patologias", "Ammbito Laboral", "Dosis", "Estado"};
+        String[] titulos = new String[]{"DNI", "Apellido y Nombre", "Cel", "Email", "UbiX", "UbiY", "Patologias", "Ambito Laboral", "Dosis", "Estado"};
         tabla.setColumnIdentifiers(titulos);
         tablaCiudadanos.setModel(tabla);
     }
 
-    public void rellenarTabla(int dni) {
-
+    public boolean verificar(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

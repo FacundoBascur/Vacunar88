@@ -85,6 +85,24 @@ public class LaboratorioData {
         }
 
     }
+ public void alta(String cuit) {
+        String sql = "UPDATE laboratorio SET estado=1 WHERE cuit = ?";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, cuit);
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Laboratorio dado de alta exitosamente.");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la Base de datos.");
+        }
+
+    }
 
     public List<Vacuna> producirVacunas(Stock st) {
 
@@ -107,11 +125,11 @@ public class LaboratorioData {
                     medida = 0.5;
                     break;
                 case "rusia":
-                    marca = "Sputnik v";
+                    marca = "Sputnik V";
                     medida = 0.5;
                     break;
                 case "inglaterra":
-                    marca = "Astrazeneca";
+                    marca = "AstraZeneca";
                     medida = 0.5;
                     break;
                 default:
@@ -130,7 +148,8 @@ public class LaboratorioData {
 
         return lista;
     }
-  public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, boolean estado) {
+ 
+    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, boolean estado) {
 
         String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, estado=? WHERE cuit=?";
 
@@ -145,7 +164,7 @@ public class LaboratorioData {
             int result = ps.executeUpdate();
 
             if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Laboratorio modificada con éxito.");
+                JOptionPane.showMessageDialog(null, "Laboratorio modificado con éxito.");
             }
 
         } catch (SQLException ex) {

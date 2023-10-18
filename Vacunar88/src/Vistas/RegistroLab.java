@@ -5,6 +5,9 @@
  */
 package Vistas;
 
+import Entidades.CentroVacunacion;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sabri
@@ -32,7 +35,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
         jTNombre = new javax.swing.JTextField();
         jTPais = new javax.swing.JTextField();
         jTDomicilio = new javax.swing.JTextField();
-        jCActivo = new javax.swing.JCheckBox();
+        jCEstado = new javax.swing.JCheckBox();
         jBNuevo = new javax.swing.JButton();
         jBGuardar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
@@ -44,7 +47,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
 
         setTitle("                                         Registro de Laboratorios");
 
-        jCActivo.setText("  Activo");
+        jCEstado.setText("  Activo");
 
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +94,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jCActivo)
+                    .addComponent(jCEstado)
                     .addComponent(jTCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(jTPais)
@@ -127,7 +130,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCActivo)
+                    .addComponent(jCEstado)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -152,23 +155,65 @@ public class RegistroLab extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
-        // TODO add your handling code here:
+           if (jTCuit!=null && jTNombre != null && jTPais != null && jTDomicilio != null) {
+
+            jTCuit.setText("");
+            jTNombre.setText("");
+            jTPais.setText("");
+            jTDomicilio.setText("");
+            jCEstado.setSelected(false);
+
+        }
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
+    try {
+            if (jTCuit.getText().isEmpty() || jTNombre.getText().isEmpty() || jTPais.getText().isEmpty() || jTDomicilio.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No puede haber campos de texto vacíos.");
+
+            } else if ((jTCuit.getText()).length() > 11 || (jTCuit.getText()).length() < 11){
+             
+                JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
+
+            } else if (verificar(jTNombre.getText()) == false) {
+                JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
+
+            } else if (verificar(jTCuit.getText()) == true || verificar(jTLat.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "Los campos Longitud y Latitud no pueden contener letras.");
+
+            }  else{
+                    centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), Integer.parseInt(jTLong.getText()),
+                        Integer.parseInt(jTLat.getText()), jCActivo.isSelected()));
+                
+
+                jTNombre.setText("");
+                jTLong.setText("");
+                jTLat.setText("");
+                jCActivo.setSelected(false);
+            
+            }
+        }catch (NumberFormatException | NullPointerException e) {
+        JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
+        }            
+       
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
-
+public boolean verificar(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNuevo;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JCheckBox jCActivo;
+    private javax.swing.JCheckBox jCEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

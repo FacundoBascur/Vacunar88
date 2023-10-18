@@ -28,7 +28,7 @@ public class CiudadanoData {
             ps.setInt(1, ciu.getDni());
             ps.setString(2, ciu.getNombreCompleto());
             ps.setString(3, ciu.getEmail());
-            ps.setLong(4, ciu.getCelular());
+            ps.setString(4, ciu.getCelular());
             ps.setInt(5, ciu.getLongXciu());
             ps.setInt(6, ciu.getLatYciu());
             ps.setString(7, ciu.getPatologia());
@@ -62,7 +62,7 @@ public class CiudadanoData {
                 ciudadano.setDni(rs.getInt("dni"));
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
-                ciudadano.setCelular(rs.getLong("celular"));
+                ciudadano.setCelular(rs.getString("celular"));
                 ciudadano.setLongXciu(rs.getInt("longXciu"));
                 ciudadano.setLatYciu(rs.getInt("latYciu"));
                 ciudadano.setPatologia(rs.getString("patologia"));
@@ -99,7 +99,7 @@ public class CiudadanoData {
                 ciudadano.setDni(dni);
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
-                ciudadano.setCelular(rs.getLong("celular"));
+                ciudadano.setCelular(rs.getString("celular"));
                 ciudadano.setLongXciu(rs.getInt("longXciu"));
                 ciudadano.setLatYciu(rs.getInt("latYciu"));
                 ciudadano.setPatologia(rs.getString("patologia"));
@@ -138,7 +138,7 @@ public class CiudadanoData {
                 ciudadano.setDni(rs.getInt("dni"));
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
-                ciudadano.setCelular(rs.getLong("celular"));
+                ciudadano.setCelular(rs.getString("celular"));
                 ciudadano.setLongXciu(rs.getInt("longXciu"));
                 ciudadano.setLatYciu(rs.getInt("latYciu"));
                 ciudadano.setPatologia(rs.getString("patologia"));
@@ -191,7 +191,7 @@ public class CiudadanoData {
         }
     }
     
-    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, long celular, int longXciu, 
+    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, String celular, int longXciu, 
         int latYciu, String patologia, String ambitoTrabajo, int dosis, int dni) {
 
         Ciudadano ciu= null;
@@ -203,7 +203,7 @@ public class CiudadanoData {
             ps.setInt(1, dniNuevo);
             ps.setString(2, nombreCompleto);
             ps.setString(3, email);
-            ps.setLong(4,celular);
+            ps.setString(4,celular);
             ps.setInt(5, longXciu);
             ps.setInt(6, latYciu);
             ps.setString(7, patologia);
@@ -214,7 +214,7 @@ public class CiudadanoData {
             int result = ps.executeUpdate();
 
             if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Alumno modificado con exito");
+               //JOptionPane.showMessageDialog(null, "Alumno modificado con exito");
             }
 
         } catch (SQLException ex) {
