@@ -144,7 +144,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tablaAlumnos = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;    return columnIndex &gt; 0 &amp;&amp; columnIndex &lt; 5;&#xa;    }&#xa;};"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTTablaCentros = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;    return columnIndex &gt; 0 &amp;&amp; columnIndex &lt; 5;&#xa;    }&#xa;};"/>
               </AuxValues>
             </Component>
           </SubComponents>

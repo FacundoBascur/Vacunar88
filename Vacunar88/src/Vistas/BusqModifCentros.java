@@ -46,7 +46,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaAlumnos = new javax.swing.JTable(){
+        jTTablaCentros = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
                 return columnIndex > 0 && columnIndex < 5;
             }
@@ -147,7 +147,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCOpcionesActionPerformed
- String opcion = jCOpciones.getSelectedItem().toString();
+        String opcion = jCOpciones.getSelectedItem().toString();
         if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un criterio de búsqueda.");
 
@@ -237,7 +237,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                 }
             } else {
                 String[] list = {"Si", "No"};
-               int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del Centro de Vacunación.\n" + nom + " "
+                int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del Centro de Vacunación.\n" + nom + " "
                         + lon + " " + lat + " " + "\n Código Centro = " + codCentro, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                 if (opcion == 0) {
