@@ -1,11 +1,13 @@
-/*
+
 package Vistas;
 
-import Entidades.CentroVacunacion;
+
+import Entidades.Laboratorio;
+import Persistencias.LaboratorioData;
 import javax.swing.JOptionPane;
 
 public class RegistroLab extends javax.swing.JInternalFrame {
-
+LaboratorioData lab=new LaboratorioData();
     public RegistroLab() {
         initComponents();
     }
@@ -151,34 +153,37 @@ public class RegistroLab extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        try {
+       try {
             if (jTCuit.getText().isEmpty() || jTNombre.getText().isEmpty() || jTPais.getText().isEmpty() || jTDomicilio.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No puede haber campos de texto vacíos.");
 
-            } else if ((jTCuit.getText()).length() > 11 || (jTCuit.getText()).length() < 11) {
-
+            } else if ((jTCuit.getText()).length() > 11 || (jTCuit.getText()).length() < 11){
+             
                 JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
 
-            } else if (verificar(jTNombre.getText()) == false) {
-                JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
+            } else if (verificar(jTNombre.getText()) == false||  verificar(jTPais.getText())==false) {
+                JOptionPane.showMessageDialog(null, "Los campo Nombre y País no pueden contener números.");
 
-            } else if (verificar(jTCuit.getText()) == true || verificar(jTLat.getText()) == true) {
-                JOptionPane.showMessageDialog(null, "Los campos Longitud y Latitud no pueden contener letras.");
+            } else if (verificar(jTCuit.getText()) == true ){
+                JOptionPane.showMessageDialog(null, "El cuit no puede contener letras.");
 
-            } else {
-                centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), Integer.parseInt(jTLong.getText()),
-                        Integer.parseInt(jTLat.getText()), jCActivo.isSelected()));
+            }  else{
+                   lab.registrarLab(new Laboratorio(jTCuit.getText(), jTNombre.getText(),
+                           jTPais.getText(), jTDomicilio.getText(),jCEstado.isSelected()));
+                
 
-                jTNombre.setText("");
-                jTLong.setText("");
-                jTLat.setText("");
-                jCActivo.setSelected(false);
-
-            }
-        } catch (NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
-        }
-
+                jTCuit.setText("");
+            jTNombre.setText("");
+            jTPais.setText("");
+            jTDomicilio.setText("");
+            jCEstado.setSelected(false);
+            
+            };
+        }catch (NumberFormatException | NullPointerException e) {
+        JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
+        }            
+       
+                                            
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -191,6 +196,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
         } catch (NumberFormatException e) {
             return true;
         }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNuevo;
@@ -207,4 +213,4 @@ public class RegistroLab extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNombre;
     private javax.swing.JTextField jTPais;
     // End of variables declaration//GEN-END:variables
-}*/
+}
