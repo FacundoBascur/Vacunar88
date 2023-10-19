@@ -45,11 +45,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         email = new javax.swing.JTextField();
         latitud = new javax.swing.JTextField();
         registrar = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        dosis1 = new javax.swing.JRadioButton();
-        dosis2 = new javax.swing.JRadioButton();
-        dosis3 = new javax.swing.JRadioButton();
-        dosis0 = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel1.setText("D.N.I");
@@ -125,36 +120,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel15.setText("Dosis");
-
-        dosis1.setText("1");
-        dosis1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dosis1MouseClicked(evt);
-            }
-        });
-
-        dosis2.setText("2");
-        dosis2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dosis2MouseClicked(evt);
-            }
-        });
-
-        dosis3.setText("3");
-        dosis3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dosis3MouseClicked(evt);
-            }
-        });
-
-        dosis0.setText("0");
-        dosis0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dosis0MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout CiudadanoNuevoLayout = new javax.swing.GroupLayout(CiudadanoNuevo);
         CiudadanoNuevo.setLayout(CiudadanoNuevoLayout);
         CiudadanoNuevoLayout.setHorizontalGroup(
@@ -163,18 +128,12 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                 .addGap(100, 100, 100)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(registrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
                         .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8)
                             .addComponent(jLabel4)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel15)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
@@ -196,7 +155,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                                         .addComponent(rbNo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel14)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(patoCual, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -210,27 +169,22 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                                     .addComponent(email)
                                     .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
                                         .addGap(5, 5, 5)
-                                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                                                .addComponent(dosis0)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(dosis1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(dosis2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(dosis3)
-                                                .addGap(161, 161, 161))
-                                            .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(rbEstado)))))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rbEstado)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(registrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addGap(100, 100, 100))
         );
         CiudadanoNuevoLayout.setVerticalGroup(
             CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(37, 37, 37)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -270,24 +224,17 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(ambLaboral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(dosis1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dosis2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dosis3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dosis0, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(33, 33, 33)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registrar)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(registrar))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -328,18 +275,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                 correcto = false;
             }
 
-            if (dosis0.isSelected()) {
-                dosis = 0;
-            }
-            if (dosis1.isSelected()) {
-                dosis = 1;
-            }
-            if (dosis2.isSelected()) {
-                dosis = 2;
-            }
-            if (dosis3.isSelected()) {
-                dosis = 3;
-            }
 
             if (correcto) {
                 ciuD.registrarCiudadano(new Ciudadano(Integer.parseInt(dni.getText()), nombreCompleto.getText(), email.getText(), nroCel.getText(),
@@ -356,10 +291,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
             ambLaboral.setText("");
             rbSi.setSelected(false);
             rbNo.setSelected(false);
-            dosis0.setSelected(false);
-            dosis1.setSelected(false);
-            dosis2.setSelected(false);
-            dosis3.setSelected(false);
             rbEstado.setSelected(false);
 
         } catch (NumberFormatException | NullPointerException e) {
@@ -382,39 +313,11 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         patoCual.setEnabled(false);
     }//GEN-LAST:event_rbNoMouseClicked
 
-    private void dosis1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dosis1MouseClicked
-        dosis0.setSelected(false);
-        dosis2.setSelected(false);
-        dosis3.setSelected(false);
-    }//GEN-LAST:event_dosis1MouseClicked
-
-    private void dosis2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dosis2MouseClicked
-        dosis0.setSelected(false);
-        dosis1.setSelected(false);
-        dosis3.setSelected(false);
-    }//GEN-LAST:event_dosis2MouseClicked
-
-    private void dosis0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dosis0MouseClicked
-        dosis1.setSelected(false);
-        dosis2.setSelected(false);
-        dosis3.setSelected(false);
-    }//GEN-LAST:event_dosis0MouseClicked
-
-    private void dosis3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dosis3MouseClicked
-        dosis0.setSelected(false);
-        dosis2.setSelected(false);
-        dosis1.setSelected(false);
-    }//GEN-LAST:event_dosis3MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CiudadanoNuevo;
     private javax.swing.JTextField ambLaboral;
     private javax.swing.JTextField dni;
-    private javax.swing.JRadioButton dosis0;
-    private javax.swing.JRadioButton dosis1;
-    private javax.swing.JRadioButton dosis2;
-    private javax.swing.JRadioButton dosis3;
     private javax.swing.JTextField email;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -423,7 +326,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -137,7 +137,7 @@ public class LaboratorioData {
         }
 
     }
-
+/*
     public List<Vacuna> producirVacunas(Stock st) {
 
         List<Vacuna> lista = new ArrayList<>();
@@ -181,7 +181,7 @@ public class LaboratorioData {
         }
 
         return lista;
-    }
+    }*/
  
     public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, String producto,boolean estado) {
 
