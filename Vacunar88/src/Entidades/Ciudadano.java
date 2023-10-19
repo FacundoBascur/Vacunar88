@@ -6,27 +6,31 @@ public class Ciudadano {
     private String nombreCompleto;
     private String email;
     private String celular;
-    private int longXciu;
-    private int latYciu;
+    private String zona;
     private String patologia;
     private String ambitoTrabajo;
-    private int dosis;
     private boolean estado;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(int dni, String nombreCompleto, String email, String celular, int longXciu, int latYciu, String patologia, String ambitoTrabajo, int dosis, boolean estado) {
+    public Ciudadano(int dni, String nombreCompleto, String email, String celular, String zona, String patologia, String ambitoTrabajo, boolean estado) {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.email = email;
         this.celular = celular;
-        this.longXciu = longXciu;
-        this.latYciu = latYciu;
+        this.zona = zona;
         this.patologia = patologia;
         this.ambitoTrabajo = ambitoTrabajo;
-        this.dosis = dosis;
         this.estado = estado;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
     }
 
     public boolean isEstado() {
@@ -35,14 +39,6 @@ public class Ciudadano {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-
-    public int getDosis() {
-        return dosis;
-    }
-
-    public void setDosis(int dosis) {
-        this.dosis = dosis;
     }
 
     public int getDni() {
@@ -77,22 +73,6 @@ public class Ciudadano {
         this.celular = celular;
     }
 
-    public int getLongXciu() {
-        return longXciu;
-    }
-
-    public void setLongXciu(int longXciu) {
-        this.longXciu = longXciu;
-    }
-
-    public int getLatYciu() {
-        return latYciu;
-    }
-
-    public void setLatYciu(int latYciu) {
-        this.latYciu = latYciu;
-    }
-
     public String getPatologia() {
         return patologia;
     }
@@ -111,7 +91,9 @@ public class Ciudadano {
 
     @Override
     public String toString() {
-        return "Ciudadano \n" + nombreCompleto + "\nDni: " + dni + "\nContacto: " + celular + "\nPatologia: " + patologia + "\nAmbito Laboral: " + ambitoTrabajo + "\nDosis colocadas: "+dosis+"\nEstado: " + estado;
+        return "Ciudadano{" + "dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", email=" + email + ", celular=" + celular + ", zona=" + zona + ", patologia=" + patologia + ", ambitoTrabajo=" + ambitoTrabajo + ", estado=" + estado + '}';
     }
+
+    
 
 }

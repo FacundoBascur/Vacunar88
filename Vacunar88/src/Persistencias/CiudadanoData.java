@@ -20,8 +20,8 @@ public class CiudadanoData {
 
     public void registrarCiudadano(Ciudadano ciu) {
 
-        String sql = "INSERT INTO ciudadano (dni, nombreCompleto, email, celular, longXciu, latYciu, patologia, ambitoTrabajo,dosis,estado) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO ciudadano (dni, nombreCompleto, email, celular, zona, patologia, ambitoTrabajo,estado) "
+                + "VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -29,12 +29,10 @@ public class CiudadanoData {
             ps.setString(2, ciu.getNombreCompleto());
             ps.setString(3, ciu.getEmail());
             ps.setString(4, ciu.getCelular());
-            ps.setInt(5, ciu.getLongXciu());
-            ps.setInt(6, ciu.getLatYciu());
-            ps.setString(7, ciu.getPatologia());
-            ps.setString(8, ciu.getAmbitoTrabajo());
-            ps.setInt(9, ciu.getDosis());
-            ps.setBoolean(10, ciu.isEstado());
+            ps.setString(5, ciu.getZona());
+            ps.setString(6, ciu.getPatologia());
+            ps.setString(7, ciu.getAmbitoTrabajo());
+            ps.setBoolean(8, ciu.isEstado());
 
             ps.executeUpdate();
 
@@ -63,11 +61,9 @@ public class CiudadanoData {
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
                 ciudadano.setCelular(rs.getString("celular"));
-                ciudadano.setLongXciu(rs.getInt("longXciu"));
-                ciudadano.setLatYciu(rs.getInt("latYciu"));
+                ciudadano.setZona(rs.getString("zona"));
                 ciudadano.setPatologia(rs.getString("patologia"));
                 ciudadano.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
-                ciudadano.setDosis(rs.getInt("dosis"));
                 ciudadano.setEstado(rs.getBoolean("estado"));
                 lista.add(ciudadano);
             }
@@ -76,7 +72,7 @@ public class CiudadanoData {
 
         } catch (SQLException ex) {
 
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudadanos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudadanos. " + ex);
         }
 
         return lista;
@@ -100,11 +96,9 @@ public class CiudadanoData {
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
                 ciudadano.setCelular(rs.getString("celular"));
-                ciudadano.setLongXciu(rs.getInt("longXciu"));
-                ciudadano.setLatYciu(rs.getInt("latYciu"));
+                ciudadano.setZona(rs.getString("zona"));
                 ciudadano.setPatologia(rs.getString("patologia"));
                 ciudadano.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
-                ciudadano.setDosis(rs.getInt("dosis"));
                 ciudadano.setEstado(rs.getBoolean("estado"));
 
             }
@@ -139,11 +133,9 @@ public class CiudadanoData {
                 ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
                 ciudadano.setEmail(rs.getString("email"));
                 ciudadano.setCelular(rs.getString("celular"));
-                ciudadano.setLongXciu(rs.getInt("longXciu"));
-                ciudadano.setLatYciu(rs.getInt("latYciu"));
+                ciudadano.setZona(rs.getString("zona"));
                 ciudadano.setPatologia(rs.getString("patologia"));
                 ciudadano.setAmbitoTrabajo(rs.getString("ambitoTrabajo"));
-                ciudadano.setDosis(rs.getInt("dosis"));
                 ciudadano.setEstado(estado);
                 lista.add(ciudadano);
             }
@@ -190,31 +182,29 @@ public class CiudadanoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudadanos.");
         }
     }
-    
-    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, String celular, int longXciu, 
-        int latYciu, String patologia, String ambitoTrabajo, int dosis, int dni) {
 
-        Ciudadano ciu= null;
-        String sql = "UPDATE ciudadano SET dni=?, nombreCompleto=?, email=?, celular=?, longXciu=?, \n" +
-"        latYciu=?, patologia=?, ambitoTrabajo=?, dosis=? WHERE dni=?";
+    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, String celular,
+            String zona, String patologia, String ambitoTrabajo, int dni) {
+
+        Ciudadano ciu = null;
+        String sql = "UPDATE ciudadano SET dni=?, nombreCompleto=?, email=?, celular=?, \n"
+                + "        zona=?, patologia=?, ambitoTrabajo=?, WHERE dni=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dniNuevo);
             ps.setString(2, nombreCompleto);
             ps.setString(3, email);
-            ps.setString(4,celular);
-            ps.setInt(5, longXciu);
-            ps.setInt(6, latYciu);
-            ps.setString(7, patologia);
-            ps.setString(8,ambitoTrabajo);
-            ps.setInt(9,dosis);
-            ps.setInt(10, dni);
-            
+            ps.setString(4, celular);
+            ps.setString(5, zona);
+            ps.setString(6, patologia);
+            ps.setString(7, ambitoTrabajo);
+            ps.setInt(8, dni);
+
             int result = ps.executeUpdate();
 
             if (result == 1) {
-               //JOptionPane.showMessageDialog(null, "Alumno modificado con exito");
+                //JOptionPane.showMessageDialog(null, "Alumno modificado con exito");
             }
 
         } catch (SQLException ex) {

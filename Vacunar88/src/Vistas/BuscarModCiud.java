@@ -39,7 +39,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
         tablaCiudadanos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
-                return columnIndex > 0 && columnIndex < 8;
+                return columnIndex > 0 && columnIndex < 7;
             }
         };
         tablaCiudadanos.setModel(new javax.swing.table.DefaultTableModel(
@@ -179,7 +179,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                     Ciudadano ciu = ciuData.buscarXdni(Integer.parseInt(jtDni.getText()));
 
-                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getLongXciu(), ciu.getLatYciu(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
 
                 }
 
@@ -199,7 +199,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
             } else {
                 for (Ciudadano ciu : lista) {
-                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getLongXciu(), ciu.getLatYciu(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.getDosis(), ciu.isEstado()});
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
                 }
 
             }
@@ -215,7 +215,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         } else {
             int dni = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString());
             String nombre = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
-            boolean estado = Boolean.parseBoolean(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 9).toString());
+            boolean estado = Boolean.parseBoolean(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 7).toString());
 
             if (estado) {
                 String[] list = {"Si", "No"};
@@ -278,26 +278,23 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 String apNomNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
                 String celNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 2).toString();
                 String emailNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 3).toString();
-                int ubX = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 4).toString());
-                int ubY = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 5).toString());
-                String patoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 6).toString();
-                String ambitoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 7).toString();
-                int dosisNu = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 8).toString());
+                String zona = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 4).toString();
+                String patoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 5).toString();
+                String ambitoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 6).toString();
 
                 //condiciones para verificar formato de las casillas
-                if (verificar(apNomNu) || !verificar(celNu) || verificar(emailNu) || verificar(patoNu) || verificar(ambitoNu)) {
+                if (verificar(apNomNu) || !verificar(celNu) || verificar(emailNu) || verificar(patoNu) || verificar(ambitoNu) || verificar(zona)) {
                     JOptionPane.showMessageDialog(null, "Ha ingresado un formato icorrecto, verifique.");
                     correcto = false;
                 }
-                if (apNomNu.isEmpty() || celNu.isEmpty() || emailNu.isEmpty() || patoNu.isEmpty() || ambitoNu.isEmpty()) {
+                if (apNomNu.isEmpty() || celNu.isEmpty() || emailNu.isEmpty() || patoNu.isEmpty() || ambitoNu.isEmpty() || zona.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los casilleros no pueden estar vacios.");
                     correcto = false;
 
                 }
-                
+
                 //si no ocurrio algun error correcto = true
                 if (correcto) {
-
                     //pregunto si desea modificar el dni
                     String[] list = {"Si", "No"};
                     int opcion = JOptionPane.showOptionDialog(null, " ¿Quiere modificar el Dni?\n" + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
@@ -316,10 +313,9 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 }
 
                 if (correcto) {
-                    ciuData.modificarCiudadano(dniNuevo, apNomNu, emailNu, celNu, ubX, ubY, patoNu, ambitoNu, dosisNu, dni);
+                    ciuData.modificarCiudadano(dniNuevo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
                     JOptionPane.showMessageDialog(null, "Ciudadano modificado exitosamente.");
                     jbBuscarActionPerformed(evt);
-                    //JOptionPane.showMessageDialog(null, dni + " " + apNomNu + " " + celNu + " " + emailNu + " " + ubX + " " + ubY + " " + patoNu + " " + ambitoNu + " " + dosisNu);
                 } else {
                     jbBuscarActionPerformed(evt);
                 }
@@ -329,9 +325,6 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Formato de DNI y/o Ubicacicones Incorrectas");
             jbBuscarActionPerformed(evt);
         }
-
-        //ciuData.modificarCiudadano(dniNu, ambitoNu, emailNu, celNu, ubX, ubY, patoNu, ambitoNu, dosisNu, dniViejo);
-
     }//GEN-LAST:event_jbModificarActionPerformed
 
 
@@ -350,7 +343,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     public void cabeceraTabla() {
 
-        String[] titulos = new String[]{"DNI", "Apellido y Nombre", "Cel", "Email", "UbiX", "UbiY", "Patologias", "Ambito Laboral", "Dosis", "Estado"};
+        String[] titulos = new String[]{"DNI", "Apellido y Nombre", "Cel", "Email", "Zona", "Patologias", "Ambito Laboral", "Estado"};
         tabla.setColumnIdentifiers(titulos);
         tablaCiudadanos.setModel(tabla);
     }
