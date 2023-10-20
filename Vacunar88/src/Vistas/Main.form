@@ -82,15 +82,21 @@
             <Property name="text" type="java.lang.String" value="Laboratorios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+            <MenuItem class="javax.swing.JMenuItem" name="jMRegLab">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jMenuItem9"/>
+                <Property name="text" type="java.lang.String" value="Registro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMRegLabActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
+            <MenuItem class="javax.swing.JMenuItem" name="jMBusqModLab">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jMenuItem10"/>
+                <Property name="text" type="java.lang.String" value="B&#xfa;squeda y modificaci&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMBusqModLabActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -286,7 +286,12 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-      if (jTTablaCentros.getSelectedRow() == -1) {
+      
+         boolean correcto = true;
+          String op = jCOpciones.getSelectedItem().toString(); 
+          
+          try{
+        if (jTTablaCentros.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Centro de Vacunación para continuar.");
         } else {
 
@@ -295,20 +300,43 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
             String zon = jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 2).toString();
             boolean est = Boolean.parseBoolean(jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 3).toString());
 
-            if(verificar(nom)==true || verificar(zon))==true){
+            if(verificar(nom)|| verificar(zon)){
            JOptionPane.showMessageDialog(null, "El campo a modificar no puede contener números.");
-        } else if (nom.isEmpty() || zon.isEmpty()){
-        
+        }
+           if (nom.isEmpty() || zon.isEmpty()){
         JOptionPane.showMessageDialog(null,"El campo a modificar no puede quedar vacío.");
-        }else{
+        }
+           if(correcto){
+                String[] list = {"Si", "No"};
+                int opcion = JOptionPane.showOptionDialog(null, "Confirma la modificación. \n" + nom + " "
+                        + "\n Código Centro = " + cod, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                if (opcion == 0) {
+                    centro.modificarCentroVacunacion(cod, nom, zon);
+                    if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                    }
+                if (op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
                 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Modificación cancelada");
+                       if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                    }
+                if (op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
+                }
                 
                 
                 
                 }
-                
-                
         }
+                
+        }catch(NullPointerException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Formato de modificación incorrecto.");
         
         
         
@@ -321,7 +349,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                 
     }//GEN-LAST:event_jBModificarActionPerformed
             
-      
+    }
     private void armarTabla() {
         String[] titulos = new String[]{"Código", "Nombre", "Zona", "Estado"};
         tabla.setColumnIdentifiers(titulos);

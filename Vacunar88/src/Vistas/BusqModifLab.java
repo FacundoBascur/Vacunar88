@@ -30,7 +30,12 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
         setTitle("                               Búsqueda y Modificación de Laboratorios");
 
-        jCOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "CUIT", "Nombre", "País", "Activos", "Inactivos", "Todos" }));
+        jCOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Actiivos", "CUIT", "Inactivos", "Marca", "País", "Todos" }));
+        jCOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCOpcionesActionPerformed(evt);
+            }
+        });
 
         jBBuscar.setText("Buscar");
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -39,6 +44,11 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
             }
         });
 
+        jTTablaLabs = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return columnIndex > 0 && columnIndex < 5;
+            }
+        };
         jTTablaLabs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -50,6 +60,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTablaLabs.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTTablaLabs);
 
         jBModificar.setText("Modificar");
@@ -145,10 +156,14 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBAltaBajaActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jCOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCOpcionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCOpcionesActionPerformed
 private void armarTabla() {
-        String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Estado"};
+        String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Marca","Estado"};
         tabla.setColumnIdentifiers(titulos);
        jTTablaLabs.setModel(tabla);
     }
