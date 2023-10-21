@@ -6,26 +6,26 @@ public class Laboratorio {
     private String nombreLab;
     private String pais;
     private String domicilioCom;
-    private String producto;
+    private String marca;
     private boolean estado;
 
     public Laboratorio() {
     }
 
-    public Laboratorio(String cuit, String nombreLab, String pais, String domicilioCom, String producto, boolean estado) {
+    public Laboratorio(String cuit, String nombreLab, String pais, String domicilioCom, String marca, boolean estado) {
         this.cuit = cuit;
         this.nombreLab = nombreLab;
         this.pais = pais;
         this.domicilioCom = domicilioCom;
-        this.producto = producto;
+        this.marca=marca;
         this.estado = estado;
     }
 
-    public Laboratorio(String nombreLab, String pais, String domicilioCom, String producto, boolean estado) {
+    public Laboratorio(String nombreLab, String pais, String domicilioCom, String marca, boolean estado) {
         this.nombreLab = nombreLab;
         this.pais = pais;
         this.domicilioCom = domicilioCom;
-        this.producto = producto;
+        this.marca=marca;
         this.estado = estado;
     }
 
@@ -33,12 +33,12 @@ public class Laboratorio {
         return estado;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public void setMarca(String marca) {
+        this.marca=marca;
     }
 
     public void setEstado(boolean estado) {
@@ -79,7 +79,7 @@ public class Laboratorio {
 
     @Override
     public String toString() {
-        return cuit + " - " + nombreLab + " - " +producto;
+        return cuit + " - " + nombreLab + " - " +marca;
     }
 
 }

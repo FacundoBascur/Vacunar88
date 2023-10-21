@@ -5,29 +5,24 @@ package Entidades;
 public class CentroVacunacion {
      private int codCentro;
     private String nombre;
-    private int longXcentro;
-    private int latYcentro;
+   private String zona ;
     private boolean estado;
 
     public CentroVacunacion() {
     }
 
-    public CentroVacunacion(int codCentro, String nombre, int longXcentro, int latYcentro, boolean estado) {
+    public CentroVacunacion(String nombre, String zona, boolean estado) {
+        this.nombre = nombre;
+        this.zona = zona;
+        this.estado = estado;
+    }
+
+    public CentroVacunacion(int codCentro, String nombre, String zona, boolean estado) {
         this.codCentro = codCentro;
         this.nombre = nombre;
-        this.longXcentro = longXcentro;
-        this.latYcentro = latYcentro;
+        this.zona = zona;
         this.estado = estado;
     }
-
-    public CentroVacunacion(String nombre, int longXcentro, int latYcentro, boolean estado) {
-        this.nombre = nombre;
-        this.longXcentro = longXcentro;
-        this.latYcentro =latYcentro;
-        this.estado = estado;
-    }
-
-  
 
     public int getCodCentro() {
         return codCentro;
@@ -45,20 +40,12 @@ public class CentroVacunacion {
         this.nombre = nombre;
     }
 
-    public int getLongXcentro() {
-        return longXcentro;
+    public String getZona() {
+        return zona;
     }
 
-    public void setLongXcentro(int longXcentro) {
-        this.longXcentro = longXcentro;
-    }
-
-    public int getLatYcentro() {
-        return latYcentro;
-    }
-
-    public void setLatYcentro(int latYcentro) {
-        this.latYcentro = latYcentro;
+    public void setZona(String zona) {
+        this.zona = zona;
     }
 
     public boolean isEstado() {
@@ -71,10 +58,8 @@ public class CentroVacunacion {
 
     @Override
     public String toString() {
-        return  codCentro +" - "+ nombre;
+        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", zona=" + zona + ", estado=" + estado + '}';
     }
 
-    
-    
-    
+   
 }

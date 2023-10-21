@@ -20,15 +20,14 @@ public class CentroVacunacionData {
 
     public void registrarCentro(CentroVacunacion centro) {
 
-        String sql = "INSERT INTO centrovacunacion (nombre,longXcentro,latYcentro,estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO centrovacunacion (nombre,zona,estado) VALUES (?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, centro.getNombre());
-            ps.setInt(2, centro.getLongXcentro());
-            ps.setInt(3, centro.getLatYcentro());
-            ps.setBoolean(4, centro.isEstado());
+            ps.setString(2, centro.getZona());
+            ps.setBoolean(3, centro.isEstado());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -64,8 +63,7 @@ public class CentroVacunacionData {
                 centro = new CentroVacunacion();
                 centro.setCodCentro(rs.getInt("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
-                centro.setLongXcentro(rs.getInt("longXcentro"));
-                centro.setLatYcentro(rs.getInt("latYcentro"));
+                centro.setZona(rs.getString("zona"));
                 centro.setEstado(rs.getBoolean("estado"));
                 lista.add(centro);
 
@@ -80,7 +78,99 @@ public class CentroVacunacionData {
 
     }
 
-    public List<CentroVacunacion> listarPorEstado(boolean estado) {
+    public List<CentroVacunacion> listarPorZona(String zon){
+    CentroVacunacion centro = null;
+        List<CentroVacunacion> lista = new ArrayList();
+        String sql = "SELECT * FROM centrovacunacion WHERE zona= ?";
+switch(zon){
+    case "Norte":  
+
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, zon);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                         centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
+            }
+break;
+    case "Sur": 
+
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, zon);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                         centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
+            }break;
+    case "Este":
+         try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, zon);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                         centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
+            }break;
+    case "Oeste": 
+         try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, zon);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                         centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
+            }break;
+}
+    return lista;
+     }
+    
+  public List<CentroVacunacion> listarPorEstado(boolean estado) {
         CentroVacunacion centro = null;
         List<CentroVacunacion> lista = new ArrayList();
 
@@ -94,18 +184,17 @@ public class CentroVacunacionData {
 
                 while (rs.next()) {
 
-                    centro = new CentroVacunacion();
-                    centro.setCodCentro(rs.getInt("codCentro"));
-                    centro.setNombre(rs.getString("nombre"));
-                    centro.setLongXcentro(rs.getInt("longXcentro"));
-                    centro.setLatYcentro(rs.getInt("latYcentro"));
-                    centro.setEstado(rs.getBoolean("estado"));
-                    lista.add(centro);
+                         centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
                 }
                 ps.close();
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al acceder a alumnos");
+                JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
             }
             return lista;
 
@@ -119,15 +208,13 @@ public class CentroVacunacionData {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-
-                    centro = new CentroVacunacion();
-                    centro.setCodCentro(rs.getInt("codCentro"));
-                    centro.setNombre(rs.getString("nombre"));
-                    centro.setLongXcentro(rs.getInt("longXcentro"));
-                    centro.setLatYcentro(rs.getInt("latYcentro"));
-                    centro.setEstado(rs.getBoolean("estado"));
-                    lista.add(centro);
- }
+     centro = new CentroVacunacion();
+                centro.setCodCentro(rs.getInt("codCentro"));
+                centro.setNombre(rs.getString("nombre"));
+                centro.setZona(rs.getString("zona"));
+                centro.setEstado(rs.getBoolean("estado"));
+                lista.add(centro);
+                }
 
                 ps.close();
 
@@ -150,12 +237,12 @@ public class CentroVacunacionData {
 
             while (rs.next()) {
 
-                centro = new CentroVacunacion();
+                     centro = new CentroVacunacion();
                 centro.setCodCentro(rs.getInt("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
-                centro.setLongXcentro(rs.getInt("longXcentro"));
-                centro.setLatYcentro(rs.getInt("latYcentro"));
+                centro.setZona(rs.getString("zona"));
                 centro.setEstado(rs.getBoolean("estado"));
+              
             }
 
             ps.close();
@@ -179,13 +266,12 @@ public class CentroVacunacionData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
-                centro = new CentroVacunacion();
+     centro = new CentroVacunacion();
                 centro.setCodCentro(rs.getInt("codCentro"));
                 centro.setNombre(rs.getString("nombre"));
-                centro.setLongXcentro(rs.getInt("longXcentro"));
-                centro.setLatYcentro(rs.getInt("latYcentro"));
+                centro.setZona(rs.getString("zona"));
                 centro.setEstado(rs.getBoolean("estado"));
+               
             }
 
             ps.close();
@@ -197,18 +283,18 @@ public class CentroVacunacionData {
         return centro;
 
     }
-  public void modificarCentroVacunacion(int cod, String nom, int longi, int lati) {
+
+    public void modificarCentroVacunacion(int cod, String nom, String zon) {
 
         CentroVacunacion centro = null;
-        String sql = "UPDATE centrovacunacion SET codCentro=?, nombre=? , longXcentro=? , latYcentro=? WHERE codCentro=? ";
+        String sql = "UPDATE centrovacunacion SET  nombre=? , zona=? WHERE codCentro=? ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, cod);
-            ps.setString(2, nom);
-            ps.setInt(3, longi);
-            ps.setInt(4, lati);
-          ps.setInt(5, cod);
+           
+            ps.setString(1, nom);
+           ps.setString(2, zon);
+            ps.setInt(3, cod);
             int result = ps.executeUpdate();
 
             if (result == 1) {
@@ -220,40 +306,45 @@ public class CentroVacunacionData {
         }
 
     }
-   public void darDeAlta(int cod) {
 
-        String sql = "UPDATE centrovacunacion SET estado= 1 WHERE codCentro=?";
+    public void darDeBajaAlta(boolean est ,int cod) {
 
-        try {
+    try{    
+if(est){
+    String sql = "UPDATE centrovacunacion SET estado= 0 WHERE codCentro=?";
+    
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, cod);
-            int result = ps.executeUpdate();
-
-            if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Centro de Vacunación dado de alta exitosamente.");
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a CentroVacunación.");
-        }
-
-    }
-public void darDeBaja(int cod) {
-
-        String sql = "UPDATE centrovacunacion SET estado= 0 WHERE codCentro=?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, cod);
+           
+           
+             ps.setInt(1, cod);
             int result = ps.executeUpdate();
 
             if (result == 1) {
                 JOptionPane.showMessageDialog(null, "Centro de Vacunación dado de baja exitosamente.");
             }
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a CentroVacunación.");
-        }
+         
+        
 
+    }else {
+    String sql = "UPDATE centrovacunacion SET estado= 1 WHERE codCentro=?";
+    
+            PreparedStatement ps = con.prepareStatement(sql);
+           
+           
+             ps.setInt(1, cod);
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Centro de Vacunación dado de alta exitosamente.");
+            }
+
+}  
+    }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a CentroVacunación.");
+        
+
+    
+}
     }
 }

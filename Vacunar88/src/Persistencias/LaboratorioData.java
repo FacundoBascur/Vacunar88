@@ -34,7 +34,7 @@ public class LaboratorioData {
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
-                lab.setProducto(rs.getString("producto"));
+                lab.setMarca(rs.getString("marca"));
                 lab.setEstado(rs.getBoolean("estado"));
                 lista.add(lab);
             }
@@ -51,7 +51,7 @@ public class LaboratorioData {
     
     public void registrarLab(Laboratorio lab) {
 
-        String sql = "INSERT INTO laboratorio(cuit,nombreLab,pais,domicilioCom,producto,estado) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO laboratorio(cuit,nombreLab,pais,domicilioCom,marca,estado) VALUES (?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -59,7 +59,7 @@ public class LaboratorioData {
             ps.setString(2, lab.getNombreLab());
             ps.setString(3, lab.getPais());
             ps.setString(4, lab.getDomicilioCom());
-            ps.setString(5, lab.getProducto());
+            ps.setString(5, lab.getMarca());
             ps.setBoolean(6, lab.isEstado());
 
             ps.executeUpdate();
@@ -88,7 +88,7 @@ public class LaboratorioData {
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
-                lab.setProducto(rs.getString("producto"));
+                lab.setMarca(rs.getString("marca"));
                 lab.setEstado(rs.getBoolean("estado"));
             }
 
@@ -137,8 +137,35 @@ public class LaboratorioData {
         }
 
     }
-/*
-    public List<Vacuna> producirVacunas(Stock st) {
+  
+ 
+    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, String marca ,boolean estado) {
+
+        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, marca=?, estado=? WHERE cuit=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, cuit);
+            ps.setString(2, nombreLab);
+            ps.setString(3, pais );
+            ps.setString(4, domicilioCom);
+            ps.setString(5, marca);
+            ps.setBoolean(6, estado);
+            ps.setString(7, cuit);
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Laboratorio modificado con éxito.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder al Laboratorio.");
+        }
+
+    }
+    
+}
+ /* public List<Vacuna> producirVacunas(Stock st) {
 
         List<Vacuna> lista = new ArrayList<>();
         lista = null;
@@ -182,30 +209,3 @@ public class LaboratorioData {
 
         return lista;
     }*/
- 
-    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, String producto,boolean estado) {
-
-        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, producto=?, estado=? WHERE cuit=?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, cuit);
-            ps.setString(2, nombreLab);
-            ps.setString(3, pais );
-            ps.setString(4, domicilioCom);
-            ps.setString(5, producto);
-            ps.setBoolean(6, estado);
-            ps.setString(7, cuit);
-            int result = ps.executeUpdate();
-
-            if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Laboratorio modificado con éxito.");
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder al Laboratorio.");
-        }
-
-    }
-    
-}

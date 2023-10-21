@@ -32,7 +32,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
 
         setTitle("                                     Búsqueda y Modificación de Centros Vacunatorios");
 
-        jCOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Código", "Nombre", "Activos", "Inactivos", "Todos" }));
+        jCOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Activos", "Código", "Inactivos", "Todos", "Zona" }));
         jCOpciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCOpcionesActionPerformed(evt);
@@ -48,7 +48,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
 
         jTTablaCentros = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
-                return columnIndex > 0 && columnIndex < 5;
+                return columnIndex > 0 && columnIndex < 4;
             }
         };
         jTTablaCentros.setModel(new javax.swing.table.DefaultTableModel(
@@ -147,65 +147,87 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCOpcionesActionPerformed
+            tabla.setRowCount(0);
+             jTextoBusq.setText("");
         String opcion = jCOpciones.getSelectedItem().toString();
         if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un criterio de búsqueda.");
 
         } else if (opcion.equals("Todos")) {
             tabla.setRowCount(0);
+            jTextoBusq.setText("");
             List<CentroVacunacion> lista = centro.listarCentros();
             for (CentroVacunacion cv : lista) {
-                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getLongXcentro(),
-                    cv.getLatYcentro(), cv.isEstado()});
+                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getZona(),
+                    cv.isEstado()});
             }
 
         } else if (opcion.equals("Activos")) {
             tabla.setRowCount(0);
+            jTextoBusq.setText("");
             List<CentroVacunacion> lista = centro.listarPorEstado(true);
             for (CentroVacunacion cv : lista) {
-                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getLongXcentro(),
-                    cv.getLatYcentro(), cv.isEstado()});
+                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getZona(), cv.isEstado()});
             }
 
         } else if (opcion.equals("Inactivos")) {
             tabla.setRowCount(0);
+            jTextoBusq.setText("");
             List<CentroVacunacion> lista = centro.listarPorEstado(false);
             for (CentroVacunacion cv : lista) {
-                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getLongXcentro(),
-                    cv.getLatYcentro(), cv.isEstado()});
+                tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getZona(), cv.isEstado()});
             }
 
     }//GEN-LAST:event_jCOpcionesActionPerformed
-        else if (opcion.equals("codCentro")) {
+        else if (opcion.equals("Código")) {
             tabla.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Complete el código del Centro Vacunatorio.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Complete el nombre del Centro Vacunatorio.");
+            JOptionPane.showMessageDialog(null, "Complete el Código del Centro Vacunatorio.");
+        } else if (opcion.equals("Nombre")) {
+            JOptionPane.showMessageDialog(null, "Complete el Nombre del Centro Vacunatorio.");
+        } else if (opcion.equals("Zona")) {
+            JOptionPane.showMessageDialog(null, "Complete la Zona del Centro Vacunatorio.");
         }
     }
 
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        tabla.setRowCount(0);
+      //  tabla.setRowCount(0);
+       
+        String opcion = jCOpciones.getSelectedItem().toString();
         if (jTextoBusq.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el campo de texto.");
     }//GEN-LAST:event_jBBuscarActionPerformed
  else {
-            if (jCOpciones.equals("codCentro")) {
+            if (opcion.equals("Código")) {
                 if (verificar(jTextoBusq.getText()) == false) {
                     JOptionPane.showMessageDialog(null, "El código del Centro de Vacunación no puede contener letras.");
+                    jTextoBusq.setText("");
                 } else {
                     CentroVacunacion cen = centro.buscarPorCodCentro(Integer.parseInt(jTextoBusq.getText()));
-                    tabla.addRow(new Object[]{cen.getCodCentro(), cen.getNombre(), cen.getLongXcentro(),
-                        cen.getLatYcentro(), cen.isEstado()});
+                    tabla.addRow(new Object[]{cen.getCodCentro(), cen.getNombre(), cen.getZona(), cen.isEstado()});
                 }
-            } else if (jCOpciones.equals("nombre")) {
+            } else if (opcion.equals("Nombre")) {
                 if (verificar(jTextoBusq.getText()) == true) {
                     JOptionPane.showMessageDialog(null, "El nombre del Centro de Vacunación no puede contener números.");
+                    jTextoBusq.setText("");
                 } else {
                     CentroVacunacion cen = centro.buscarPorNombre(jTextoBusq.getText());
-                    tabla.addRow(new Object[]{cen.getCodCentro(), cen.getNombre(), cen.getLongXcentro(),
-                        cen.getLatYcentro(), cen.isEstado()});
+                    tabla.addRow(new Object[]{cen.getCodCentro(), cen.getNombre(), cen.getZona(), cen.isEstado()});
+                }
+
+            } else if (opcion.equals("Zona")) {
+                if (verificar(jTextoBusq.getText()) == true) {
+
+                    JOptionPane.showMessageDialog(null, "La Zona del Centro de Vacunación no puede contener números.");
+                    jTextoBusq.setText("");
+                } else {
+                    //tabla.setRowCount(0);
+                    String zon = jTextoBusq.getText();
+
+                    List<CentroVacunacion> lista = centro.listarPorZona(zon);
+                    for (CentroVacunacion cv : lista) {
+                        tabla.addRow(new Object[]{cv.getCodCentro(), cv.getNombre(), cv.getZona(), cv.isEstado()});
+                    }
                 }
 
             }
@@ -213,36 +235,44 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }
 
     private void jBAltaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaBajaActionPerformed
-
+    String op = jCOpciones.getSelectedItem().toString();
         if (jTTablaCentros.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un Centro de Vacunación para continuar");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Centro de Vacunación para continuar.");
         } else {
 
-            int codCentro = Integer.parseInt(tabla.getValueAt(jTTablaCentros.getSelectedRow(), 1).toString());
-            String nom = tabla.getValueAt(jTTablaCentros.getSelectedRow(), 2).toString();
-            int lon = Integer.parseInt(tabla.getValueAt(jTTablaCentros.getSelectedRow(), 3).toString());
-            int lat = Integer.parseInt(tabla.getValueAt(jTTablaCentros.getSelectedRow(), 3).toString());
-            boolean estado = Boolean.parseBoolean(tabla.getValueAt(jTTablaCentros.getSelectedRow(), 5).toString());
+            int cod = Integer.parseInt(jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 0).toString());
+            String nom = jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 1).toString();
+            String zon = jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 2).toString();
+            boolean est = Boolean.parseBoolean(jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 3).toString());
 
-            if (estado) {
+            if (est) {
                 String[] list = {"Si", "No"};
                 int opcion = JOptionPane.showOptionDialog(null, "Confirmar Baja del Centro de Vacunación. \n" + nom + " "
-                        + lon + " " + lat + " " + "\n Código Centro = " + codCentro, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                        + "\n Código Centro = " + cod, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                 if (opcion == 0) {
-                    centro.darDeBaja(codCentro);
-
+                    centro.darDeBajaAlta(est, cod);
+                    if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                }else if(op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
+                
                 } else {
                     JOptionPane.showMessageDialog(this, "Baja cancelada");
                 }
             } else {
                 String[] list = {"Si", "No"};
                 int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del Centro de Vacunación.\n" + nom + " "
-                        + lon + " " + lat + " " + "\n Código Centro = " + codCentro, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                        + "\n Código Centro = " + cod, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                 if (opcion == 0) {
-                    centro.darDeAlta(codCentro);
-
+                    centro.darDeBajaAlta(est, cod);
+                    if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                }else if(op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
                 } else {
                     JOptionPane.showMessageDialog(this, "Alta cancelada");
                 }
@@ -256,11 +286,72 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBModificarActionPerformed
+      
+         boolean correcto = true;
+          String op = jCOpciones.getSelectedItem().toString(); 
+          
+          try{
+        if (jTTablaCentros.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Centro de Vacunación para continuar.");
+        } else {
 
+            int cod = Integer.parseInt(jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 0).toString());
+            String nom = jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 1).toString();
+            String zon = jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 2).toString();
+            boolean est = Boolean.parseBoolean(jTTablaCentros.getValueAt(jTTablaCentros.getSelectedRow(), 3).toString());
+
+            if(verificar(nom)|| verificar(zon)){
+           JOptionPane.showMessageDialog(null, "El campo a modificar no puede contener números.");
+        }
+           if (nom.isEmpty() || zon.isEmpty()){
+        JOptionPane.showMessageDialog(null,"El campo a modificar no puede quedar vacío.");
+        }
+           if(correcto){
+                String[] list = {"Si", "No"};
+                int opcion = JOptionPane.showOptionDialog(null, "Confirma la modificación. \n" + nom + " "
+                        + "\n Código Centro = " + cod, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                if (opcion == 0) {
+                    centro.modificarCentroVacunacion(cod, nom, zon);
+                    if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                    }
+                if (op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
+                
+                } else {
+                    JOptionPane.showMessageDialog(this, "Modificación cancelada");
+                       if(op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")){
+                jCOpcionesActionPerformed(evt);
+                    }
+                if (op.equals("Código")|| op.equals("Nombre") || op.equals("Zona")){
+                         jBBuscarActionPerformed(evt);   
+                        }
+                }
+                
+                
+                
+                }
+        }
+                
+        }catch(NullPointerException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Formato de modificación incorrecto.");
+        
+        
+        
+        
+        
+        
+        
+        
+
+                
+    }//GEN-LAST:event_jBModificarActionPerformed
+            
+    }
     private void armarTabla() {
-        String[] titulos = new String[]{"Código", "Nombre", "Longitud", "Latitud", "Estado"};
+        String[] titulos = new String[]{"Código", "Nombre", "Zona", "Estado"};
         tabla.setColumnIdentifiers(titulos);
         jTTablaCentros.setModel(tabla);
     }
