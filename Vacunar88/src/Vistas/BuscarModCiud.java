@@ -11,6 +11,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     CiudadanoData ciuData = new CiudadanoData();
+    int dniViejo;
 
     public BuscarModCiud() {
         initComponents();
@@ -297,7 +298,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 if (correcto) {
                     //pregunto si desea modificar el dni
                     String[] list = {"Si", "No"};
-                    int opcion = JOptionPane.showOptionDialog(null, " ¿Quiere modificar el Dni?\n" + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                    int opcion = JOptionPane.showOptionDialog(null, " ¿Quiere modificar el Dni: "+ dni, "?", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                     if (opcion == 0) {
                         dniNuevo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dni nuevo.")); //cuadro de dialogo donde se le puede ingresar texto y lo guardamos dentro de dniNuevo
@@ -309,12 +310,13 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Dni sin modificar.");
+                        
                     }
                 }
 
                 if (correcto) {
                     ciuData.modificarCiudadano(dniNuevo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
-                    JOptionPane.showMessageDialog(null, "Ciudadano modificado exitosamente.");
+                    JOptionPane.showMessageDialog(null, "Moodificaciones realizadas con exito.");
                     jbBuscarActionPerformed(evt);
                 } else {
                     jbBuscarActionPerformed(evt);
