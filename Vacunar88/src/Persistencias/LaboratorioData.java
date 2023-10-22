@@ -49,6 +49,39 @@ public class LaboratorioData {
     
     }
     
+      public List<Laboratorio> listarPorEstado(Boolean est){
+    
+      Laboratorio lab = null;
+      List<Laboratorio> lista = new ArrayList<>();
+        String sql = "SELECT * FROM laboratorio WHERE estado= ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, est);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                lab = new Laboratorio();
+                lab.setCuit(rs.getString("cuit"));
+                lab.setNombreLab(rs.getString("nombreLab"));
+                lab.setPais(rs.getString("pais"));
+                lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setMarca(rs.getString("marca"));
+                lab.setEstado(rs.getBoolean("estado"));
+                lista.add(lab);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorio.");
+        }
+    
+        return lista;
+    
+    }
+    
     public void registrarLab(Laboratorio lab) {
 
         String sql = "INSERT INTO laboratorio(cuit,nombreLab,pais,domicilioCom,marca,estado) VALUES (?,?,?,?,?,?)";
@@ -95,63 +128,153 @@ public class LaboratorioData {
             ps.close();
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorio.");
+        }
+        return lab;
+
+    }
+    
+ public Laboratorio buscarNombre(String nom) {
+        Laboratorio lab = null;
+        String sql = "SELECT * FROM laboratorio WHERE nombreLab=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nom);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                lab = new Laboratorio();
+                lab.setCuit(rs.getString("cuit"));
+                lab.setNombreLab(rs.getString("nombreLab"));
+                lab.setPais(rs.getString("pais"));
+                lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setMarca(rs.getString("marca"));
+                lab.setEstado(rs.getBoolean("estado"));
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorio.");
+        }
+        return lab;
+
+    }
+ 
+  public Laboratorio buscarPorPais(String pais) {
+        Laboratorio lab = null;
+        String sql = "SELECT * FROM laboratorio WHERE pais=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, pais);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                lab = new Laboratorio();
+                lab.setCuit(rs.getString("cuit"));
+                lab.setNombreLab(rs.getString("nombreLab"));
+                lab.setPais(rs.getString("pais"));
+                lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setMarca(rs.getString("marca"));
+                lab.setEstado(rs.getBoolean("estado"));
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorios.");
         }
         return lab;
 
     }
-
-    public void baja(String cuit) {
-        String sql = "UPDATE laboratorio SET estado=0 WHERE cuit = ?";
+  public Laboratorio buscarPorMarca(String mar) {
+        Laboratorio lab = null;
+        String sql = "SELECT * FROM laboratorio WHERE marca=?";
 
         try {
-
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, cuit);
+            ps.setString(1, mar);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                lab = new Laboratorio();
+                lab.setCuit(rs.getString("cuit"));
+                lab.setNombreLab(rs.getString("nombreLab"));
+                lab.setPais(rs.getString("pais"));
+                lab.setDomicilioCom(rs.getString("domicilioCom"));
+                lab.setMarca(rs.getString("marca"));
+                lab.setEstado(rs.getBoolean("estado"));
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorios.");
+        }
+        return lab;
+
+    }
+  
+   
+    public void bajaAlta(Boolean est,String cuit) {
+    
+
+    try{    
+if(est){
+    String sql = "UPDATE laboratorio SET estado= 0 WHERE cuit=?";
+    
+            PreparedStatement ps = con.prepareStatement(sql);
+           
+         
+             ps.setString(1,cuit);
             int result = ps.executeUpdate();
 
             if (result == 1) {
                 JOptionPane.showMessageDialog(null, "Laboratorio dado de baja exitosamente.");
             }
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la Base de datos.");
-        }
-
-    }
- public void alta(String cuit) {
-        String sql = "UPDATE laboratorio SET estado=1 WHERE cuit = ?";
-
-        try {
-
+           }else {
+    String sql = "UPDATE laboratorio SET estado= 1 WHERE cuit=?";
+    
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, cuit);
+           
+          
+             ps.setString(1, cuit);
             int result = ps.executeUpdate();
 
             if (result == 1) {
                 JOptionPane.showMessageDialog(null, "Laboratorio dado de alta exitosamente.");
             }
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la Base de datos.");
-        }
+}  
+    }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a Laboratorio.");
+        
 
+    
+}
     }
   
  
-    public void modficarLab(String cuit, String nombreLab, String pais, String domicilioCom, String marca ,boolean estado) {
+    public void modficarLab(String cuit, String nom, String pais, String dom, String mar ) {
 
-        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, marca=?, estado=? WHERE cuit=?";
+        String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, marca=? WHERE cuit=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+           // ps.setString(1, cuitNuevo);
             ps.setString(1, cuit);
-            ps.setString(2, nombreLab);
+            ps.setString(2, nom);
             ps.setString(3, pais );
-            ps.setString(4, domicilioCom);
-            ps.setString(5, marca);
-            ps.setBoolean(6, estado);
-            ps.setString(7, cuit);
+            ps.setString(4, dom);
+            ps.setString(5, mar);
+           ps.setString(6, cuit);
+           
             int result = ps.executeUpdate();
 
             if (result == 1) {

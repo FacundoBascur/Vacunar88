@@ -48,7 +48,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
 
         jTTablaCentros = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
-                return columnIndex > 0 && columnIndex < 4;
+                return columnIndex > 0 && columnIndex < 3;
             }
         };
         jTTablaCentros.setModel(new javax.swing.table.DefaultTableModel(
@@ -191,7 +191,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
 
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-      //  tabla.setRowCount(0);
+      
        
         String opcion = jCOpciones.getSelectedItem().toString();
         if (jTextoBusq.getText().isEmpty()) {
@@ -232,6 +232,8 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
 
             }
         }
+         JOptionPane.showMessageDialog(null, "No se encontró ningún Centro de Vacunación con el dato ingresado.");
+                    jTextoBusq.setText("");
     }
 
     private void jBAltaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaBajaActionPerformed
@@ -329,24 +331,11 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
                          jBBuscarActionPerformed(evt);   
                         }
                 }
-                
-                
-                
                 }
         }
                 
         }catch(NullPointerException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Formato de modificación incorrecto.");
-        
-        
-        
-        
-        
-        
-        
-        
-
-                
+            JOptionPane.showMessageDialog(null, "Formato de modificación incorrecto.");             
     }//GEN-LAST:event_jBModificarActionPerformed
             
     }

@@ -158,9 +158,7 @@ LaboratorioData lab=new LaboratorioData();
             }else if(verificar(jTPais.getText())==false ){
                       JOptionPane.showMessageDialog(null, "El campo País no puede contener números.");
                       jTPais.setText("");
-                    }else if(verificar(jTMarca.getText())==false){
-                          JOptionPane.showMessageDialog(null, "El campo Marca no puede contener números.");
-                          jTMarca.setText("");
+                  
             } else if (!verificar(jTCuit.getText()) && jTCuit.getText().length()<1 ){//VER COMO FILTRAR QUE NO SEAN LETRAS
                 JOptionPane.showMessageDialog(null, "El cuit no puede contener letras.");
 
