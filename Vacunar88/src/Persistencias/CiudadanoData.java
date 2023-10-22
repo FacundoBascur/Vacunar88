@@ -187,8 +187,8 @@ public class CiudadanoData {
             String zona, String patologia, String ambitoTrabajo, int dni) {
 
         Ciudadano ciu = null;
-        String sql = "UPDATE ciudadano SET dni=?, nombreCompleto=?, email=?, celular=?, \n"
-                + "        zona=?, patologia=?, ambitoTrabajo=?, WHERE dni=?";
+        String sql = "UPDATE ciudadano SET dni=?, nombreCompleto=?, email=?, celular=?,"
+                + "zona=?, patologia=?, ambitoTrabajo=? WHERE dni=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
