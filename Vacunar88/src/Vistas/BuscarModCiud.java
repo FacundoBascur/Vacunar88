@@ -40,7 +40,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
         tablaCiudadanos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
-                return columnIndex > 0 && columnIndex < 7;
+                return columnIndex > -1 && columnIndex < 7;
             }
         };
         tablaCiudadanos.setModel(new javax.swing.table.DefaultTableModel(

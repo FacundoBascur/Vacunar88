@@ -8,7 +8,7 @@ public class MainPrincipal extends javax.swing.JFrame {
 
     public MainPrincipal() {
         initComponents();
-        escritorio.setLayout(null); // con esta sentencia, doy control total sobre las ubicaciones de las cosas.
+        escritorio.setLayout(null); // con esta sentencia, doy control total sobre las ubicaciones de los elementos.
         setLocationRelativeTo(null);
     }
 
@@ -34,6 +34,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         regLab = new javax.swing.JLabel();
         busModLab = new javax.swing.JLabel();
         imagEscr = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,6 +174,11 @@ public class MainPrincipal extends javax.swing.JFrame {
         regLab.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         regLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registro.png"))); // NOI18N
         regLab.setText(" Registro");
+        regLab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regLabMouseClicked(evt);
+            }
+        });
         jPanel1.add(regLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 190, 130, -1));
 
         busModLab.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -183,8 +189,10 @@ public class MainPrincipal extends javax.swing.JFrame {
         escritorio.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 380));
 
         imagEscr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/escritorio.jpg"))); // NOI18N
-        imagEscr.setPreferredSize(new java.awt.Dimension(1280, 720));
         escritorio.add(imagEscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel1.setText("jLabel1");
+        escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,8 +208,7 @@ public class MainPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(0, 0, 0)
-                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -214,7 +221,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         CiudadanoNuevo cn = new CiudadanoNuevo();
         cn.setVisible(true);
         cn.setFrameIcon(null);
-        cn.setLocation(175, 70);
+        cn.setLocation(369, 92);
         escritorio.add(cn);
         escritorio.add(imagEscr);
     }//GEN-LAST:event_regCiuMouseClicked
@@ -226,7 +233,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         BuscarModCiud bm = new BuscarModCiud();
         bm.setVisible(true);
         bm.setFrameIcon(null);
-        bm.setLocation(130, 85);
+        bm.setLocation(230, 96);
         escritorio.add(bm);
         escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCiuMouseClicked
@@ -248,7 +255,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         regis.setFrameIcon(null);
         escritorio.add(regis);
         escritorio.moveToFront(regis);
-        regis.setLocation(279, 106);
+        regis.setLocation(379, 221);
          escritorio.add(imagEscr);
     }//GEN-LAST:event_regCentrosMouseClicked
 
@@ -261,7 +268,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         buscar.setFrameIcon(null);
         escritorio.add(buscar);
         escritorio.moveToFront(buscar);
-        buscar.setLocation(261, 77);
+        buscar.setLocation(361, 89);
          escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCentrosMouseClicked
 
@@ -316,6 +323,18 @@ public class MainPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cerrarMouseClicked
 
+    private void regLabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regLabMouseClicked
+       escritorio.removeAll();
+       escritorio.repaint();
+       escritorio.add(jPanel1);
+       RegistroLab reLab = new RegistroLab();
+       reLab.setVisible(true);
+       reLab.setFrameIcon(null);
+       reLab.setLocation(412,168);
+       escritorio.add(reLab);
+       escritorio.add(imagEscr);
+    }//GEN-LAST:event_regLabMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -359,6 +378,7 @@ public class MainPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel ciudadano;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel imagEscr;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab;

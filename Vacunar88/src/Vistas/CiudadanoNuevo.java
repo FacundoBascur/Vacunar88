@@ -25,7 +25,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         nroCel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        zona = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -43,20 +42,25 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         email = new javax.swing.JTextField();
         registrar = new javax.swing.JButton();
+        zona = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel1.setText("D.N.I");
 
+        nombreCompleto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         jLabel2.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel2.setText("Apeliido y Nombre");
+
+        dni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        nroCel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel3.setText("Nro Celular");
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel4.setText("Email");
-
-        zona.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel6.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel6.setText("Ubicacion");
@@ -70,6 +74,8 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel9.setText("Ambito laboral");
+
+        ambLaboral.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel10.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel10.setText("Estado");
@@ -105,6 +111,8 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
             }
         });
 
+        email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         registrar.setText("Registrar");
         registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,59 +120,58 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
             }
         });
 
+        zona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Seleccionar >", "Norte", "Sur", "Este", "Oeste" }));
+
         javax.swing.GroupLayout CiudadanoNuevoLayout = new javax.swing.GroupLayout(CiudadanoNuevo);
         CiudadanoNuevo.setLayout(CiudadanoNuevoLayout);
         CiudadanoNuevoLayout.setHorizontalGroup(
             CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(46, 46, 46)
+                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(46, 46, 46)
-                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ambLaboral)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CiudadanoNuevoLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbSi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbNo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(patoCual, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreCompleto)
-                                    .addComponent(dni)
-                                    .addComponent(nroCel)
-                                    .addComponent(email)
-                                    .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addComponent(jLabel11)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbEstado)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(zona)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(registrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
-                .addGap(100, 100, 100))
+                                .addComponent(registrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))
+                            .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(nombreCompleto, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dni, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nroCel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
+                                    .addGap(5, 5, 5)
+                                    .addComponent(jLabel11)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(rbEstado))
+                                .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ambLaboral, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(zona, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(rbSi)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(rbNo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(patoCual, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         CiudadanoNuevoLayout.setVerticalGroup(
             CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,10 +195,10 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(32, 32, 32)
+                .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbNo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,20 +219,18 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                     .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(registrar))
-                .addGap(24, 24, 24))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(CiudadanoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(CiudadanoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,28 +251,33 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         try {
 
             if (nombreCompleto.getText().isEmpty() || dni.getText().isEmpty() || nroCel.getText().isEmpty()
-                    || email.getText().isEmpty() || zona.getText().isEmpty()
+                    || email.getText().isEmpty()
                     || patoCual.getText().isEmpty() || ambLaboral.getText().isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "No se admiten campos vacios.");
                 correcto = false;
             } else {
+               
                 
                 if (verificar(nombreCompleto.getText())) {
-
-                    JOptionPane.showMessageDialog(null, "Campo 'Nombre Completo'en formato incorrecto, verifique.");
+                    JOptionPane.showMessageDialog(null, "Campo 'Apellido y Nombreo' en formato incorrecto, verifique.");
                     correcto = false;
                 }
+                if (!verificar(dni.getText())) {
+                    JOptionPane.showMessageDialog(null, "Campo 'Dni' en formato incorrecto, verifique.");
+                    correcto = false;
+                }
+                
                 if (!verificar(nroCel.getText())) {
-                    JOptionPane.showMessageDialog(null, "Campo 'nro Celular' en formato incorrecto, verifique.");
+                    JOptionPane.showMessageDialog(null, "Campo 'Nro Celular' en formato incorrecto, verifique.");
                     correcto = false;
                 }
                 if (verificar(email.getText())) {
-                    JOptionPane.showMessageDialog(null, "Campo 'email' en formato incorrecto, verifique.");
+                    JOptionPane.showMessageDialog(null, "Campo 'Email' en formato incorrecto, verifique.");
                     correcto = false;
                 }
-                if (verificar(zona.getText())) {
-                    JOptionPane.showMessageDialog(null, "Campo 'Zona' en formato incorrecto, verifique.");
+                 if (zona.getSelectedItem().equals("< Seleccionar >")) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una zona correcta para continuar");
                     correcto = false;
                 }
                 if (verificar(patoCual.getText())) {
@@ -281,13 +291,13 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
 
                 if (correcto) {
                     ciuD.registrarCiudadano(new Ciudadano(Integer.parseInt(dni.getText()), nombreCompleto.getText(), email.getText(), nroCel.getText(),
-                            zona.getText(), patoCual.getText(), ambLaboral.getText(), rbEstado.isSelected()));
+                            zona.getSelectedItem().toString(), patoCual.getText(), ambLaboral.getText(), rbEstado.isSelected()));
 
                     nombreCompleto.setText("");
                     dni.setText("");
                     nroCel.setText("");
                     email.setText("");
-                    zona.setText("");
+                    zona.setSelectedIndex(0);
                     patoCual.setText("");
                     ambLaboral.setText("");
                     rbSi.setSelected(false);
@@ -298,7 +308,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
             }
 
         } catch (NumberFormatException | NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Error en formato Dni.");
+            JOptionPane.showMessageDialog(null, "Error en Formato");
         }
 
 
@@ -344,7 +354,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rbNo;
     private javax.swing.JRadioButton rbSi;
     private javax.swing.JButton registrar;
-    private javax.swing.JTextField zona;
+    private javax.swing.JComboBox<String> zona;
     // End of variables declaration//GEN-END:variables
 
     public boolean verificar(String cadena) {
