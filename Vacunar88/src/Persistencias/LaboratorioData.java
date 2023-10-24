@@ -261,14 +261,14 @@ if(est){
     }
   
  
-    public void modficarLab(String cuit, String nom, String pais, String dom, String mar ) {
+    public void modficarLab(String cuitNuevo, String nom, String pais, String dom, String mar, String cuit ) {
 
         String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, marca=? WHERE cuit=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
            // ps.setString(1, cuitNuevo);
-            ps.setString(1, cuit);
+            ps.setString(1, cuitNuevo);
             ps.setString(2, nom);
             ps.setString(3, pais );
             ps.setString(4, dom);
