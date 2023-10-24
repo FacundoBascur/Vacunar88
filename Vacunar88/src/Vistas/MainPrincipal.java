@@ -184,6 +184,11 @@ public class MainPrincipal extends javax.swing.JFrame {
         busModLab.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         busModLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
         busModLab.setText("Buscar/Modificar");
+        busModLab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                busModLabMouseClicked(evt);
+            }
+        });
         jPanel1.add(busModLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 230, 190, -1));
 
         escritorio.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 380));
@@ -334,6 +339,19 @@ public class MainPrincipal extends javax.swing.JFrame {
        escritorio.add(reLab);
        escritorio.add(imagEscr);
     }//GEN-LAST:event_regLabMouseClicked
+
+    private void busModLabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busModLabMouseClicked
+       escritorio.removeAll();
+       escritorio.repaint();
+       escritorio.add(jPanel1);
+       BusqModifLab modLab= new BusqModifLab();
+       modLab.setVisible(true);
+       modLab.setFrameIcon(null);
+       modLab.setLocation(220, 159);
+       escritorio.add(modLab);
+       escritorio.add(imagEscr);
+       
+    }//GEN-LAST:event_busModLabMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

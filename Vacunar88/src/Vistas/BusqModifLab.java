@@ -101,16 +101,15 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                         .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(20, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBModificar)
-                        .addGap(80, 80, 80)
-                        .addComponent(jBAltaBaja)
-                        .addGap(79, 79, 79)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(219, 219, 219))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jBModificar)
+                                .addGap(43, 43, 43)
+                                .addComponent(jBAltaBaja)
+                                .addGap(444, 444, 444)
+                                .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,23 +146,35 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
 
         String opcion = jCOpciones.getSelectedItem().toString();
-        try {
-            if (jTBusq.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe completar el campo de texto.");
-            } else {
-                if (opcion.equals("CUIT")) {
-                    //if (verificar(jTBusq.getText()) == false ) {
-                    // JOptionPane.showMessageDialog(null, "El CUIT del laboratorio no puede contener letras.");
-                    // jTBusq.setText("");
-                    if ((jTBusq.getText().length() < 11 || jTBusq.getText().length() > 11)) {
+
+        if (jTBusq.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe completar el campo de texto.");
+        } else {
+            
+                if (opcion.equals("CUIT")){
+try {
+                    if (!verificar(jTBusq.getText()) && jTBusq.getText().length() < 11) {
+                        JOptionPane.showMessageDialog(null, "El CUIT del laboratorio no puede contener letras.");
+                        jTBusq.setText("");
+                    } 
+                    if ((jTBusq.getText().length() > 11 || jTBusq.getText().length() < 11)) {
                         JOptionPane.showMessageDialog(null, "Cantidad de dígitos fuera del rango de CUIT.");
                         jTBusq.setText("");
-                    } else {
+                    }  else {
                         Laboratorio lb = lab.buscarPorCuit(jTBusq.getText());
                         tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                             lb.getMarca(), lb.isEstado()});
+
                     }
-                } else if (opcion.equals("Nombre")) {
+                  
+                } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
+            jTBusq.setText("");
+        }catch(NumberFormatException n){
+ JOptionPane.showMessageDialog(null, "Error en formato de CUIT.");           
+        }
+                
+                }else if (opcion.equals("Nombre")) {
                     if (verificar(jTBusq.getText()) == true) {
                         JOptionPane.showMessageDialog(null, "El nombre del Laboratorio no puede contener números.");
                         jTBusq.setText("");
@@ -191,16 +202,14 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     Laboratorio lb = lab.buscarPorMarca(jTBusq.getText());
                     tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                         lb.getMarca(), lb.isEstado()});
-                }
+
 
     }//GEN-LAST:event_jBBuscarActionPerformed
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
-            jTBusq.setText("");
+
+            
+
         }
     }
-
-
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         boolean correcto = true;
         String op = jCOpciones.getSelectedItem().toString();

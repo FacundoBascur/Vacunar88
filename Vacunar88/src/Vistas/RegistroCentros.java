@@ -21,10 +21,10 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTNombre = new javax.swing.JTextField();
-        jTZona = new javax.swing.JTextField();
         jCActivo = new javax.swing.JCheckBox();
         jBSalir = new javax.swing.JButton();
         jBGuardar = new javax.swing.JButton();
+        jCZonas = new javax.swing.JComboBox<>();
 
         setTitle("        Registro de Centros de Vacunación");
 
@@ -50,6 +50,8 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
             }
         });
 
+        jCZonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Este", "Norte", "Oeste", "Sur" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -67,11 +69,10 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCActivo)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                        .addComponent(jTZona)))
+                    .addComponent(jTNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(jCZonas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,11 +84,11 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addGap(29, 29, 29)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(32, 32, 32)
+                            .addComponent(jLabel3)
+                            .addComponent(jCZonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCActivo)
                             .addComponent(jLabel4)))
@@ -120,20 +121,20 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
 
         try {
-            if (jTNombre.getText().isEmpty() || jTZona.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No puede haber campos de texto vacíos.");
+            if (jTNombre.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "El campo Nombre no puede estar vacío.");
 
             } else if (verificar(jTNombre.getText())==false) {
                 JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
                   jTNombre.setText("");
-            }else if(verificar(jTZona.getText())==false){
-                   JOptionPane.showMessageDialog(null, "El campo Zona no puede contener números.");
-                    jTZona.setText("");
+            }else if(jCZonas.getSelectedItem()=="<Seleccionar>"){
+                   JOptionPane.showMessageDialog(null, "Debe seleccionar una zona.");
+                  
             } else {
-                centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), jTZona.getText(), jCActivo.isSelected()));
+                centro.registrarCentro(new CentroVacunacion(jTNombre.getText(), jCZonas.getSelectedItem().toString(), jCActivo.isSelected()));
 
                 jTNombre.setText("");
-                jTZona.setText("");
+               jCZonas.setSelectedItem("<Seleccionar>");
                 jCActivo.setSelected(false);
 
             }
@@ -155,11 +156,11 @@ public class RegistroCentros extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JCheckBox jCActivo;
+    private javax.swing.JComboBox<String> jCZonas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTNombre;
-    private javax.swing.JTextField jTZona;
     // End of variables declaration//GEN-END:variables
 }
