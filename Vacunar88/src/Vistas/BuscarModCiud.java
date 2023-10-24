@@ -6,18 +6,21 @@ import javax.swing.table.DefaultTableModel;
 import Persistencias.*;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     CiudadanoData ciuData = new CiudadanoData();
+
     int dniViejo;
 
     public BuscarModCiud() {
         initComponents();
         cabeceraTabla();
         jtDni.setEnabled(false);
-
+        obtenerDni(); //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +43,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
         tablaCiudadanos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
-                return columnIndex > -1 && columnIndex < 7;
+                return columnIndex < 7;
             }
         };
         tablaCiudadanos.setModel(new javax.swing.table.DefaultTableModel(
@@ -157,6 +160,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         dispose();
@@ -275,7 +279,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             } else {
                 //guardo dentro de variables los datos que obtengo al seleccionar una fila
                 int dni = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString());
-                Integer dniNuevo = dni; //en este caso el dniNuevo es igual a dni ya que mas adelatne pediremos si desa modificarlo, pero necitamos la variable igualmente
+                //Integer dniNuevo = dni; //en este caso el dniNuevo es igual a dni ya que mas adelatne pediremos si desa modificarlo, pero necitamos la variable igualmente
                 String apNomNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
                 String celNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 2).toString();
                 String emailNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 3).toString();
@@ -284,8 +288,28 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 String ambitoNu = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 6).toString();
 
                 //condiciones para verificar formato de las casillas
-                if (verificar(apNomNu) || !verificar(celNu) || verificar(emailNu) || verificar(patoNu) || verificar(ambitoNu) || verificar(zona)) {
-                    JOptionPane.showMessageDialog(null, "Ha ingresado un formato icorrecto, verifique.");
+                if (verificar(apNomNu)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna'Appellido y Nombre', verifique.");
+                    correcto = false;
+                }
+                if (!verificar(celNu)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna 'Nro Celular', verifique.");
+                    correcto = false;
+                }
+                if (verificar(emailNu)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna 'Email', verifique.");
+                    correcto = false;
+                }
+                if (verificar(patoNu)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna 'Patologia', verifique.");
+                    correcto = false;
+                }
+                if (verificar(ambitoNu)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna 'Ambito Laboral', verifique.");
+                    correcto = false;
+                }
+                if (verificar(zona)) {
+                    JOptionPane.showMessageDialog(null, "Error de formato en columna 'Zona', verifique.");
                     correcto = false;
                 }
                 if (apNomNu.isEmpty() || celNu.isEmpty() || emailNu.isEmpty() || patoNu.isEmpty() || ambitoNu.isEmpty() || zona.isEmpty()) {
@@ -294,34 +318,30 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                 }
 
-                //si no ocurrio algun error correcto = true
                 if (correcto) {
-                    //pregunto si desea modificar el dni
-                    String[] list = {"Si", "No"};
-                    int opcion = JOptionPane.showOptionDialog(null, " ¿Quiere modificar el Dni: "+ dni, "?", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
-                    if (opcion == 0) {
-                        dniNuevo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dni nuevo.")); //cuadro de dialogo donde se le puede ingresar texto y lo guardamos dentro de dniNuevo
-                        if (dniNuevo < 0 || dniNuevo.toString().length() > 9) {
-                            JOptionPane.showMessageDialog(null, "Formato de dni incorrecto.");
-                            correcto = false;
-                        } else {
-                            JOptionPane.showMessageDialog(null, "El dni: " + dni + "\nse modifico a: " + dniNuevo);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Dni sin modificar.");
-                        
+                    if (dniViejo != dni && dniViejo != 0) {
+
+                        String[] list = {"Si", "No"};
+                        int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del Dni = " + dniViejo + " a \nDni = " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                        if (opcion == 0) {
+                            ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+                            JOptionPane.showMessageDialog(null, "Dni modificado");
+                        }else{
+                             JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
+                            ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+                        }               
+                    }else{
+                    
+                    ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);  
                     }
-                }
+                    
 
-                if (correcto) {
-                    ciuData.modificarCiudadano(dniNuevo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
-                    JOptionPane.showMessageDialog(null, "Moodificaciones realizadas con exito.");
+                    JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
                     jbBuscarActionPerformed(evt);
-                } else {
-                    jbBuscarActionPerformed(evt);
+                    dniViejo = 0;
                 }
-
             }
         } catch (NullPointerException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Formato de DNI y/o Ubicacicones Incorrectas");
@@ -350,9 +370,21 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         tablaCiudadanos.setModel(tabla);
     }
 
+    public void obtenerDni() {
+        tablaCiudadanos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
+                    dniViejo = (int) tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0);
+                }
+            }
+        });
+
+    }
+
     public boolean verificar(String cadena) {
         try {
-            Integer.parseInt(cadena);
+            Long.parseLong(cadena);
             return true;
         } catch (NumberFormatException e) {
             return false;
