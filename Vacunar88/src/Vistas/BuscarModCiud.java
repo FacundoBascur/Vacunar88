@@ -14,13 +14,13 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
     DefaultTableModel tabla = new DefaultTableModel();
     CiudadanoData ciuData = new CiudadanoData();
 
-    int dniViejo;
+    int dniViejo = 0;
 
     public BuscarModCiud() {
         initComponents();
         cabeceraTabla();
         jtDni.setEnabled(false);
-        obtenerDni(); //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
+         //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
     }
 
     @SuppressWarnings("unchecked")
@@ -60,6 +60,11 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         tablaCiudadanos.setCellSelectionEnabled(true);
         tablaCiudadanos.setFocusable(false);
         tablaCiudadanos.getTableHeader().setReorderingAllowed(false);
+        tablaCiudadanos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCiudadanosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCiudadanos);
 
         jbBuscar.setText("Buscar");
@@ -209,7 +214,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             }
 
         } else if (opcion.equals("Activos")) {
-           tabla.setRowCount(0);
+            tabla.setRowCount(0);
             List<Ciudadano> lista = ciuData.buscarXestado(true);
 
             if (lista.isEmpty()) {
@@ -275,7 +280,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_altaBajaActionPerformed
 
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
-        if (opciones.getSelectedItem().toString().equals("Todos")||opciones.getSelectedItem().toString().equals("Activos")||opciones.getSelectedItem().toString().equals("Inactivos")) {
+        if (opciones.getSelectedItem().toString().equals("Todos") || opciones.getSelectedItem().toString().equals("Activos") || opciones.getSelectedItem().toString().equals("Inactivos")) {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
@@ -294,6 +299,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         boolean correcto = true; // si no hay algun error de formato este se mantiene en true
+        JOptionPane.showMessageDialog(null, dniViejo);
         //obtenemos los datos nuevos de la fila seleccionada de la tabla
         try {
 
@@ -376,6 +382,10 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
+    private void tablaCiudadanosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCiudadanosMouseClicked
+        obtenerDni();
+    }//GEN-LAST:event_tablaCiudadanosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton altaBaja;
@@ -403,6 +413,8 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             public void valueChanged(ListSelectionEvent lse) {
                 if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
                     dniViejo = (int) tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0);
+                }else{
+                    dniViejo = 0;
                 }
             }
         });
