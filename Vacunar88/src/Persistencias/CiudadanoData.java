@@ -204,11 +204,11 @@ public class CiudadanoData {
             int result = ps.executeUpdate();
 
             if (result == 1) {
-                //JOptionPane.showMessageDialog(null, "Alumno modificado con exito");
+                //JOptionPane.showMessageDialog(null, "Ciudadano modificado con exito");
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a alumnos");
+            JOptionPane.showMessageDialog(null, "Error al acceder a Ciudadano.");
         }
 
     }

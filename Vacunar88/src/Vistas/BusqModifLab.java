@@ -12,7 +12,8 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     LaboratorioData lab = new LaboratorioData();
-String cuitViejo;
+    String cuitViejo;
+
     public BusqModifLab() {
         initComponents();
         armarTabla();
@@ -151,65 +152,75 @@ String cuitViejo;
 
         if (jTBusq.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el campo de texto.");
+            tabla.setRowCount(0);
         } else {
-            
-                if (opcion.equals("CUIT")){
-try {
-                    if (!verificar(jTBusq.getText()) && jTBusq.getText().length() < 11) {
+
+            if (opcion.equals("CUIT")) {
+                try {
+                    if (!verificar(jTBusq.getText()) && jTBusq.getText().length() > 0) {
                         JOptionPane.showMessageDialog(null, "El CUIT del laboratorio no puede contener letras.");
                         jTBusq.setText("");
-                    } 
-                    if ((jTBusq.getText().length() > 11 || jTBusq.getText().length() < 11)) {
+                    } else if (verificar(jTBusq.getText()) && jTBusq.getText().length() != 11) {
                         JOptionPane.showMessageDialog(null, "Cantidad de dígitos fuera del rango de CUIT.");
                         jTBusq.setText("");
-                    }  else {
+                    } else {
                         Laboratorio lb = lab.buscarPorCuit(jTBusq.getText());
                         tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                             lb.getMarca(), lb.isEstado()});
 
                     }
-                  
+
                 } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
-            jTBusq.setText("");
-        }catch(NumberFormatException n){
- JOptionPane.showMessageDialog(null, "Error en formato de CUIT.");           
-        }
-                
-                }else if (opcion.equals("Nombre")) {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
+                    jTBusq.setText("");
+
+                }
+
+            } else if (opcion.equals("Nombre")) {
+
+                try {
                     if (verificar(jTBusq.getText()) == true) {
                         JOptionPane.showMessageDialog(null, "El nombre del Laboratorio no puede contener números.");
                         jTBusq.setText("");
                     } else {
-                        Laboratorio lb = lab.buscarNombre(jTBusq.getText());
+                        Laboratorio lb = lab.buscarNombre(jTBusq.getText().toUpperCase());
                         tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                             lb.getMarca(), lb.isEstado()});
                     }
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
+                    jTBusq.setText("");
+                }
 
-                } else if (opcion.equals("País")) {
+            } else if (opcion.equals("País")) {
+                try {
                     if (verificar(jTBusq.getText()) == true) {
 
                         JOptionPane.showMessageDialog(null, "El país del laboratorio no puede contener números.");
                         jTBusq.setText("");
                     } else {
 
-                        Laboratorio labo = lab.buscarPorPais(jTBusq.getText());
+                        Laboratorio labo = lab.buscarPorPais(jTBusq.getText().toUpperCase());
 
                         tabla.addRow(new Object[]{labo.getCuit(), labo.getNombreLab(), labo.getPais(), labo.getDomicilioCom(),
                             labo.getMarca(), labo.isEstado()});
                     }
-
-                } else if (opcion.equals("Marca")) {
-
-                    Laboratorio lb = lab.buscarPorMarca(jTBusq.getText());
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
+                    jTBusq.setText("");
+                }
+            } else if (opcion.equals("Marca")) {
+                try {
+                    Laboratorio lb = lab.buscarPorMarca(jTBusq.getText().toUpperCase());
                     tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                         lb.getMarca(), lb.isEstado()});
-
+                } catch (NullPointerException e) {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún laboratorio con el dato ingresado.");
+                    jTBusq.setText("");
 
     }//GEN-LAST:event_jBBuscarActionPerformed
 
-            
-
+            }
         }
     }
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
@@ -231,7 +242,6 @@ try {
 
                 if (verificar(nom) || verificar(pais)) {
                     JOptionPane.showMessageDialog(null, "El campo a modificar no puede contener números.");
-
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
                     } else {
@@ -240,10 +250,8 @@ try {
                     correcto = false;
                 }
 
-                
-               else if (cuit.length() < 11 || cuit.length() > 11) {
+                if (verificar(cuit) && cuit.length() != 11) {
                     JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
-
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
                     } else {
@@ -252,9 +260,8 @@ try {
                     correcto = false;
                 }
 
-               else if (nom.length() == 0 || pais.length() == 0 || dom.length() == 0 || mar.length() == 0 || cuit.length() == 0) {
+                if (nom.length() == 0 || pais.length() == 0 || dom.length() == 0 || mar.length() == 0 || cuit.length() == 0) {
                     JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
-
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
                     } else {
@@ -263,41 +270,40 @@ try {
                     correcto = false;
                 }
 
-                
-                 if (correcto) {
+                if (correcto) {
 
-                    if (!cuitViejo.equals(cuit) && cuitViejo.length()!=0) {
-
+                    if (!cuitViejo.equals(cuit) && cuitViejo.length() != 0) {
                         String[] list = {"Si", "No"};
                         int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
-
                         if (opcion == 0) {
-                           lab.modficarLab(cuit, nom, pais, dom, mar,cuitViejo);
+                            lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
                             JOptionPane.showMessageDialog(null, "CUIT modificado");
-                        }else{
-                             JOptionPane.showMessageDialog(null, "No se realizo modificacion del CUIT.");
-                           lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
-                        }               
-                    }else{
-                    
-                   lab.modficarLab(cuit, nom, pais, dom, mar, cuit);
-                    }
-                    
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se realizó modificación del CUIT.");
+                              lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
+                        }
 
+                    } else {
+                        lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
+                    }
                     JOptionPane.showMessageDialog(null, "Modificaciones realizadas con éxito.");
                     jBBuscarActionPerformed(evt);
                     cuitViejo = null;
                 }
+            
+            
             }
+        
+        
         } catch (NullPointerException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error al realizar la modificación.");
-         
+
             if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                        jCOpcionesActionPerformed(evt);
-                    } else {
-                        jBBuscarActionPerformed(evt);
-                    }
-                    correcto = false;
+                jCOpcionesActionPerformed(evt);
+            } else {
+                jBBuscarActionPerformed(evt);
+            }
+
         }
     }//GEN-LAST:event_jBModificarActionPerformed
 
@@ -387,7 +393,7 @@ try {
                     lb.getMarca(), lb.isEstado()});
             }
 
-        } else if (opcion.equals("CUIT")) {
+        }/* else if (opcion.equals("CUIT")) {
             tabla.setRowCount(0);
             JOptionPane.showMessageDialog(null, "Complete el CUIT del laboratorio.");
         } else if (opcion.equals("Nombre")) {
@@ -396,7 +402,7 @@ try {
             JOptionPane.showMessageDialog(null, "Complete el país del laboratorio.");
         } else if (opcion.equals("Marca")) {
             JOptionPane.showMessageDialog(null, "Complete la marca de la vacuna que produce el laboratorio.");
-        }
+        }*/
     }//GEN-LAST:event_jCOpcionesActionPerformed
     private void armarTabla() {
         String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Marca", "Estado"};
@@ -406,18 +412,19 @@ try {
 
     public boolean verificar(String cadena2) {
         try {
-            Integer.parseInt(cadena2);
+            Long.parseLong(cadena2);
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
     }
-     public void obtenerCuit() {
-       jTTablaLabs.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+    public void obtenerCuit() {
+        jTTablaLabs.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                if ( jTTablaLabs.getSelectedColumn() == 0 &&  jTTablaLabs.getSelectedRow() != -1) {
-                    cuitViejo =  (String) tabla.getValueAt( jTTablaLabs.getSelectedRow(), 0);
+                if (jTTablaLabs.getSelectedColumn() == 0 && jTTablaLabs.getSelectedRow() != -1) {
+                    cuitViejo = tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
                 }
             }
         });

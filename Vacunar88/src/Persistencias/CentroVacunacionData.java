@@ -83,10 +83,9 @@ public class CentroVacunacionData {
         List<CentroVacunacion> lista = new ArrayList();
 
         String sql = "SELECT * FROM centrovacunacion WHERE zona= ?";
-        switch (zon) {
-            case "Norte":
-
-                try {
+        
+try{
+                
                     PreparedStatement ps = con.prepareStatement(sql);
                     ps.setString(1, zon);
                     ResultSet rs = ps.executeQuery();
@@ -104,74 +103,8 @@ public class CentroVacunacionData {
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
-                }
-                break;
-            case "Sur":
-
-                try {
-                    PreparedStatement ps = con.prepareStatement(sql);
-                    ps.setString(1, zon);
-                    ResultSet rs = ps.executeQuery();
-
-                    while (rs.next()) {
-
-                        centro = new CentroVacunacion();
-                        centro.setCodCentro(rs.getInt("codCentro"));
-                        centro.setNombre(rs.getString("nombre"));
-                        centro.setZona(rs.getString("zona"));
-                        centro.setEstado(rs.getBoolean("estado"));
-                        lista.add(centro);
-                    }
-                    ps.close();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
-                }
-                break;
-            case "Este":
-                try {
-                    PreparedStatement ps = con.prepareStatement(sql);
-                    ps.setString(1, zon);
-                    ResultSet rs = ps.executeQuery();
-
-                    while (rs.next()) {
-
-                        centro = new CentroVacunacion();
-                        centro.setCodCentro(rs.getInt("codCentro"));
-                        centro.setNombre(rs.getString("nombre"));
-                        centro.setZona(rs.getString("zona"));
-                        centro.setEstado(rs.getBoolean("estado"));
-                        lista.add(centro);
-                    }
-                    ps.close();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
-                }
-                break;
-            case "Oeste":
-                try {
-                    PreparedStatement ps = con.prepareStatement(sql);
-                    ps.setString(1, zon);
-                    ResultSet rs = ps.executeQuery();
-
-                    while (rs.next()) {
-
-                        centro = new CentroVacunacion();
-                        centro.setCodCentro(rs.getInt("codCentro"));
-                        centro.setNombre(rs.getString("nombre"));
-                        centro.setZona(rs.getString("zona"));
-                        centro.setEstado(rs.getBoolean("estado"));
-                        lista.add(centro);
-                    }
-                    ps.close();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
-                }
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "No se encontró ningún Centro de Vacunación con el dato ingresado.");
+                
+             
         }
         return lista;
     }
