@@ -263,7 +263,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Campo 'Apellido y Nombreo' en formato incorrecto, verifique.");
                     correcto = false;
                 }
-                if (!verificar(dni.getText())) {
+                if (!verificar(dni.getText())||dni.getText().length() != 8) {
                     JOptionPane.showMessageDialog(null, "Campo 'Dni' en formato incorrecto, verifique.");
                     correcto = false;
                 }
@@ -359,7 +359,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
 
     public boolean verificar(String cadena) {
         try {
-            Integer.parseInt(cadena);
+            Long.parseLong(cadena);
             return true;
         } catch (NumberFormatException e) {
             return false;
