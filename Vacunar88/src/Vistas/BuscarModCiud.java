@@ -213,7 +213,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             List<Ciudadano> lista = ciuData.buscarXestado(true);
 
             if (lista.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
+                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos Activos actualmente");
             } else {
                 for (Ciudadano ciu : lista) {
                     tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
@@ -226,7 +226,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             List<Ciudadano> lista = ciuData.buscarXestado(false);
 
             if (lista.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
+                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos Inactivos actualmente");
             } else {
                 for (Ciudadano ciu : lista) {
                     tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
