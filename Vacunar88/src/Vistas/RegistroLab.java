@@ -1,13 +1,13 @@
-
 package Vistas;
-
 
 import Entidades.Laboratorio;
 import Persistencias.LaboratorioData;
 import javax.swing.JOptionPane;
 
 public class RegistroLab extends javax.swing.JInternalFrame {
-LaboratorioData lab=new LaboratorioData();
+
+    LaboratorioData lab = new LaboratorioData();
+
     public RegistroLab() {
         initComponents();
     }
@@ -141,47 +141,52 @@ LaboratorioData lab=new LaboratorioData();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-       try {
-            if (jTCuit.getText().isEmpty() || jTNombre.getText().isEmpty() || jTPais.getText().isEmpty() || jTDomicilio.getText().isEmpty() ||
-                    jTMarca.getText().isEmpty()) {
+        boolean correcto = true;
+        try {
+            if (jTCuit.getText().isEmpty() || jTNombre.getText().isEmpty() || jTPais.getText().isEmpty() || jTDomicilio.getText().isEmpty()
+                    || jTMarca.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No puede haber campos de texto vacíos.");
-
-            } else if ((jTCuit.getText()).length() > 11 || (jTCuit.getText()).length() < 11){
-             
+                correcto = false;
+            }
+            if (verificar(jTCuit.getText()) && jTCuit.getText().length() > 0) {
+                JOptionPane.showMessageDialog(null, "El cuit no puede contener letras.");
+                jTCuit.setText("");
+                correcto = false;
+            }
+            if (!verificar(jTCuit.getText()) && jTCuit.getText().length() != 11) {
                 JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
 
                 jTCuit.setText("");
-           
-            } else if (verificar(jTNombre.getText()) == false ){   
+                correcto = false;
+            }
+            if (verificar(jTNombre.getText()) == false) {
                 JOptionPane.showMessageDialog(null, "El campo Nombre no puede contener números.");
                 jTNombre.setText("");
-            }else if(verificar(jTPais.getText())==false ){
-                      JOptionPane.showMessageDialog(null, "El campo País no puede contener números.");
-                      jTPais.setText("");
-                  
-            } else if (!verificar(jTCuit.getText()) && jTCuit.getText().length()<1 ){//VER COMO FILTRAR QUE NO SEAN LETRAS
-                JOptionPane.showMessageDialog(null, "El cuit no puede contener letras.");
+                correcto = false;
+            }
+            if (verificar(jTPais.getText()) == false) {
+                JOptionPane.showMessageDialog(null, "El campo País no puede contener números.");
+                jTPais.setText("");
+                correcto = false;
+
+            }
+            if (correcto) {
+                lab.registrarLab(new Laboratorio(jTCuit.getText(), jTNombre.getText(),
+                        jTPais.getText(), jTDomicilio.getText(), jTMarca.getText(), jCEstado.isSelected()));
 
                 jTCuit.setText("");
-           
-            }  else{
-                   lab.registrarLab(new Laboratorio(jTCuit.getText(), jTNombre.getText(),
-                           jTPais.getText(), jTDomicilio.getText(), jTMarca.getText(),jCEstado.isSelected()));
-                
+                jTNombre.setText("");
+                jTPais.setText("");
+                jTDomicilio.setText("");
+                jTMarca.setText("");
+                jCEstado.setSelected(false);
 
-                jTCuit.setText("");
-            jTNombre.setText("");
-            jTPais.setText("");
-            jTDomicilio.setText("");
-            jTMarca.setText("");
-            jCEstado.setSelected(false);
-            
             };
-        }catch (NumberFormatException | NullPointerException e) {
-        JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
-        }            
-       
-                                            
+        } catch (NumberFormatException | NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar, campos en formato incorrecto.");
+        }
+
+
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -189,7 +194,7 @@ LaboratorioData lab=new LaboratorioData();
     }//GEN-LAST:event_jBSalirActionPerformed
     public boolean verificar(String cadena) {
         try {
-            Integer.parseInt(cadena);
+            Long.parseLong(cadena);
             return false;
         } catch (NumberFormatException e) {
             return true;

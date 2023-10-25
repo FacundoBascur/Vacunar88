@@ -273,7 +273,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         buscar.setFrameIcon(null);
         escritorio.add(buscar);
         escritorio.moveToFront(buscar);
-        buscar.setLocation(361, 89);
+        buscar.setLocation(220,159);
          escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCentrosMouseClicked
 
