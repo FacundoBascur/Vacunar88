@@ -17,6 +17,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
     public BusqModifLab() {
         initComponents();
         armarTabla();
+        jTBusq.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -366,6 +367,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
         String opcion = jCOpciones.getSelectedItem().toString();
         if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un criterio de búsqueda.");
+            jTBusq.setEnabled(false);
 
         } else if (opcion.equals("Todos")) {
             tabla.setRowCount(0);
@@ -375,6 +377,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                     lb.getMarca(), lb.isEstado()});
             }
+            jTBusq.setEnabled(false);
         } else if (opcion.equals("Activos")) {
             tabla.setRowCount(0);
             jTBusq.setText("");
@@ -383,7 +386,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                     lb.getMarca(), lb.isEstado()});
             }
-
+jTBusq.setEnabled(false);
         } else if (opcion.equals("Inactivos")) {
             tabla.setRowCount(0);
             jTBusq.setText("");
@@ -392,17 +395,12 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                     lb.getMarca(), lb.isEstado()});
             }
-
-        }/* else if (opcion.equals("CUIT")) {
-            tabla.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Complete el CUIT del laboratorio.");
-        } else if (opcion.equals("Nombre")) {
-            JOptionPane.showMessageDialog(null, "Complete el Nombre del laboratorio.");
-        } else if (opcion.equals("País")) {
-            JOptionPane.showMessageDialog(null, "Complete el país del laboratorio.");
-        } else if (opcion.equals("Marca")) {
-            JOptionPane.showMessageDialog(null, "Complete la marca de la vacuna que produce el laboratorio.");
-        }*/
+jTBusq.setEnabled(false);
+        }else if (opcion.equals("CUIT") || opcion.equals("Nombre") || opcion.equals("País") || opcion.equals("Marca")) {
+        tabla.setRowCount(0);
+        jTBusq.setText("");
+        jTBusq.setEnabled(true);
+        }
     }//GEN-LAST:event_jCOpcionesActionPerformed
     private void armarTabla() {
         String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Marca", "Estado"};
