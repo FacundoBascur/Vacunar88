@@ -90,7 +90,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             }
         });
 
-        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Seleccionar >", "Por DNI", "Todos" }));
+        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Seleccionar >", "Por DNI", "Todos", "Activos", "Inactivos" }));
         opciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opcionesActionPerformed(evt);
@@ -175,7 +175,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                 if (jtDni.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Debes colocar un DNI para continuar");
-                } else if (Integer.parseInt(jtDni.getText()) < 0 || jtDni.getText().length() > 8) {
+                } else if (Integer.parseInt(jtDni.getText()) < 0 || jtDni.getText().length() != 8) {
 
                     JOptionPane.showMessageDialog(null, "DNI en formato incorrecto, intentelo nuevamente");
                     jtDni.setText("");
@@ -196,7 +196,6 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             }
 
         } else if (opcion.equals("Todos")) {
-
             tabla.setRowCount(0);
             List<Ciudadano> lista = ciuData.listarCiudadanosRegistrados();
 
@@ -209,6 +208,31 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
             }
 
+        } else if (opcion.equals("Activos")) {
+           tabla.setRowCount(0);
+            List<Ciudadano> lista = ciuData.buscarXestado(true);
+
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
+            } else {
+                for (Ciudadano ciu : lista) {
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
+                }
+
+            }
+
+        } else if (opcion.equals("Inactivos")) {
+            tabla.setRowCount(0);
+            List<Ciudadano> lista = ciuData.buscarXestado(false);
+
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encuentran ciudadanos registrados actualmente");
+            } else {
+                for (Ciudadano ciu : lista) {
+                    tabla.addRow(new Object[]{ciu.getDni(), ciu.getNombreCompleto(), ciu.getCelular(), ciu.getEmail(), ciu.getZona(), ciu.getPatologia(), ciu.getAmbitoTrabajo(), ciu.isEstado()});
+                }
+
+            }
         }
 
 
@@ -251,7 +275,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_altaBajaActionPerformed
 
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
-        if (opciones.getSelectedItem().toString().equals("Todos")) {
+        if (opciones.getSelectedItem().toString().equals("Todos")||opciones.getSelectedItem().toString().equals("Activos")||opciones.getSelectedItem().toString().equals("Inactivos")) {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
@@ -292,6 +316,10 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Error de formato en columna'Appellido y Nombre', verifique.");
                     correcto = false;
                 }
+                if (!verificar(String.valueOf(dni)) || String.valueOf(dni).length() != 8) {
+                    JOptionPane.showMessageDialog(null, "Campo 'Dni' en formato incorrecto, verifique.");
+                    correcto = false;
+                }
                 if (!verificar(celNu)) {
                     JOptionPane.showMessageDialog(null, "Error de formato en columna 'Nro Celular', verifique.");
                     correcto = false;
@@ -328,15 +356,14 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                         if (opcion == 0) {
                             ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
                             JOptionPane.showMessageDialog(null, "Dni modificado");
-                        }else{
-                             JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
                             ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
-                        }               
-                    }else{
-                    
-                    ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);  
+                        }
+                    } else {
+
+                        ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
                     }
-                    
 
                     JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
                     jbBuscarActionPerformed(evt);
