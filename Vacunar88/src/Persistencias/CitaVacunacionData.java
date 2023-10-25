@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,10 @@ public class CitaVacunacionData {
     } 
     
     public void registrarCita(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion,
-             LocalDateTime fechaHoraVac, int idVacuna, boolean estado) {
+             LocalDateTime fechaHoraVac, int nroSerieDosis, boolean estado) {
 CitaVacunacion cita=null;
         String sql = "INSERT INTO citavacunacion (dni,codRefuerzo,fechaHoraCita,"
-                + "centroVacunacion,fechaHoraVac,idVacuna, estado) VALUES (?,?,?,?,?,?,?)";
+                + "centroVacunacion,fechaHoraVac,nroSerieDosis, estado) VALUES (?,?,?,?,?,?,?)";
 
          try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -37,7 +38,7 @@ CitaVacunacion cita=null;
             ps.setString(3, fechaHoraCita);
             ps.setString(4, centroVacunacion);
             ps.setTimestamp(5, java.sql.Timestamp.valueOf(fechaHoraVac));
-            ps.setInt (6, idVacuna);
+            ps.setInt (6, nroSerieDosis);
             ps.setBoolean(7, estado);
           
             ps.executeUpdate();
@@ -60,9 +61,8 @@ CitaVacunacion cita=null;
 
     }
      
-    
     public void cancelarCita(int codCita) {
-    String sql = "UPDATE citavacunacion SET estado = 0 WHERE codCita = ? AND estado IN (1, 2)"; // 1 para "pendiente" y 2 para "activa"
+    String sql = "UPDATE citavacunacion SET estado = 0 WHERE codCita = ? AND estado IN (1, 2)"; // 1 para "pendiente" y 2 para "activa", les parece?
     
     try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -83,8 +83,8 @@ CitaVacunacion cita=null;
 
 }
      
-    public void modificarCita(int codCita, int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int idVacuna) {
-    String sql = "UPDATE citavacunacion SET dni = ?, codRefuerzo = ?, fechaHoraCita = ?, centroVacunacion = ?, fechaHoraVac = ?, idVacuna = ? WHERE codCita = ?";
+    public void modificarCita(int codCita, int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, LocalDateTime fechaHoraVac, int nroSerieDosis) {
+    String sql = "UPDATE citavacunacion SET dni = ?, codRefuerzo = ?, fechaHoraCita = ?, centroVacunacion = ?, fechaHoraVac = ?, nroSerieDosis = ? WHERE codCita = ?";
     
     try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -93,7 +93,7 @@ CitaVacunacion cita=null;
         ps.setString(3, fechaHoraCita);
         ps.setString(4, centroVacunacion);
         ps.setTimestamp(5, java.sql.Timestamp.valueOf(fechaHoraVac));
-        ps.setInt(6, idVacuna);
+        ps.setInt(6, nroSerieDosis);
         ps.setInt(7, codCita);
         
         int result = ps.executeUpdate();
@@ -107,6 +107,28 @@ CitaVacunacion cita=null;
         ps.close();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al modificar la cita.");
+    }
+}
+    
+    public void actualizarEstadoCita(int codCita, int nuevoEstado) {
+    String sql = "UPDATE citavacunacion SET estado = ? WHERE codCita = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, nuevoEstado);
+        ps.setInt(2, codCita);
+        
+        int result = ps.executeUpdate();
+        
+        if (result == 1) {
+            JOptionPane.showMessageDialog(null, "Estado de la cita actualizado exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar el estado de la cita o la cita no existe.");
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar el estado de la cita.");
     }
 }
     
@@ -147,9 +169,9 @@ CitaVacunacion cita=null;
             cita.setDni(rs.getInt("dni"));
             cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
             cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
-            cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+            cita.setCentroVacunacion(rs.getInt("centroVacunacion"));
             cita.setFechaHoraVac(rs.getTimestamp("fechaHoraVac").toLocalDateTime());
-            cita.setIdVacuna(rs.getInt("idVacuna"));
+            cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
             cita.setEstado(rs.getBoolean("estado"));
             listaCitas.add(cita);
         }
@@ -176,9 +198,9 @@ CitaVacunacion cita=null;
             cita.setDni(rs.getInt("dni"));
             cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
             cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
-            cita.setCentroVacunacion(rs.getString("centroVacunacion"));
+            cita.setCentroVacunacion(rs.getInt("centroVacunacion"));
             cita.setFechaHoraVac(rs.getTimestamp("fechaHoraVac").toLocalDateTime());
-            cita.setIdVacuna(rs.getInt("idVacuna"));
+            cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
             cita.setEstado(rs.getBoolean("estado"));
             citasPendientes.add(cita);
         }
@@ -191,12 +213,12 @@ CitaVacunacion cita=null;
     return citasPendientes;
 }
  
-    public void asignarVacunaACita(int codCita, int idVacuna) {
+    public void asignarVacunaACita(int codCita, int nroSerieDosis) {
     String sql = "UPDATE citavacunacion SET idVacuna = ? WHERE codCita = ?";
     
     try {
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idVacuna);
+        ps.setInt(1, nroSerieDosis);
         ps.setInt(2, codCita);
         
         int result = ps.executeUpdate();
@@ -212,34 +234,59 @@ CitaVacunacion cita=null;
         JOptionPane.showMessageDialog(null, "Error al asignar la vacuna a la cita.");
     }
 }
- 
+    
+    public Ciudadano obtenerCiudadanoPorCodCita(int codCita) {
+    Ciudadano ciudadano = null;
+
+    String sql = "SELECT c.* FROM citavacunacion AS cv " +
+                 "JOIN ciudadano AS c ON cv.dni = c.dni " +
+                 "WHERE cv.codCita = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codCita);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            ciudadano = new Ciudadano();
+            ciudadano.setDni(rs.getInt("dni"));
+            ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener Ciudadano.");
+    }
+
+    return ciudadano;
+}
+    
+    public long DiferenciaEntreFechas(int codCita) {
+    String sql = "SELECT fechaHoraCita, fechaHoraVac FROM citavacunacion WHERE codCita = ?";
+    long diferenciaDias = -1;
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codCita);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            LocalDateTime fechaProgramacion = LocalDateTime.parse(rs.getString("fechaHoraCita"));
+            LocalDateTime fechaInoculacion = rs.getTimestamp("fechaHoraVac").toLocalDateTime();
+            
+            diferenciaDias = ChronoUnit.DAYS.between(fechaProgramacion, fechaInoculacion);
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al calcular la diferencia de fechas.");
+    }
+
+    return diferenciaDias;
+}
+    
     public Duration calcularDiferenciaFechas(LocalDateTime fechaProgramacion, LocalDateTime fechaInoculacion) {
         return Duration.between(fechaProgramacion, fechaInoculacion);
     }
-    
-    public Ciudadano obtenerCiudadanoPorDNI(int dni) {
-        Ciudadano ciudadano = null;
 
-        String sql = "SELECT * FROM ciudadano WHERE dni = ?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, dni);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                ciudadano = new Ciudadano();
-                ciudadano.setDni(rs.getInt("dni"));
-                ciudadano.setNombreCompleto(rs.getString("nombreCompleto"));
-                
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            
-            JOptionPane.showMessageDialog(null, "Error al obtener Ciudadano.");
-        }
-
-        return ciudadano;
-    }
 }
