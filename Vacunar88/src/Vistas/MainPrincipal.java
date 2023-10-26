@@ -2,6 +2,9 @@ package Vistas;
 
 import AppPackage.AnimationClass;
 
+
+import Persistencias.*;
+
 public class MainPrincipal extends javax.swing.JFrame {
 
     AnimationClass anim = new AnimationClass();
@@ -238,13 +241,21 @@ public class MainPrincipal extends javax.swing.JFrame {
         BuscarModCiud bm = new BuscarModCiud();
         bm.setVisible(true);
         bm.setFrameIcon(null);
-        bm.setLocation(230, 96);
+        bm.setLocation(230, 96); 
         escritorio.add(bm);
         escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCiuMouseClicked
 
     private void regCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regCitasMouseClicked
-
+         escritorio.removeAll();
+        escritorio.repaint(); 
+        escritorio.add(jPanel1);
+        ProgramarCita pc = new ProgramarCita();
+        pc.setVisible(true);
+        pc.setFrameIcon(null);
+        pc.setLocation(230, 96);
+        escritorio.add(pc);
+        escritorio.add(imagEscr);
     }//GEN-LAST:event_regCitasMouseClicked
 
     private void busModCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busModCitasMouseClicked

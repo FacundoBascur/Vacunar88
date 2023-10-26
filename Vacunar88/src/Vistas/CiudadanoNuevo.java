@@ -121,11 +121,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         });
 
         zona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Seleccionar >", "Norte", "Sur", "Este", "Oeste" }));
-        zona.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zonaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout CiudadanoNuevoLayout = new javax.swing.GroupLayout(CiudadanoNuevo);
         CiudadanoNuevo.setLayout(CiudadanoNuevoLayout);
@@ -329,10 +324,6 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         rbSi.setSelected(false);
         patoCual.setEnabled(false);
     }//GEN-LAST:event_rbNoMouseClicked
-
-    private void zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zonaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_zonaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

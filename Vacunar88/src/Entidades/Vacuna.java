@@ -5,19 +5,19 @@ import java.util.Date;
 
 
 public class Vacuna {
-    private int idVacuna;
+    
     private int nroSerieDosis;
     private String marca;
     private double medida;
     private Date fechaVenc;
     private boolean colocada;
-    private String cuit;
+    private int cuit;
 
     public Vacuna() {
     }
 
-    public Vacuna(int idVacuna, int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, String cuit) {
-        this.idVacuna = idVacuna;
+  
+    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, int cuit) {
         this.nroSerieDosis = nroSerieDosis;
         this.marca = marca;
         this.medida = medida;
@@ -26,22 +26,6 @@ public class Vacuna {
         this.cuit = cuit;
     }
 
-    public Vacuna(int nroSerieDosis, String marca, double medida, Date fechaVenc, boolean colocada, String cuit) {
-        this.nroSerieDosis = nroSerieDosis;
-        this.marca = marca;
-        this.medida = medida;
-        this.fechaVenc = fechaVenc;
-        this.colocada = colocada;
-        this.cuit = cuit;
-    }
-
-    public int getIdVacuna() {
-        return idVacuna;
-    }
-
-    public void setIdVacuna(int idVacuna) {
-        this.idVacuna = idVacuna;
-    }
 
     public int getNroSerieDosis() {
         return nroSerieDosis;
@@ -83,17 +67,17 @@ public class Vacuna {
         this.colocada = colocada;
     }
 
-    public String getCuit() {
+    public int getCuit() {
         return cuit;
     }
 
-    public void setCuit(String cuit) {
+    public void setCuit(int cuit) {
         this.cuit = cuit;
     }
 
     @Override
     public String toString() {
-        return "Vacuna{" + "idVacuna=" + idVacuna + ", nroSerieDosis=" + nroSerieDosis + ", marca=" + marca + ", medida=" + medida + ", fechaVenc=" + fechaVenc + ", colocada=" + colocada + ", cuit=" + cuit + '}';
+        return  nroSerieDosis + " - " + marca + " - " + medida + " Vencimiento: " + fechaVenc + " Colocada:" + colocada;
     }
 
    
