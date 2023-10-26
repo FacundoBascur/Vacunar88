@@ -1,4 +1,3 @@
-
 package Persistencias;
 
 import Entidades.Vacuna;
@@ -8,25 +7,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-
 public class VacunaData {
-    
-     private Connection con = null;
-    
-    public VacunaData() {
-    con = Conexion.getConexion();
-    } 
-    
-     public void registrarVac(int nroSerieDosis, String marca, double medida, Date fechaVenc, 
-             boolean colocada, long cuit) {
 
-         Vacuna vac=null; 
-         
+    private Connection con = null;
+
+    public VacunaData() {
+        con = Conexion.getConexion();
+    }
+
+    public void registrarVac(int nroSerieDosis, String marca, double medida, Date fechaVenc,
+            boolean colocada, String cuit) {
+
+        Vacuna vac = null;
+
         String sql = "INSERT INTO vacuna (nroSerieDosis,marca,medida,fechaVenc,colocada, cuit) VALUES (?,?,?,?,?,?)";
 
-         try {
+        try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, nroSerieDosis);
@@ -34,26 +34,81 @@ public class VacunaData {
             ps.setDouble(3, medida);
             ps.setDate(4, fechaVenc);
             ps.setBoolean(5, colocada);
-            ps.setLong(6, cuit);
+            ps.setString(6, cuit);
             ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-
-            if (rs.next()) {
-
-               vac.setIdVacuna(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Vacuna registrada exitosamente.");
-                ps.close();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo obtener el id.");
-            }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a vacuna.");
         }
 
-    }    
+    }
+
+    public List<Vacuna> listarVacunas() {
+
+        Vacuna vacunas = null;
+        List<Vacuna> lista = new ArrayList<>();
+
+        try {
+
+            String sql = "SELECT * FROM vacuna";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                vacunas = new Vacuna();
+                vacunas.setNroSerieDosis(rs.getInt("nroSerieDosis"));
+                vacunas.setMarca(rs.getString("marca"));
+                vacunas.setMedida(rs.getDouble("medida"));
+                vacunas.setFechaVenc(rs.getDate("fechaVenc"));
+                vacunas.setColocada(rs.getBoolean("colocada"));
+                vacunas.setCuit(rs.getInt("cuit"));
+                lista.add(vacunas);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla vacuna." + ex);
+        }
+
+        return lista;
+    }
     
-    
+    public List<Vacuna> listarVacunasXTipo(String marca) {
+
+        Vacuna vacunas = null;
+        List<Vacuna> lista = new ArrayList<>();
+
+        try {
+
+            String sql = "SELECT * FROM vacuna WHERE marca = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, marca);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                vacunas = new Vacuna();
+                vacunas.setNroSerieDosis(rs.getInt("nroSerieDosis"));
+                vacunas.setMarca(rs.getString("marca"));
+                vacunas.setMedida(rs.getDouble("medida"));
+                vacunas.setFechaVenc(rs.getDate("fechaVenc"));
+                vacunas.setColocada(rs.getBoolean("colocada"));
+                vacunas.setCuit(rs.getInt("cuit"));
+                lista.add(vacunas);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla vacuna.");
+        }
+
+        return lista;
+    }
+
 }

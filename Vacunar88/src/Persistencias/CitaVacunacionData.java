@@ -60,7 +60,6 @@ CitaVacunacion cita=null;
         }
 
     }
-     
     public void cancelarCita(int codCita) {
     String sql = "UPDATE citavacunacion SET estado = 0 WHERE codCita = ? AND estado IN (1, 2)"; // 1 para "pendiente" y 2 para "activa", les parece?
     
@@ -261,7 +260,7 @@ CitaVacunacion cita=null;
     return ciudadano;
 }
     
-    public long DiferenciaEntreFechas(int codCita) {
+    public long DiferenciaEntreDias(int codCita) {
     String sql = "SELECT fechaHoraCita, fechaHoraVac FROM citavacunacion WHERE codCita = ?";
     long diferenciaDias = -1;
 
