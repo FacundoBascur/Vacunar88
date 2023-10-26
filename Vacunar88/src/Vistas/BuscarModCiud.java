@@ -20,7 +20,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         initComponents();
         cabeceraTabla();
         jtDni.setEnabled(false);
-         //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
+        //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
     }
 
     @SuppressWarnings("unchecked")
@@ -410,10 +410,10 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         tablaCiudadanos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                
+
                 if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
                     dniViejo = (int) tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0);
-                }else{
+                } else {
                     dniViejo = 0;
                 }
             }

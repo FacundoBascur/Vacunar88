@@ -2,6 +2,8 @@ package Vistas;
 
 import Entidades.*;
 import Persistencias.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -64,6 +66,11 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         jLNroDosis.setText("Elegir dosis:");
 
         jBCita.setText("Programar cita");
+        jBCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCitaActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +214,12 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
             cbVacunasRegistradas.setModel(new DefaultComboBoxModel<>(vacunasRegistradas.toArray(new Vacuna[0])));
         }
     }//GEN-LAST:event_tipoVacActionPerformed
+
+    private void jBCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCitaActionPerformed
+        JOptionPane.showMessageDialog(null, LocalDateTime.now());// obtener fecha y hora actual.
+       
+        JOptionPane.showMessageDialog(null,LocalDateTime.now().plusDays(2)); //le sumas dos dias.
+    }//GEN-LAST:event_jBCitaActionPerformed
 
     private void jBAplicarVacunaActionPerformed(java.awt.event.ActionEvent evt) {
 //        String pacienteSeleccionado = cbCiudadanosRegistrados.getSelectedItem().toString();
