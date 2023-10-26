@@ -121,6 +121,11 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         });
 
         zona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Seleccionar >", "Norte", "Sur", "Este", "Oeste" }));
+        zona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zonaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CiudadanoNuevoLayout = new javax.swing.GroupLayout(CiudadanoNuevo);
         CiudadanoNuevo.setLayout(CiudadanoNuevoLayout);
@@ -140,37 +145,35 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                 .addGap(46, 46, 46)
                 .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
-                                .addComponent(registrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
-                            .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(nombreCompleto, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dni, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nroCel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(jLabel11)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbEstado))
-                                .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ambLaboral, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(zona, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rbSi)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rbNo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel14)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(patoCual, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(CiudadanoNuevoLayout.createSequentialGroup()
+                            .addComponent(registrar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2))
+                        .addGroup(CiudadanoNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nombreCompleto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dni, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nroCel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbEstado))
+                            .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ambLaboral, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(zona, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CiudadanoNuevoLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbSi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbNo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(patoCual, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20))
         );
         CiudadanoNuevoLayout.setVerticalGroup(
@@ -326,6 +329,10 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         rbSi.setSelected(false);
         patoCual.setEnabled(false);
     }//GEN-LAST:event_rbNoMouseClicked
+
+    private void zonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_zonaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

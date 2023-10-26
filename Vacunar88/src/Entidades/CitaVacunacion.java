@@ -10,34 +10,34 @@ public class CitaVacunacion {
     private int dni;
     private int codRefuerzo;
     private String fechaHoraCita;
-    private String centroVacunacion;
+    private int centroVacunacion;
     private LocalDateTime fechaHoraVac;
-    private int idVacuna;
+    private int nroSerieDosis;
     private boolean estado;
 
     public CitaVacunacion() {
     }
 
-    public CitaVacunacion(int codCita, int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion,
-            LocalDateTime fechaHoraVac, int idVacuna, boolean estado) {
+    public CitaVacunacion(int codCita, int dni, int codRefuerzo, String fechaHoraCita, int centroVacunacion,
+            LocalDateTime fechaHoraVac, int nroSerieDosis, boolean estado) {
         this.codCita = codCita;
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraVac = fechaHoraVac;
-        this.idVacuna = idVacuna;
+        this.nroSerieDosis = nroSerieDosis;
         this.estado=estado;
     }
 
-    public CitaVacunacion(int dni, int codRefuerzo, String fechaHoraCita, String centroVacunacion, 
-            LocalDateTime fechaHoraVac, int idVacuna, boolean estado) {
+    public CitaVacunacion(int dni, int codRefuerzo, String fechaHoraCita, int centroVacunacion, 
+            LocalDateTime fechaHoraVac, int nroSerieDosis, boolean estado) {
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
         this.centroVacunacion = centroVacunacion;
         this.fechaHoraVac = fechaHoraVac;
-        this.idVacuna = idVacuna;
+        this.nroSerieDosis = nroSerieDosis;
         this.estado= estado;
     }
 
@@ -57,8 +57,6 @@ public class CitaVacunacion {
         this.dni = dni;
     }
 
-   
-
     public int getCodRefuerzo() {
         return codRefuerzo;
     }
@@ -75,11 +73,11 @@ public class CitaVacunacion {
         this.fechaHoraCita = fechaHoraCita;
     }
 
-    public String getCentroVacunacion() {
+    public int getCentroVacunacion() {
         return centroVacunacion;
     }
 
-    public void setCentroVacunacion(String centroVacunacion) {
+    public void setCentroVacunacion(int centroVacunacion) {
         this.centroVacunacion = centroVacunacion;
     }
 
@@ -91,12 +89,12 @@ public class CitaVacunacion {
         this.fechaHoraVac = fechaHoraVac;
     }
 
-    public int getIdVacuna() {
-        return idVacuna;
+    public int getnroSerieDosis() {
+        return nroSerieDosis;
     }
 
-    public void setIdVacuna(int idVacuna) {
-        this.idVacuna = idVacuna;
+    public void setnroSerieDosis(int nroSerieDosis) {
+        this.nroSerieDosis = nroSerieDosis;
     }
 
     public boolean isEstado() {
@@ -112,9 +110,8 @@ public class CitaVacunacion {
     @Override
     public String toString() {
         return "CitaVacunacion{" + "codCita=" + codCita + ", dni=" + dni + ", codRefuerzo=" + codRefuerzo +", fechaHoraCita=" + 
-  fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", idVacuna=" + idVacuna + 
+  fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", nroSerieDosis=" + nroSerieDosis + 
                 ", estado= " + estado + '}';
     }
-
    
 }
