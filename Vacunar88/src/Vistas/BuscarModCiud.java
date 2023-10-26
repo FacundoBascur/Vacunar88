@@ -373,7 +373,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                     JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
                     jbBuscarActionPerformed(evt);
-                    dniViejo = 0;
+                    
                 }
             }
         } catch (NullPointerException | NumberFormatException e) {
