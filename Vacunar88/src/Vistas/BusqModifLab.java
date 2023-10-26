@@ -12,7 +12,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     LaboratorioData lab = new LaboratorioData();
-    String cuitViejo;
+    Long cuitViejo;
 
     public BusqModifLab() {
         initComponents();
@@ -233,7 +233,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un Laboratorio para continuar.");
             } else {
 
-                String cuit = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+              long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
                 //String cuitNuevo = cuit;
                 String nom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 1).toString();
                 String pais = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 2).toString();
@@ -251,7 +251,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     correcto = false;
                 }
 
-                if (verificar(cuit) && cuit.length() != 11) {
+                if (verificar(String.valueOf(cuit)) && String.valueOf(cuit).length()!=11) {
                     JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
@@ -261,7 +261,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     correcto = false;
                 }
 
-                if (nom.length() == 0 || pais.length() == 0 || dom.length() == 0 || mar.length() == 0 || cuit.length() == 0) {
+                if (nom.length() == 0 || pais.length() == 0 || dom.length() == 0 || mar.length() == 0 || String.valueOf(cuit).length()==0) {
                     JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
@@ -273,7 +273,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
                 if (correcto) {
 
-                    if (!cuitViejo.equals(cuit) && cuitViejo.length() != 0) {
+                    if (cuitViejo !=cuit  && String.valueOf(cuitViejo).length()!=0) {
                         String[] list = {"Si", "No"};
                         int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
                         if (opcion == 0) {
@@ -314,7 +314,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Laboratorio para continuar.");
         } else {
 
-            String cuit = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+           long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
             String nom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 1).toString();
             String pais = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 2).toString();
             String dom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 3).toString();
@@ -416,13 +416,21 @@ jTBusq.setEnabled(false);
             return false;
         }
     }
+/*public boolean verificar(long cuit) {
+        try {
+            Integer.parseInt(cuit);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }*/
 
     public void obtenerCuit() {
         jTTablaLabs.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
                 if (jTTablaLabs.getSelectedColumn() == 0 && jTTablaLabs.getSelectedRow() != -1) {
-                    cuitViejo = tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+                    cuitViejo = Long.parseLong(tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
                 }
             }
         });

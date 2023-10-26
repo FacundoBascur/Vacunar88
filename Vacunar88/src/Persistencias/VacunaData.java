@@ -20,7 +20,7 @@ public class VacunaData {
     } 
     
      public void registrarVac(int nroSerieDosis, String marca, double medida, Date fechaVenc, 
-             boolean colocada, String cuit) {
+             boolean colocada, long cuit) {
 
          Vacuna vac=null; 
          
@@ -34,7 +34,7 @@ public class VacunaData {
             ps.setDouble(3, medida);
             ps.setDate(4, fechaVenc);
             ps.setBoolean(5, colocada);
-            ps.setString(6, cuit);
+            ps.setLong(6, cuit);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
