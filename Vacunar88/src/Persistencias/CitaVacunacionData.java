@@ -288,4 +288,49 @@ CitaVacunacion cita=null;
         return Duration.between(fechaProgramacion, fechaInoculacion);
     }
 
+    public boolean validarIntervaloDosis(int codCita, LocalDateTime fechaHoraCita, LocalDateTime fechaHoraVac) {
+        
+        CitaVacunacion citaExistente = BuscarCitaPorCodigo(codCita);
+
+        long intervaloDias = ChronoUnit.DAYS.between(citaExistente.getFechaHoraVac(), fechaHoraCita);
+        
+        int intervaloMinimoDias = 21; 
+        int intervaloMaximoDias = 42; 
+
+        if (intervaloDias >= intervaloMinimoDias && intervaloDias <= intervaloMaximoDias) {
+            return true; //válido para aplicar dosis
+        } else {
+            return false;
+        }
+    }
+    
+    public CitaVacunacion BuscarCitaPorCodigo(int codCita) {
+    CitaVacunacion cita = null;
+    String sql = "SELECT * FROM citavacunacion WHERE codCita = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codCita);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            cita = new CitaVacunacion();
+            cita.setCodCita(rs.getInt("codCita"));
+            cita.setDni(rs.getInt("dni"));
+            cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+            cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
+            cita.setCentroVacunacion(rs.getInt("centroVacunacion"));
+            cita.setFechaHoraVac(rs.getTimestamp("fechaHoraVac").toLocalDateTime());
+            cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
+            cita.setEstado(rs.getBoolean("estado"));
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener la cita por código.");
+    }
+    
+    return cita;
+}
+    
 }

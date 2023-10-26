@@ -2,7 +2,7 @@ package Entidades;
 
 public class Laboratorio {
 
-    private String cuit;
+    private long cuit;
     private String nombreLab;
     private String pais;
     private String domicilioCom;
@@ -12,7 +12,7 @@ public class Laboratorio {
     public Laboratorio() {
     }
 
-    public Laboratorio(String cuit, String nombreLab, String pais, String domicilioCom, String marca, boolean estado) {
+    public Laboratorio(long cuit, String nombreLab, String pais, String domicilioCom, String marca, boolean estado) {
         this.cuit = cuit;
         this.nombreLab = nombreLab;
         this.pais = pais;
@@ -45,11 +45,11 @@ public class Laboratorio {
         this.estado = estado;
     }
 
-    public String getCuit() {
+    public long getCuit() {
         return cuit;
     }
 
-    public void setCuit(String cuit) {
+    public void setCuit(long cuit) {
         this.cuit = cuit;
     }
 

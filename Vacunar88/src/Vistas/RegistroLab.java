@@ -171,7 +171,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
 
             }
             if (correcto) {
-                lab.registrarLab(new Laboratorio(jTCuit.getText(), jTNombre.getText(),
+                lab.registrarLab(new Laboratorio(Long.parseLong(jTCuit.getText()), jTNombre.getText(),
                         jTPais.getText(), jTDomicilio.getText(), jTMarca.getText(), jCEstado.isSelected()));
 
                 jTCuit.setText("");

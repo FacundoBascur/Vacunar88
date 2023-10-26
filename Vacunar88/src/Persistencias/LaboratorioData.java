@@ -30,7 +30,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -63,7 +63,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -88,7 +88,7 @@ public class LaboratorioData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, lab.getCuit());
+            ps.setLong(1, lab.getCuit());
             ps.setString(2, lab.getNombreLab());
             ps.setString(3, lab.getPais());
             ps.setString(4, lab.getDomicilioCom());
@@ -117,7 +117,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -146,7 +146,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -175,7 +175,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -203,7 +203,7 @@ public class LaboratorioData {
             while (rs.next()) {
 
                 lab = new Laboratorio();
-                lab.setCuit(rs.getString("cuit"));
+                lab.setCuit(rs.getLong("cuit"));
                 lab.setNombreLab(rs.getString("nombreLab"));
                 lab.setPais(rs.getString("pais"));
                 lab.setDomicilioCom(rs.getString("domicilioCom"));
@@ -221,7 +221,7 @@ public class LaboratorioData {
     }
   
    
-    public void bajaAlta(Boolean est,String cuit) {
+    public void bajaAlta(Boolean est,long cuit) {
     
 
     try{    
@@ -231,7 +231,7 @@ if(est){
             PreparedStatement ps = con.prepareStatement(sql);
            
          
-             ps.setString(1,cuit);
+             ps.setLong(1,cuit);
             int result = ps.executeUpdate();
 
             if (result == 1) {
@@ -244,7 +244,7 @@ if(est){
             PreparedStatement ps = con.prepareStatement(sql);
            
           
-             ps.setString(1, cuit);
+             ps.setLong(1, cuit);
             int result = ps.executeUpdate();
 
             if (result == 1) {
@@ -261,19 +261,19 @@ if(est){
     }
   
  
-    public void modficarLab(String cuitViejo, String nom, String pais, String dom, String mar, String cuit ) {
+    public void modficarLab(long cuitViejo, String nom, String pais, String dom, String mar, long cuit ) {
 Laboratorio lab=null;
         String sql = "UPDATE laboratorio SET cuit=?, nombreLab=?, pais=?, domicilioCom=?, marca=? WHERE cuit=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
            // ps.setString(1, cuitNuevo);
-            ps.setString(1, cuitViejo);
+            ps.setLong(1, cuitViejo);
             ps.setString(2, nom);
             ps.setString(3, pais );
             ps.setString(4, dom);
             ps.setString(5, mar);
-           ps.setString(6, cuit);
+           ps.setLong(6, cuit);
            
             int result = ps.executeUpdate();
 
