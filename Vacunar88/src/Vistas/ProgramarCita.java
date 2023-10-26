@@ -198,7 +198,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         String pacienteSeleccionado = cbCiudadanosRegistrados.getSelectedItem().toString();
         String centroSeleccionado = cbCentrosRegistrados.getSelectedItem().toString();
         String vacunaSeleccionada = cbVacunasRegistradas.getSelectedItem().toString();
-        LocalDate fechaSeleccionada = LocalDate.ofInstant(jDCalendario.getDate().toInstant(), ZoneId.systemDefault());
+        LocalDate fechaSeleccionada = jDCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         JOptionPane.showMessageDialog(this, "Cita programada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
