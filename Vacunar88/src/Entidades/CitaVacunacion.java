@@ -104,14 +104,26 @@ public class CitaVacunacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-  
-
+    
+    public boolean estadoPendienteOActivo() {
+    
+    // true --> "pendiente" si no se ha aplicado ninguna dosis.
+    
+    if (codRefuerzo == 0) {
+        return true;
+        
+    } else if (codRefuerzo > 0 && codRefuerzo <= 3) {
+        return true;
+        
+    } else {
+        return false;
+    }
+}
+    
     @Override
     public String toString() {
         return "CitaVacunacion{" + "codCita=" + codCita + ", dni=" + dni + ", codRefuerzo=" + codRefuerzo +", fechaHoraCita=" + 
   fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", nroSerieDosis=" + nroSerieDosis + 
                 ", estado= " + estado + '}';
     }
-   
 }
