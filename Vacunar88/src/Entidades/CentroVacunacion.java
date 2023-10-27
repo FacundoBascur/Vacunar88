@@ -58,7 +58,7 @@ public class CentroVacunacion {
 
     @Override
     public String toString() {
-        return "CentroVacunacion{" + "codCentro=" + codCentro + ", nombre=" + nombre + ", zona=" + zona + ", estado=" + estado + '}';
+        return  codCentro + " - " + nombre + " - " + zona;
     }
 
    

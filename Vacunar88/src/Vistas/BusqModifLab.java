@@ -12,7 +12,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     LaboratorioData lab = new LaboratorioData();
-    String cuitViejo;
+    long cuitViejo;
 
     public BusqModifLab() {
         initComponents();
@@ -66,7 +66,14 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTablaLabs.setColumnSelectionAllowed(true);
+        jTTablaLabs.setFocusable(false);
         jTTablaLabs.getTableHeader().setReorderingAllowed(false);
+        jTTablaLabs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTTablaLabsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTTablaLabs);
 
         jBModificar.setText("Modificar");
@@ -226,6 +233,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
     }
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         boolean correcto = true;
+
         String op = jCOpciones.getSelectedItem().toString();
 
         try {
@@ -233,7 +241,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un Laboratorio para continuar.");
             } else {
 
-                String cuit = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+                long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
                 //String cuitNuevo = cuit;
                 String nom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 1).toString();
                 String pais = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 2).toString();
@@ -243,69 +251,68 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
                 if (verificar(nom) || verificar(pais)) {
                     JOptionPane.showMessageDialog(null, "El campo a modificar no puede contener números.");
+                    correcto = false;
                     if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
                         jCOpcionesActionPerformed(evt);
                     } else {
                         jBBuscarActionPerformed(evt);
                     }
-                    correcto = false;
+
                 }
+                
 
-                if (verificar(cuit) && cuit.length() != 11) {
-                    JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
-                    if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                        jCOpcionesActionPerformed(evt);
-                    } else {
-                        jBBuscarActionPerformed(evt);
-                    }
-                    correcto = false;
-                }
-
-                if (nom.length() == 0 || pais.length() == 0 || dom.length() == 0 || mar.length() == 0 || cuit.length() == 0) {
-                    JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
-                    if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                        jCOpcionesActionPerformed(evt);
-                    } else {
-                        jBBuscarActionPerformed(evt);
-                    }
-                    correcto = false;
-                }
-
-                if (correcto) {
-
-                    if (!cuitViejo.equals(cuit) && cuitViejo.length() != 0) {
-                        String[] list = {"Si", "No"};
-                        int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
-                        if (opcion == 0) {
-                            lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
-                            JOptionPane.showMessageDialog(null, "CUIT modificado");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se realizó modificación del CUIT.");
-                              lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
-                        }
-
-                    } else {
-                        lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
-                    }
-                    JOptionPane.showMessageDialog(null, "Modificaciones realizadas con éxito.");
+            if (nom.isEmpty()|| pais.isEmpty()|| dom.isEmpty()|| mar.isEmpty() || String.valueOf(cuit).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
+                correcto = false;
+                if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+                    jCOpcionesActionPerformed(evt);
+                } else {
                     jBBuscarActionPerformed(evt);
-                    cuitViejo = null;
                 }
-            
-            
-            }
-        
-        
-        } catch (NullPointerException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error al realizar la modificación.");
 
-            if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                jCOpcionesActionPerformed(evt);
-            } else {
-                jBBuscarActionPerformed(evt);
+            }
+
+            if (correcto) {
+                if (cuitViejo != cuit && cuitViejo != 0) {
+                    String[] list = {"Si", "No"};
+                    int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                    if (opcion == 0) {
+                        lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
+                       
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se realizó modificación del CUIT.");
+                        lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
+                    }
+
+                } else {
+                    lab.modficarLab(cuit, nom, pais, dom, mar, cuit);
+                }
+
+                if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+                    jCOpcionesActionPerformed(evt);
+                } else {
+                    jBBuscarActionPerformed(evt);
+                }
+                cuitViejo = 0;
             }
 
         }
+
+    }
+    catch (NullPointerException | NumberFormatException e
+
+    
+        ) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la modificación, el CUIT debe contener 11 dígitos númericos.");
+
+        if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+            jCOpcionesActionPerformed(evt);
+        } else {
+            jBBuscarActionPerformed(evt);
+        }
+
+    }
+
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBAltaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaBajaActionPerformed
@@ -314,7 +321,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Laboratorio para continuar.");
         } else {
 
-            String cuit = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+           long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
             String nom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 1).toString();
             String pais = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 2).toString();
             String dom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 3).toString();
@@ -402,6 +409,12 @@ jTBusq.setEnabled(false);
         jTBusq.setEnabled(true);
         }
     }//GEN-LAST:event_jCOpcionesActionPerformed
+
+    private void jTTablaLabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTablaLabsMouseClicked
+      // if (jTTablaLabs.getSelectedColumn() == 0 ){
+        obtenerCuit();
+       
+    }//GEN-LAST:event_jTTablaLabsMouseClicked
     private void armarTabla() {
         String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Marca", "Estado"};
         tabla.setColumnIdentifiers(titulos);
@@ -417,12 +430,19 @@ jTBusq.setEnabled(false);
         }
     }
 
+
     public void obtenerCuit() {
+        
         jTTablaLabs.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void valueChanged(ListSelectionEvent lse) {
+        public void valueChanged(ListSelectionEvent lse) {
                 if (jTTablaLabs.getSelectedColumn() == 0 && jTTablaLabs.getSelectedRow() != -1) {
-                    cuitViejo = tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+                  String  cuit =tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+                
+                  cuitViejo=Long.parseLong(cuit);
+                  
+                }else{
+                cuitViejo=0;
                 }
             }
         });

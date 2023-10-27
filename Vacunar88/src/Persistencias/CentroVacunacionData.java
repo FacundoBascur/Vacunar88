@@ -108,6 +108,38 @@ try{
         }
         return lista;
     }
+    
+    public CentroVacunacion centroXZona(String zon){
+            CentroVacunacion centro = null;
+       
+
+        String sql = "SELECT * FROM centrovacunacion WHERE zona= ?";
+        
+try{
+                
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, zon);
+                    ResultSet rs = ps.executeQuery();
+
+                    while (rs.next()) {
+
+                        centro = new CentroVacunacion();
+                        centro.setCodCentro(rs.getInt("codCentro"));
+                        centro.setNombre(rs.getString("nombre"));
+                        centro.setZona(rs.getString("zona"));
+                        centro.setEstado(rs.getBoolean("estado"));
+                        
+                    }
+                    ps.close();
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al acceder a Centros de Vacunación.");
+                
+             
+        }
+        return centro;
+    
+    }
 
     public List<CentroVacunacion> listarPorEstado(boolean estado) {
         CentroVacunacion centro = null;

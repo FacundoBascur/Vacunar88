@@ -20,7 +20,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         initComponents();
         cabeceraTabla();
         jtDni.setEnabled(false);
-         //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
+        //aca obtengo el dni que esta en las filas seleccionada, ya que lo necesito para realizar modificacion en sql.
     }
 
     @SuppressWarnings("unchecked")
@@ -245,7 +245,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     private void altaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaBajaActionPerformed
         if (tablaCiudadanos.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno para continuar");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un ciudadano para continuar");
         } else {
             int dni = Integer.parseInt(tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString());
             String nombre = tablaCiudadanos.getValueAt(tablaCiudadanos.getSelectedRow(), 1).toString();
@@ -264,7 +264,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                 }
             } else {
                 String[] list = {"Si", "No"};
-                int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del alumno \n" + nombre + "\nDNI = " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                int opcion = JOptionPane.showOptionDialog(null, "Confirmar Alta del ciudadano \n" + nombre + "\nDNI = " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                 if (opcion == 0) {
                     ciuData.modificarEstado(estado, dni);
@@ -299,7 +299,6 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         boolean correcto = true; // si no hay algun error de formato este se mantiene en true
-        JOptionPane.showMessageDialog(null, dniViejo);
         //obtenemos los datos nuevos de la fila seleccionada de la tabla
         try {
 
@@ -373,7 +372,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
                     JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
                     jbBuscarActionPerformed(evt);
-                    dniViejo = 0;
+                    
                 }
             }
         } catch (NullPointerException | NumberFormatException e) {
@@ -411,9 +410,11 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         tablaCiudadanos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
+
                 if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
-                    dniViejo = (int) tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0);
-                }else{
+                    String dni = tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString();
+                    dniViejo = Integer.parseInt(dni);
+                } else {
                     dniViejo = 0;
                 }
             }
