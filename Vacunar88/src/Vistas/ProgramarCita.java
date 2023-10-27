@@ -226,7 +226,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         }
 
         if (vacunasRegistradas.isEmpty() || vd.contarXmarca(opcion) == 0) {
-            JOptionPane.showMessageDialog(null, "No hay stock disponible de la vacuna solicitada");
+            JOptionPane.showMessageDialog(null, "No hay stock disponible de la vacuna solicitada. Solicite.");
             cancelarRb();
         }
 

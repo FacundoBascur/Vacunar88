@@ -271,16 +271,30 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_opcionesActionPerformed
 
     private void aplicadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicadaActionPerformed
-        LocalDateTime dateTime = LocalDateTime.now();
-        Timestamp fecha = Timestamp.valueOf(dateTime);
 
         if (tablaCita.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para continuar");
         } else {
-            int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
-            cvd.vacunaAplicada(fecha, false, codCita);
-            JOptionPane.showMessageDialog(null, "La vacuna fue aplicada a la Fecha/hora: " + fecha);
-            jbBuscarActionPerformed(evt);
+            boolean estado = Boolean.parseBoolean(tablaCita.getValueAt(tablaCita.getSelectedRow(), 7).toString());
+
+            if (!estado) {
+                JOptionPane.showMessageDialog(null, "La vacuna que selecciono ya fue aplicada.");
+            } else {
+                aplicada.setSelected(true);
+                String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();
+                LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
+                Timestamp fecha = Timestamp.valueOf(dateTime);
+
+                if (tablaCita.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para continuar");
+                } else {
+                    int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
+                    cvd.vacunaAplicada(fecha, false, codCita);
+                    JOptionPane.showMessageDialog(null, "La vacuna fue aplicada a la Fecha/hora: " + fecha);
+                    jbBuscarActionPerformed(evt);
+                }
+            }
+
         }
 
 
