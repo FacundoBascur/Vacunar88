@@ -299,7 +299,7 @@ CitaVacunacion cita=null;
         int intervaloMaximoDias = 42; 
 
         if (intervaloDias >= intervaloMinimoDias && intervaloDias <= intervaloMaximoDias) {
-            return true; //válido para aplicar dosis
+            return true; //ya se puede aplicar dosis
         } else {
             return false;
         }
@@ -334,4 +334,86 @@ CitaVacunacion cita=null;
     return cita;
 }
     
+    public void registrarColocacionDosis(int codCita, LocalDateTime fechaHoraVacunacion, int codRefuerzo) {
+    
+    CitaVacunacion cita = BuscarCitaPorCodigo(codCita);
+    
+    if (cita == null) {
+        JOptionPane.showMessageDialog(null, "La cita no existe.");
+        return;
+    }
+    
+    if (!cita.estadoPendienteOActivo()) {
+        JOptionPane.showMessageDialog(null, "La cita no está en estado pendiente o activa.");
+        return;
+    }
+    
+    if (cita.getCodRefuerzo()> 0 && cita.getCodRefuerzo() <= 3) {
+        JOptionPane.showMessageDialog(null, "El ciudadano ya ha recibido una dosis previa.");
+        return;
+    }
+    
+    LocalDateTime fechaMinima = LocalDateTime.parse(cita.getFechaHoraCita());
+    LocalDateTime fechaMaxima = fechaMinima.plusWeeks(8);
+
+    if (fechaHoraVacunacion.isBefore(fechaMinima) || fechaHoraVacunacion.isAfter(fechaMaxima)) {
+            JOptionPane.showMessageDialog(null, "Fecha de vacunación fuera del intervalo válido.");
+            return;
+    }
+    
+    cita.setFechaHoraVac(fechaHoraVacunacion);
+    cita.setCodRefuerzo(codRefuerzo);
+    cita.setEstado(false);
+    
+    
+    /*
+    if (modificarCita(cita)) {
+        JOptionPane.showMessageDialog(null, "Dosis de vacuna registrada con éxito.");
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al registrar la dosis de vacuna.");
+    }
+    */
+    
+    JOptionPane.showMessageDialog(null, "Dosis de vacuna registrada con éxito.");
+    }
+    
+    /*
+    public List<CitaVacunacion> obtenerCitasVencidas() {
+        List<CitaVacunacion> citasVencidas = new ArrayList<>();
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        for (CitaVacunacion cita : listarCitas()) {
+            if (cita.estadoPendienteOActivo() && cita.getFechaHoraCita().isBefore(fechaActual)) {
+                citasVencidas.add(cita);
+            }
+        }
+
+        return citasVencidas;
+    }
+
+    public List<CitaVacunacion> obtenerCitasCumplidas() {
+        List<CitaVacunacion> citasCumplidas = new ArrayList();
+
+        for (CitaVacunacion cita : listarCitas()) {
+            if (!cita.estadoPendienteOActivo() && !cita.estadoPendienteOActivo()) {
+                citasCumplidas.add(cita);
+            }
+        }
+
+        return citasCumplidas;
+    }
+
+    public List<CitaVacunacion> obtenerCitasCanceladas() {
+        List<CitaVacunacion> citasCanceladas = new ArrayList();
+
+        for (CitaVacunacion cita : listarCitas()) {
+            if (cita.estadoPendienteOActivo()) {
+                citasCanceladas.add(cita);
+            }
+        }
+
+        return citasCanceladas;
+    }
 }
+*/
+    
