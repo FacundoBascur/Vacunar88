@@ -109,7 +109,7 @@ try{
         return lista;
     }
     
-    public CentroVacunacion listXZona(String zon){
+    public CentroVacunacion centroXZona(String zon){
             CentroVacunacion centro = null;
        
 

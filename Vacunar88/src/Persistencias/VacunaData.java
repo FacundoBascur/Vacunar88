@@ -77,16 +77,17 @@ public class VacunaData {
         return lista;
     }
     
-    public List<Vacuna> listarVacunasXTipo(String marca) {
+    public List<Vacuna> listarVacunasXTipoYEstado(String marca,boolean colocada) {
 
         Vacuna vacunas = null;
         List<Vacuna> lista = new ArrayList<>();
 
         try {
 
-            String sql = "SELECT * FROM vacuna WHERE marca = ?";
+            String sql = "SELECT * FROM vacuna WHERE marca = ? AND colocada = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, marca);
+            ps.setBoolean(2, colocada);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -110,5 +111,28 @@ public class VacunaData {
 
         return lista;
     }
+    
+     public void actualizarEstadoVacuna(int nroSerieDosis, boolean nuevoEstado) {
+        String sql = "UPDATE vacuna SET colocada = ? WHERE nroSerieDosis = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, nuevoEstado);
+            ps.setInt(2, nroSerieDosis);
+
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Dosis programada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo programar.");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el estado.");
+        }
+    }
+
 
 }
