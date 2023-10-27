@@ -373,23 +373,6 @@ public class CitaVacunacionData {
         return Duration.between(fechaProgramacion, fechaInoculacion);
     }
 
-    /*
-    public boolean validarIntervaloDosis(int codCita, LocalDateTime fechaHoraCita, LocalDateTime fechaHoraVac) {
-
-        CitaVacunacion citaExistente = BuscarCitaPorCodigo(codCita);
-
-        long intervaloDias = ChronoUnit.DAYS.between(citaExistente.getFechaHoraVac(), fechaHoraCita);
-
-        int intervaloMinimoDias = 21;
-        int intervaloMaximoDias = 42;
-
-        if (intervaloDias >= intervaloMinimoDias && intervaloDias <= intervaloMaximoDias) {
-            return true; //ya se puede aplicar dosis
-        } else {
-            return false;
-        }
-    }*/
-
     public CitaVacunacion BuscarCitaPorDniEstado(int dni, int codRe) {
         CitaVacunacion cita = null;
         String sql = "SELECT * FROM citavacunacion WHERE dni = ? AND estado = 0 AND codRefuerzo = ?";
@@ -421,87 +404,56 @@ public class CitaVacunacionData {
         return cita;
     }
 
-    /*
-    public void registrarColocacionDosis(int codCita, LocalDateTime fechaHoraVacunacion, int codRefuerzo) {
+    public int contarVacunasXCentro(int cod) {
+        int total = 0;
+        String sql = "SELECT COUNT(*) FROM citavacunacion WHERE codCentro = ? AND estado = 0";
 
-        CitaVacunacion cita = BuscarCitaPorCodigo(codCita);
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cod);
+            ResultSet resultado = ps.executeQuery();
 
-        if (cita == null) {
-            JOptionPane.showMessageDialog(null, "La cita no existe.");
-            return;
-        }
-
-        if (!cita.estadoPendienteOActivo()) {
-            JOptionPane.showMessageDialog(null, "La cita no está en estado pendiente o activa.");
-            return;
-        }
-
-        if (cita.getCodRefuerzo() > 0 && cita.getCodRefuerzo() <= 3) {
-            JOptionPane.showMessageDialog(null, "El ciudadano ya ha recibido una dosis previa.");
-            return;
-        }
-
-        LocalDateTime fechaMinima = LocalDateTime.parse(cita.getFechaHoraCita());
-        LocalDateTime fechaMaxima = fechaMinima.plusWeeks(8);
-
-        if (fechaHoraVacunacion.isBefore(fechaMinima) || fechaHoraVacunacion.isAfter(fechaMaxima)) {
-            JOptionPane.showMessageDialog(null, "Fecha de vacunación fuera del intervalo válido.");
-            return;
-        }
-
-        cita.setFechaHoraVac(fechaHoraVacunacion);
-        cita.setCodRefuerzo(codRefuerzo);
-        cita.setEstado(false);
-
-        /*
-    if (modificarCita(cita)) {
-        JOptionPane.showMessageDialog(null, "Dosis de vacuna registrada con éxito.");
-    } else {
-        JOptionPane.showMessageDialog(null, "Error al registrar la dosis de vacuna.");
-    }
-     
-    JOptionPane.showMessageDialog (
-
-null, "Dosis de vacuna registrada con éxito.");
-    }
-
-    
-    public List<CitaVacunacion> obtenerCitasVencidas() {
-        List<CitaVacunacion> citasVencidas = new ArrayList<>();
-        LocalDateTime fechaActual = LocalDateTime.now();
-
-        for (CitaVacunacion cita : listarCitas()) {
-            if (cita.estadoPendienteOActivo() && cita.getFechaHoraCita().isBefore(fechaActual)) {
-                citasVencidas.add(cita);
+            if (resultado.next()) {
+                total = resultado.getInt(1);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "error al acceder a la tabla cita.");
         }
-
-        return citasVencidas;
+        return total;
     }
 
-    public List<CitaVacunacion> obtenerCitasCumplidas() {
-        List<CitaVacunacion> citasCumplidas = new ArrayList();
+    public List<CitaVacunacion> citaXcentro(int codCentro) {
+        List<CitaVacunacion> lista = new ArrayList<>();
+        CitaVacunacion cita = null;
+        String sql = "SELECT * FROM citavacunacion WHERE codCentro = ? AND estado = 0";
 
-        for (CitaVacunacion cita : listarCitas()) {
-            if (!cita.estadoPendienteOActivo() && !cita.estadoPendienteOActivo()) {
-                citasCumplidas.add(cita);
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codCentro);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                cita.setDni(rs.getInt("dni"));
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getInt("codCentro"));
+                LocalDateTime fecha = rs.getTimestamp("fechaHoraVac").toLocalDateTime();
+                cita.setFechaHoraVac(fecha);
+                cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
+                cita.setEstado(rs.getBoolean("estado"));
+                lista.add(cita);
             }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener la cita por código.");
         }
 
-        return citasCumplidas;
+        return lista;
+
     }
 
-    public List<CitaVacunacion> obtenerCitasCanceladas() {
-        List<CitaVacunacion> citasCanceladas = new ArrayList();
-
-        for (CitaVacunacion cita : listarCitas()) {
-            if (cita.estadoPendienteOActivo()) {
-                citasCanceladas.add(cita);
-            }
-        }
-
-        return citasCanceladas;
-    }
-}
-     */
 }

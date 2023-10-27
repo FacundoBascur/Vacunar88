@@ -111,7 +111,7 @@ public class VacunaData {
 
         return lista;
     }
-    
+
     public void actualizarEstadoVacuna(int nroSerieDosis, boolean nuevoEstado) {
         String sql = "UPDATE vacuna SET colocada = ? WHERE nroSerieDosis = ?";
 
@@ -183,7 +183,8 @@ public class VacunaData {
            }
            
            
-       } catch (Exception e) {
+       } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, "error al acceder a la tabla vacuna.");
        }
        
        return total;

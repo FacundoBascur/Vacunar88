@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 02:40:24
+-- Tiempo de generación: 27-10-2023 a las 23:12:08
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -32,10 +32,19 @@ USE `vacunar88`;
 CREATE TABLE `centrovacunacion` (
   `codCentro` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
-  `longXcentro` int(11) NOT NULL,
-  `latYcentro` int(11) NOT NULL,
-  `codCita` int(11) NOT NULL
+  `zona` varchar(25) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `centrovacunacion`
+--
+
+INSERT INTO `centrovacunacion` (`codCentro`, `nombre`, `zona`, `estado`) VALUES
+(1, 'Hospital Francisco Lopez Lima', 'Sur', 1),
+(2, 'Clinica Roca', 'Este', 0),
+(3, 'Juan 23', 'Oeste', 1),
+(4, 'Villa Vatteone', 'Norte', 1);
 
 -- --------------------------------------------------------
 
@@ -48,10 +57,22 @@ CREATE TABLE `citavacunacion` (
   `dni` int(11) NOT NULL,
   `codRefuerzo` int(11) NOT NULL,
   `fechaHoraCita` varchar(20) NOT NULL,
-  `centroVacunacion` varchar(30) NOT NULL,
+  `codCentro` int(11) NOT NULL,
   `fechaHoraVac` datetime DEFAULT NULL,
-  `idVacuna` int(11) NOT NULL
+  `nroSerieDosis` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `citavacunacion`
+--
+
+INSERT INTO `citavacunacion` (`codCita`, `dni`, `codRefuerzo`, `fechaHoraCita`, `codCentro`, `fechaHoraVac`, `nroSerieDosis`, `estado`) VALUES
+(1, 40320738, 1, '2023-11-03 15:33', 1, '2023-10-27 15:34:26', 1, 0),
+(2, 40320738, 2, '2023-11-21 15:34', 1, '2023-10-27 15:35:53', 2, 0),
+(3, 40320738, 3, '2023-11-21 15:34', 1, '2023-10-27 15:37:09', 3, 0),
+(4, 19008833, 1, '2023-10-31 15:46', 3, '2023-10-27 15:46:27', 11, 0),
+(5, 19008833, 2, '2023-11-17 15:46', 3, '2023-10-27 15:49:05', 12, 0);
 
 -- --------------------------------------------------------
 
@@ -63,12 +84,10 @@ CREATE TABLE `ciudadano` (
   `dni` int(11) NOT NULL,
   `nombreCompleto` varchar(40) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `celular` bigint(15) NOT NULL,
-  `longXciu` int(11) NOT NULL,
-  `latYciu` int(11) NOT NULL,
+  `celular` varchar(20) NOT NULL,
+  `zona` varchar(25) NOT NULL,
   `patologia` varchar(20) DEFAULT NULL,
   `ambitoTrabajo` varchar(30) DEFAULT NULL,
-  `dosis` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,9 +95,13 @@ CREATE TABLE `ciudadano` (
 -- Volcado de datos para la tabla `ciudadano`
 --
 
-INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`, `latYciu`, `patologia`, `ambitoTrabajo`, `dosis`, `estado`) VALUES
-(14484524, 'Victor Sueyro', 'lalala', 303456, 3, 9, 'lupus', 'salud', 1, 0),
-(32608743, 'Lionel Messi', 'lionelmessi@gmail.co', 2215489632, 4, 2, 'Hemorroides', 'Seguridad', 2, 1);
+INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `zona`, `patologia`, `ambitoTrabajo`, `estado`) VALUES
+(19008833, 'Rodriguez Sofia', 'rsof@gmail.com', '11234567', 'Oeste', 'Asma', 'Jubilado', 1),
+(37020921, 'Torres Valentina', 'val@gmail.com', '11776655', 'Este', 'Diabetes', 'Comercio', 1),
+(39000222, 'Martinez Esteban', 'est@gmail.com', '2984002211', 'Norte', 'S/P', 'Sector privado', 1),
+(40320738, 'Bascur Facundo', 'facund@gmail.com', '298310939', 'Sur', 'S/P', 'Construccion', 1),
+(40987225, 'Vargas Ismael', 'rsof@gmail.com', '11009922', 'Este', 'Asma', 'Estudiante', 1),
+(99222333, 'Ramirez Felipe', 'felipe@gmail.com', '2984567788', 'Sur', 'Artritis', 'Salud', 1);
 
 -- --------------------------------------------------------
 
@@ -87,10 +110,11 @@ INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `longXciu`
 --
 
 CREATE TABLE `laboratorio` (
-  `cuit` varchar(20) NOT NULL,
+  `cuit` int(11) NOT NULL,
   `nombreLab` varchar(50) NOT NULL,
   `pais` varchar(20) NOT NULL,
   `domicilioCom` varchar(30) NOT NULL,
+  `marca` varchar(25) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -98,23 +122,12 @@ CREATE TABLE `laboratorio` (
 -- Volcado de datos para la tabla `laboratorio`
 --
 
-INSERT INTO `laboratorio` (`cuit`, `nombreLab`, `pais`, `domicilioCom`, `estado`) VALUES
-('3012345670', 'Beijing Institute of Biological Products', 'China', 'No. 6, 2nd Boxing Road, Beijin', 0);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `stock`
---
-
-CREATE TABLE `stock` (
-  `idStock` int(11) NOT NULL,
-  `marca` varchar(50) NOT NULL,
-  `cantidad` int(20) NOT NULL,
-  `codCentro` int(11) NOT NULL,
-  `cuit` varchar(20) NOT NULL,
-  `estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `laboratorio` (`cuit`, `nombreLab`, `pais`, `domicilioCom`, `marca`, `estado`) VALUES
+(30117786, 'AstraZeneca plc', 'Inglaterra', ' Cambridge, Inglaterra', 'Astrazeneca', 1),
+(30123339, 'Moderna INC', 'Estados Unidos', 'Cambridge, Massachusetts', 'Moderna', 1),
+(30123456, 'Beijing Institute of Biological Products', 'China', 'No. 6, 2nd Boxing Road, Beijin', 'Sinopharm', 1),
+(30213339, 'BioNTech-Pfizer', 'Alemania', 'Maguncia, Renania-Palatinado', 'Pfizer', 1),
+(30400238, 'Instituto de Investigación Gamaleya', 'Rusia', 'Calle Gamaleya, Moscú', 'Sputnik V', 1);
 
 -- --------------------------------------------------------
 
@@ -123,14 +136,69 @@ CREATE TABLE `stock` (
 --
 
 CREATE TABLE `vacuna` (
-  `idVacuna` int(11) NOT NULL,
   `nroSerieDosis` int(20) NOT NULL,
   `marca` varchar(20) NOT NULL,
   `medida` double NOT NULL,
   `fechaVenc` date NOT NULL,
   `colocada` tinyint(1) NOT NULL,
-  `cuit` varchar(20) NOT NULL
+  `cuit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vacuna`
+--
+
+INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada`, `cuit`) VALUES
+(1, 'Sputnik V', 0.5, '2024-04-27', 1, 30400238),
+(2, 'Sputnik V', 0.5, '2024-04-27', 1, 30400238),
+(3, 'Sputnik V', 0.5, '2024-04-27', 1, 30400238),
+(4, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(5, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(6, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(7, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(8, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(9, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(10, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
+(11, 'Moderna', 0.5, '2024-06-27', 1, 30123339),
+(12, 'Moderna', 0.5, '2024-06-27', 1, 30123339),
+(13, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(14, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(15, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(16, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(17, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(18, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(19, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(20, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(21, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(22, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(23, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(24, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(25, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(26, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(27, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(28, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(29, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(30, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(31, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(32, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(33, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(34, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(35, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(36, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(37, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(38, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(39, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(40, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(41, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(42, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(43, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(44, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(45, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(46, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(47, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(48, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(49, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(50, 'Pfizer', 0.5, '2024-05-27', 0, 30213339);
 
 --
 -- Índices para tablas volcadas
@@ -140,16 +208,16 @@ CREATE TABLE `vacuna` (
 -- Indices de la tabla `centrovacunacion`
 --
 ALTER TABLE `centrovacunacion`
-  ADD PRIMARY KEY (`codCentro`),
-  ADD UNIQUE KEY `codCita` (`codCita`);
+  ADD PRIMARY KEY (`codCentro`);
 
 --
 -- Indices de la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
   ADD PRIMARY KEY (`codCita`),
-  ADD UNIQUE KEY `idCiudadano` (`dni`),
-  ADD UNIQUE KEY `idVacuna` (`idVacuna`);
+  ADD UNIQUE KEY `nroSerieDosis` (`nroSerieDosis`),
+  ADD KEY `codCentro` (`codCentro`),
+  ADD KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `ciudadano`
@@ -164,20 +232,11 @@ ALTER TABLE `laboratorio`
   ADD PRIMARY KEY (`cuit`);
 
 --
--- Indices de la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD PRIMARY KEY (`idStock`),
-  ADD UNIQUE KEY `codCentro` (`codCentro`),
-  ADD UNIQUE KEY `cuit` (`cuit`);
-
---
 -- Indices de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
-  ADD PRIMARY KEY (`idVacuna`),
   ADD UNIQUE KEY `nroSerieDosis` (`nroSerieDosis`),
-  ADD UNIQUE KEY `idLaboratorio` (`cuit`);
+  ADD KEY `cuit` (`cuit`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -187,49 +246,25 @@ ALTER TABLE `vacuna`
 -- AUTO_INCREMENT de la tabla `centrovacunacion`
 --
 ALTER TABLE `centrovacunacion`
-  MODIFY `codCentro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codCentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `stock`
---
-ALTER TABLE `stock`
-  MODIFY `idStock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `vacuna`
---
-ALTER TABLE `vacuna`
-  MODIFY `idVacuna` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `centrovacunacion`
---
-ALTER TABLE `centrovacunacion`
-  ADD CONSTRAINT `centrovacunacion_ibfk_1` FOREIGN KEY (`codCita`) REFERENCES `citavacunacion` (`codCita`);
-
---
 -- Filtros para la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  ADD CONSTRAINT `citavacunacion_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `ciudadano` (`dni`),
-  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`idVacuna`) REFERENCES `vacuna` (`idVacuna`);
-
---
--- Filtros para la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`codCentro`) REFERENCES `centrovacunacion` (`codCentro`),
-  ADD CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`cuit`) REFERENCES `laboratorio` (`cuit`);
+  ADD CONSTRAINT `citavacunacion_ibfk_2` FOREIGN KEY (`nroSerieDosis`) REFERENCES `vacuna` (`nroSerieDosis`),
+  ADD CONSTRAINT `citavacunacion_ibfk_3` FOREIGN KEY (`codCentro`) REFERENCES `centrovacunacion` (`codCentro`),
+  ADD CONSTRAINT `citavacunacion_ibfk_4` FOREIGN KEY (`dni`) REFERENCES `ciudadano` (`dni`);
 
 --
 -- Filtros para la tabla `vacuna`

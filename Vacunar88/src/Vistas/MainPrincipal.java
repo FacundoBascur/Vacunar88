@@ -387,7 +387,7 @@ public class MainPrincipal extends javax.swing.JFrame {
        InformeDiario inf= new InformeDiario();
        inf.setVisible(true);
        inf.setFrameIcon(null);
-       inf.setLocation(220, 159);
+       inf.setLocation(367, 112);
        escritorio.add(inf);
        escritorio.add(imagEscr);
        
