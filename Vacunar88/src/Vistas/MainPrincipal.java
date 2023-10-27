@@ -377,7 +377,7 @@ public class MainPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_busModLabMouseClicked
 
     private void jLInfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLInfMouseClicked
-           escritorio.removeAll();
+       escritorio.removeAll();
        escritorio.repaint();
        escritorio.add(jPanel1);
        InformeDiario inf= new InformeDiario();
