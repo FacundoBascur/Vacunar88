@@ -2,6 +2,7 @@ package Vistas;
 
 import Entidades.*;
 import Persistencias.*;
+import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +17,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     CentroVacunacionData cvd = new CentroVacunacionData();
     VacunaData vd = new VacunaData();
     CitaVacunacionData citaD = new CitaVacunacionData();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     int codRefuerzo;
 
     private List<Ciudadano> ciudadanosRegistrados;
@@ -87,7 +89,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         centroVac.setForeground(new java.awt.Color(0, 0, 0));
         centroVac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        tipoVac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Aztrazeneca", "Moderna", "Sinopharm", "Pfizer", "Sputnik V" }));
+        tipoVac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Astrazeneca", "Moderna", "Sinopharm", "Pfizer", "Sputnik V" }));
         tipoVac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoVacActionPerformed(evt);
@@ -185,7 +187,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         List<CitaVacunacion> cv = citaD.buscarCitasPorDNISA(ciu.getDni());
         centrosRegistradosZona = cvd.centroXZona(ciu.getZona());
         centroVac.setText(centrosRegistradosZona.toString());
-
+        String fechaAc = LocalDateTime.now().format(formato);
         if (cv.isEmpty()) {
             limpiarRb();
             rb1dosis.setSelected(true);
@@ -214,10 +216,15 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                     codRefuerzo = 3;
 
                 } else {
-                    
-                    
-                    JOptionPane.showMessageDialog(null, "El paciente tiene una cita pendiente el dia. " + ct.getFechaHoraCita());
-                    JOptionPane.showMessageDialog(null, calcularDiferenciaFechas(LocalDateTime.parse(ct.getFechaHoraCita()), LocalDateTime.now()));
+
+                    LocalDateTime fechacita = LocalDateTime.parse(ct.getFechaHoraCita(), formato);
+
+                    if (fechacita.isBefore(LocalDateTime.now())) {
+                        JOptionPane.showMessageDialog(null, "La fecha de la cita ya pasó, debe reprogramar la misma.");
+                    } else if (fechacita.isAfter(LocalDateTime.now())) {
+                        JOptionPane.showMessageDialog(null, "El paciente tiene una cita pendiente el dia. " + ct.getFechaHoraCita());
+                    }
+
                     cancelarRb();
                     break;
                 }
@@ -236,7 +243,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una opcion correcta para continuar.");
 
-        } else if (opcion.equals("Aztrazeneca")) {
+        } else if (opcion.equals("Astrazeneca")) {
             vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
         } else if (opcion.equals("Moderna")) {
             vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
@@ -260,7 +267,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
         Vacuna vac = (Vacuna) cbVacunasRegistradas.getSelectedItem();
         CentroVacunacion cv = (CentroVacunacion) cvd.centroXZona(ciu.getZona());
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         String ambito = ciu.getAmbitoTrabajo();
         String pat = ciu.getPatologia();
 
@@ -289,10 +296,11 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Cita cancelada");
 
             }
-
+            
             vd.actualizarEstadoVacuna(vac.getNroSerieDosis(), true);
             limpiarRb();
             centroVac.setText("");
+            initComponents();
 
         }
 
@@ -319,6 +327,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     public Duration calcularDiferenciaFechas(LocalDateTime fechaProgramacion, LocalDateTime fechaInoculacion) {
         return Duration.between(fechaProgramacion, fechaInoculacion);
     }
+
     private void jBAplicarVacunaActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
