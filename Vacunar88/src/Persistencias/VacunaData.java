@@ -133,6 +133,40 @@ public class VacunaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar el estado.");
         }
     }
+     
+   public Vacuna VacunaNroSerie(int nro) {
+
+        Vacuna vacuna = null;
+
+        try {
+
+            String sql = "SELECT * FROM vacuna WHERE nroSerieDosis=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, nro);
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                vacuna = new Vacuna();
+                vacuna.setNroSerieDosis(rs.getInt("nroSerieDosis"));
+                vacuna.setMarca(rs.getString("marca"));
+                vacuna.setMedida(rs.getDouble("medida"));
+                vacuna.setFechaVenc(rs.getDate("fechaVenc"));
+                vacuna.setColocada(rs.getBoolean("colocada"));
+                vacuna.setCuit(rs.getInt("cuit"));
+                
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla vacuna.");
+        }
+
+        return vacuna;
+    }
 
 
 }

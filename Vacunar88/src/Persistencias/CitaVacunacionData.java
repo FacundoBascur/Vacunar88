@@ -141,7 +141,7 @@ public class CitaVacunacionData {
         }
     }
     
-    public List<CitaVacunacion> buscarCitasPorDNI(int dni) {
+    public List<CitaVacunacion> buscarCitasPorDNISA(int dni) {
         List<CitaVacunacion> citas = new ArrayList<>();
         String sql = "SELECT * FROM citavacunacion WHERE dni = ?";
         
