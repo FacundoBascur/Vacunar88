@@ -19,10 +19,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -51,6 +48,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLCentroRegistrado" min="-2" max="-2" attributes="0"/>
                               <Component id="jLVacunasRegistradas" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLNroDosis" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -63,28 +61,27 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="75" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                                  <EmptySpace pref="114" max="32767" attributes="0"/>
+                                  <Component id="rb1dosis" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="rb1dosis" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                                          <Component id="jBCita" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
                                           <Component id="rb2dosis" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="rb3dosis" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jBCita" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLNroDosis" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -176,12 +173,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLCentroRegistrado">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Asignar Centro mas cercano:"/>
+            <Property name="text" type="java.lang.String" value="Centro mas cercano:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLNroDosis">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Elegir dosis:"/>
+            <Property name="text" type="java.lang.String" value="Nro Dosis"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jBCita">

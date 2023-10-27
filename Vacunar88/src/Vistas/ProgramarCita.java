@@ -2,8 +2,9 @@ package Vistas;
 
 import Entidades.*;
 import Persistencias.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -13,17 +14,18 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     CiudadanoData cd = new CiudadanoData();
     CentroVacunacionData cvd = new CentroVacunacionData();
     VacunaData vd = new VacunaData();
+    CitaVacunacionData citaD = new CitaVacunacionData();
+    int codRefuerzo;
 
     private List<Ciudadano> ciudadanosRegistrados;
-    private List<CentroVacunacion> centrosRegistrados;
-    private List<Vacuna> vacunasRegistradas;
+    CentroVacunacion centrosRegistradosZona;
+    private List<Vacuna> vacunasRegistradas = new ArrayList<>();
 
     public ProgramarCita() {
         initComponents();
         ciudadanosRegistrados = cd.listarCiudadanosRegistrados();
         // Llena los ComboBox con los datos
         cbCiudadanosRegistrados.setModel(new DefaultComboBoxModel<>(ciudadanosRegistrados.toArray(new Ciudadano[0])));
-
     }
 
     @SuppressWarnings("unchecked")
@@ -61,9 +63,9 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
 
         jLVacunasRegistradas.setText("Elegir vacuna disponible:");
 
-        jLCentroRegistrado.setText("Asignar Centro mas cercano:");
+        jLCentroRegistrado.setText("Centro mas cercano:");
 
-        jLNroDosis.setText("Elegir dosis:");
+        jLNroDosis.setText("Nro Dosis");
 
         jBCita.setText("Programar cita");
         jBCita.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +106,8 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLCentroRegistrado)
-                            .addComponent(jLVacunasRegistradas))
+                            .addComponent(jLVacunasRegistradas)
+                            .addComponent(jLNroDosis))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -114,21 +117,20 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                                     .addComponent(centroVac)
                                     .addComponent(tipoVac, 0, 413, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                                .addComponent(rb1dosis)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rb1dosis)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jBCita)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbSalir))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(rb2dosis)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rb3dosis))
-                                    .addComponent(jBCita))
-                                .addGap(18, 18, 18)
-                                .addComponent(jbSalir))))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLNroDosis)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(rb3dosis)))
+                                .addGap(41, 41, 41))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,9 +166,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +181,40 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
 
     private void cbCiudadanosRegistradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadanosRegistradosActionPerformed
         Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
-        centrosRegistrados = cvd.listarPorZona(ciu.getZona());
-        centroVac.setText(centrosRegistrados.toString());
+        List<CitaVacunacion> cv = citaD.buscarCitasPorDNI(ciu.getDni());
+        centrosRegistradosZona = cvd.centroXZona(ciu.getZona());
+        centroVac.setText(centrosRegistradosZona.toString());
+
+        if (cv.isEmpty()) {
+            limpiarRb();
+            rb1dosis.setSelected(true);
+            rb2dosis.setEnabled(false);
+            rb3dosis.setEnabled(false);
+            codRefuerzo = 1;
+        } else {
+
+            for (CitaVacunacion ct : cv) {
+                if (ct.getCodRefuerzo() == 1) {
+                    JOptionPane.showMessageDialog(null, "El paciente ya tiene la primer dosis colocada.");
+                    limpiarRb();
+                    rb2dosis.setSelected(true);
+                    rb1dosis.setEnabled(false);
+                    rb3dosis.setEnabled(false);
+                    codRefuerzo = 2;
+                }
+
+                if (ct.getCodRefuerzo() == 2) {
+                    JOptionPane.showMessageDialog(null, "El paciente ya tiene la segunda dosis colocada.");
+                    limpiarRb();
+                    rb3dosis.setSelected(true);
+                    rb2dosis.setEnabled(false);
+                    rb1dosis.setEnabled(false);
+
+                    codRefuerzo = 3;
+
+                }
+            }
+        }
     }//GEN-LAST:event_cbCiudadanosRegistradosActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -195,39 +227,78 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         if (tipoVac.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una opcion correcta para continuar.");
 
-        } else if (opcion.equals("Astrazeneca")) {
-            vacunasRegistradas = vd.listarVacunasXTipo(tipoVac.toString());
+        } else if (opcion.equals("Aztrazeneca")) {
+            vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
         } else if (opcion.equals("Moderna")) {
-            vacunasRegistradas = vd.listarVacunasXTipo(opcion);
-        } else if (opcion.equals("Sinophaarm")) {
-            vacunasRegistradas = vd.listarVacunasXTipo(opcion);
-        } else if (opcion.equals("Pfize")) {
-            vacunasRegistradas = vd.listarVacunasXTipo(opcion);
+            vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
+        } else if (opcion.equals("Sinopharm")) {
+            vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
+        } else if (opcion.equals("Pfizer")) {
+            vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
         } else if (opcion.equals("Sputnik V")) {
-
-            vacunasRegistradas = vd.listarVacunasXTipo(opcion);
+            vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
         }
 
         if (vacunasRegistradas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay stock disponible de la vacuna solicitada");
-        } else {
-            cbVacunasRegistradas.setModel(new DefaultComboBoxModel<>(vacunasRegistradas.toArray(new Vacuna[0])));
         }
+
+        cbVacunasRegistradas.setModel(new DefaultComboBoxModel<>(vacunasRegistradas.toArray(new Vacuna[0])));
     }//GEN-LAST:event_tipoVacActionPerformed
 
     private void jBCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCitaActionPerformed
-        JOptionPane.showMessageDialog(null, LocalDateTime.now());// obtener fecha y hora actual.
-       
-        JOptionPane.showMessageDialog(null,LocalDateTime.now().plusDays(2)); //le sumas dos dias.
+        Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
+        Vacuna vac = (Vacuna) cbVacunasRegistradas.getSelectedItem();
+        CentroVacunacion cv = (CentroVacunacion) cvd.centroXZona(ciu.getZona());
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd - HH:mm");
+        String ambito = ciu.getAmbitoTrabajo();
+        String pat = ciu.getPatologia();
+
+        String fechaCita = "";
+
+        if (cbVacunasRegistradas.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una vacuna para continuar.");
+        } else {
+
+            if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
+                LocalDateTime fecha = LocalDateTime.now().plusDays(1);
+                fechaCita = fecha.format(formato);
+            } else {
+                LocalDateTime fecha = LocalDateTime.now().plusDays(3);
+                fechaCita = fecha.format(formato);
+            }
+
+            String[] list = {"Si", "No"};
+            int opcion = JOptionPane.showOptionDialog(null, "Confirma Cita a paciente Dni : " + ciu.getDni(), "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+            if (opcion == 0) {
+                citaD.registrarCita(ciu.getDni(), codRefuerzo, fechaCita, cv.getCodCentro(), null, vac.getNroSerieDosis(), true);
+                JOptionPane.showMessageDialog(null, "Paciente Dni:" + ciu.getDni() + " \nCita programada para el Dia y hora: " + fechaCita + "\nLugar : "
+                        + "" + cv.getNombre() + "-" + cv.getZona() + "\nVacuna: " + vac.getMarca() + "\n..................\nConcurra al lugar en tiempo y forma o la cita sera reprogramada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cita cancelada");
+
+            }
+
+            vd.actualizarEstadoVacuna(vac.getNroSerieDosis(), true);
+            limpiarRb();
+            centroVac.setText("");
+
+        }
+
+
     }//GEN-LAST:event_jBCitaActionPerformed
 
+    public void limpiarRb() {
+        rb1dosis.setSelected(false);
+        rb2dosis.setSelected(false);
+        rb3dosis.setSelected(false);
+        rb3dosis.setEnabled(true);
+        rb2dosis.setEnabled(true);
+        rb1dosis.setEnabled(true);
+    }
+
     private void jBAplicarVacunaActionPerformed(java.awt.event.ActionEvent evt) {
-//        String pacienteSeleccionado = cbCiudadanosRegistrados.getSelectedItem().toString();
-//        String centroSeleccionado = cbCentrosRegistrados.getSelectedItem().toString();
-//        String vacunaSeleccionada = cbVacunasRegistradas.getSelectedItem().toString();
-//        //LocalDate fechaSeleccionada = jDCalendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//
-//        JOptionPane.showMessageDialog(this, "Cita programada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

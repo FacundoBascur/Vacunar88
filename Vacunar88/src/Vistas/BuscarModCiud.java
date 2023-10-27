@@ -412,7 +412,8 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
             public void valueChanged(ListSelectionEvent lse) {
 
                 if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
-                    dniViejo = (int) tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0);
+                    String dni = tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString();
+                    dniViejo = Integer.parseInt(dni);
                 } else {
                     dniViejo = 0;
                 }
