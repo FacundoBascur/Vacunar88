@@ -3,7 +3,6 @@ package Vistas;
 import AppPackage.AnimationClass;
 
 
-import Persistencias.*;
 
 public class MainPrincipal extends javax.swing.JFrame {
 
@@ -36,6 +35,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         busModCentros = new javax.swing.JLabel();
         regLab = new javax.swing.JLabel();
         busModLab = new javax.swing.JLabel();
+        jLInf = new javax.swing.JLabel();
         imagEscr = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -62,7 +62,7 @@ public class MainPrincipal extends javax.swing.JFrame {
                 menuMouseClicked(evt);
             }
         });
-        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, 40));
 
         ciudadano.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ciudadano.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
@@ -194,6 +194,16 @@ public class MainPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(busModLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 230, 190, -1));
 
+        jLInf.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLInf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendario.png"))); // NOI18N
+        jLInf.setText("Informe diario");
+        jLInf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLInfMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLInf, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 230, -1, -1));
+
         escritorio.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 380));
 
         imagEscr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/escritorio.jpg"))); // NOI18N
@@ -305,6 +315,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         anim.jLabelXLeft(10, -200, 10, 5, busModCitas);
         anim.jLabelXLeft(10, -200, 10, 5, regCentros);
         anim.jLabelXLeft(10, -200, 10, 5, busModCentros);
+        anim.jLabelXLeft(10, -200, 10, 5, jLInf);
         anim.jLabelXLeft(10, -200, 10, 5, regLab);
         anim.jLabelXLeft(10, -200, 10, 5, busModLab);
     }//GEN-LAST:event_menuMouseClicked
@@ -324,6 +335,7 @@ public class MainPrincipal extends javax.swing.JFrame {
     private void centrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_centrosMouseClicked
         anim.jLabelXRight(-200, 10, 10, 5, regCentros);
         anim.jLabelXRight(-200, 10, 10, 5, busModCentros);
+        anim.jLabelXRight(-200, 10, 10, 5, jLInf);
         menuMouseClicked(evt);
     }//GEN-LAST:event_centrosMouseClicked
 
@@ -363,6 +375,19 @@ public class MainPrincipal extends javax.swing.JFrame {
        escritorio.add(imagEscr);
        
     }//GEN-LAST:event_busModLabMouseClicked
+
+    private void jLInfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLInfMouseClicked
+       escritorio.removeAll();
+       escritorio.repaint();
+       escritorio.add(jPanel1);
+       InformeDiario inf= new InformeDiario();
+       inf.setVisible(true);
+       inf.setFrameIcon(null);
+       inf.setLocation(220, 159);
+       escritorio.add(inf);
+       escritorio.add(imagEscr);
+       
+    }//GEN-LAST:event_jLInfMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -407,6 +432,7 @@ public class MainPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel ciudadano;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel imagEscr;
+    private javax.swing.JLabel jLInf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

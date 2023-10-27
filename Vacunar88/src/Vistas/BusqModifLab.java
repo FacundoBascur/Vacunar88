@@ -446,21 +446,7 @@ jTBusq.setEnabled(false);
                 }
             }
         });
-/*public void obtenerDni() {
-        tablaCiudadanos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent lse) {
 
-                if (tablaCiudadanos.getSelectedColumn() == 0 && tablaCiudadanos.getSelectedRow() != -1) {
-                    String dni = tabla.getValueAt(tablaCiudadanos.getSelectedRow(), 0).toString();
-                    dniViejo = Integer.parseInt(dni);
-                } else {
-                    dniViejo = 0;
-                }
-            }
-        });
-
-    }*/
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAltaBaja;
