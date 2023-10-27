@@ -37,7 +37,6 @@ public class MainPrincipal extends javax.swing.JFrame {
         busModLab = new javax.swing.JLabel();
         jLInf = new javax.swing.JLabel();
         imagEscr = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +61,7 @@ public class MainPrincipal extends javax.swing.JFrame {
                 menuMouseClicked(evt);
             }
         });
-        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, 40));
+        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
         ciudadano.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ciudadano.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
@@ -209,9 +208,6 @@ public class MainPrincipal extends javax.swing.JFrame {
         imagEscr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/escritorio.jpg"))); // NOI18N
         escritorio.add(imagEscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel1.setText("jLabel1");
-        escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,13 +259,21 @@ public class MainPrincipal extends javax.swing.JFrame {
         ProgramarCita pc = new ProgramarCita();
         pc.setVisible(true);
         pc.setFrameIcon(null);
-        pc.setLocation(230, 96);
+        pc.setLocation(331, 214);
         escritorio.add(pc);
         escritorio.add(imagEscr);
     }//GEN-LAST:event_regCitasMouseClicked
 
     private void busModCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busModCitasMouseClicked
-
+        escritorio.removeAll();
+        escritorio.repaint(); 
+        escritorio.add(jPanel1);
+        VerCitasReprogramar vc = new VerCitasReprogramar();
+        vc.setVisible(true);
+        vc.setFrameIcon(null);
+        vc.setLocation(331, 214);
+        escritorio.add(vc);
+        escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCitasMouseClicked
 
     private void regCentrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regCentrosMouseClicked
@@ -433,7 +437,6 @@ public class MainPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel imagEscr;
     private javax.swing.JLabel jLInf;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab;

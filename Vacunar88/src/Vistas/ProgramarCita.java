@@ -2,7 +2,6 @@ package Vistas;
 
 import Entidades.*;
 import Persistencias.*;
-import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -188,49 +187,65 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         centrosRegistradosZona = cvd.centroXZona(ciu.getZona());
         centroVac.setText(centrosRegistradosZona.toString());
         String fechaAc = LocalDateTime.now().format(formato);
+        boolean ninguna = false;
         if (cv.isEmpty()) {
             limpiarRb();
             rb1dosis.setSelected(true);
             rb2dosis.setEnabled(false);
             rb3dosis.setEnabled(false);
             codRefuerzo = 1;
-        } else {
+        }
 
-            for (CitaVacunacion ct : cv) {
-                if (ct.getCodRefuerzo() == 1 && !ct.isEstado()) {
-                    JOptionPane.showMessageDialog(null, "El paciente ya tiene la primer dosis colocada.");
-                    limpiarRb();
-                    rb2dosis.setSelected(true);
-                    rb1dosis.setEnabled(false);
-                    rb3dosis.setEnabled(false);
-                    tipoVac.setSelectedItem(vd.VacunaNroSerie(ct.getnroSerieDosis()).getMarca());
-                    codRefuerzo = 2;
-
-                } else if (ct.getCodRefuerzo() == 2 && !ct.isEstado()) {
-                    JOptionPane.showMessageDialog(null, "El paciente ya tiene la segunda dosis colocada.");
-                    limpiarRb();
-                    rb3dosis.setSelected(true);
-                    rb2dosis.setEnabled(false);
-                    rb1dosis.setEnabled(false);
-                    tipoVac.setSelectedItem(vd.VacunaNroSerie(ct.getnroSerieDosis()).getMarca());
-                    codRefuerzo = 3;
-
-                } else {
-
-                    LocalDateTime fechacita = LocalDateTime.parse(ct.getFechaHoraCita(), formato);
-
-                    if (fechacita.isBefore(LocalDateTime.now())) {
-                        JOptionPane.showMessageDialog(null, "La fecha de la cita ya pasó, debe reprogramar la misma.");
-                    } else if (fechacita.isAfter(LocalDateTime.now())) {
-                        JOptionPane.showMessageDialog(null, "El paciente tiene una cita pendiente el dia. " + ct.getFechaHoraCita());
-                    }
-
-                    cancelarRb();
-                    break;
-                }
+        for (CitaVacunacion ct : cv) {
+            if (ct.getCodRefuerzo() == 1 && !ct.isEstado()) {
+                JOptionPane.showMessageDialog(null, "El paciente ya tiene la primer dosis colocada.");
+                limpiarRb();
+                rb2dosis.setSelected(true);
+                rb1dosis.setEnabled(false);
+                rb3dosis.setEnabled(false);
+                tipoVac.setSelectedItem(vd.VacunaNroSerie(ct.getnroSerieDosis()).getMarca());
+                codRefuerzo = 2;
+            } else {
+                ninguna = true;
 
             }
+
+            if (ct.getCodRefuerzo() == 2 && !ct.isEstado()) {
+                JOptionPane.showMessageDialog(null, "El paciente ya tiene la segunda dosis colocada.");
+                limpiarRb();
+                rb3dosis.setSelected(true);
+                rb2dosis.setEnabled(false);
+                rb1dosis.setEnabled(false);
+                tipoVac.setSelectedItem(vd.VacunaNroSerie(ct.getnroSerieDosis()).getMarca());
+                codRefuerzo = 3;
+
+            } else {
+                ninguna = true;
+
+            }
+
+            if (codRefuerzo == 3 && !ct.isEstado()) {
+                JOptionPane.showMessageDialog(null, "El paciente ya completo el cronograma de vacunacion.");
+            } else {
+                ninguna = true;
+
+            }
+
+            if (ninguna) {
+                LocalDateTime fechacita = LocalDateTime.parse(ct.getFechaHoraCita(), formato);
+
+                if (fechacita.isBefore(LocalDateTime.now())) {
+                    JOptionPane.showMessageDialog(null, "La fecha de la cita ya pasó, debe reprogramar la misma.");
+                } else if (fechacita.isAfter(LocalDateTime.now())) {
+                    JOptionPane.showMessageDialog(null, "El paciente tiene una cita pendiente el dia. " + ct.getFechaHoraCita());
+                }
+
+                cancelarRb();
+                break;
+            }
+
         }
+
     }//GEN-LAST:event_cbCiudadanosRegistradosActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -277,12 +292,15 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una vacuna para continuar.");
         } else {
 
-            if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
-                LocalDateTime fecha = LocalDateTime.now().plusDays(1);
-                fechaCita = fecha.format(formato);
-            } else {
-                LocalDateTime fecha = LocalDateTime.now().plusDays(3);
-                fechaCita = fecha.format(formato);
+            if (codRefuerzo == 1) {
+
+                if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
+                    LocalDateTime fecha = LocalDateTime.now().plusDays(4);
+                    fechaCita = fecha.format(formato);
+                } else {
+                    LocalDateTime fecha = LocalDateTime.now().plusDays(7);
+                    fechaCita = fecha.format(formato);
+                }
             }
 
             String[] list = {"Si", "No"};
@@ -296,7 +314,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Cita cancelada");
 
             }
-            
+
             vd.actualizarEstadoVacuna(vac.getNroSerieDosis(), true);
             limpiarRb();
             centroVac.setText("");
