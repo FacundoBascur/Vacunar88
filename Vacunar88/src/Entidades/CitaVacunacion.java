@@ -10,7 +10,7 @@ public class CitaVacunacion {
     private int dni;
     private int codRefuerzo;
     private String fechaHoraCita;
-    private int centroVacunacion;
+    private int codCentro;
     private LocalDateTime fechaHoraVac;
     private int nroSerieDosis;
     private boolean estado;
@@ -18,13 +18,13 @@ public class CitaVacunacion {
     public CitaVacunacion() {
     }
 
-    public CitaVacunacion(int codCita, int dni, int codRefuerzo, String fechaHoraCita, int centroVacunacion,
+    public CitaVacunacion(int codCita, int dni, int codRefuerzo, String fechaHoraCita, int codCentro,
             LocalDateTime fechaHoraVac, int nroSerieDosis, boolean estado) {
         this.codCita = codCita;
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
-        this.centroVacunacion = centroVacunacion;
+        this.codCentro = codCentro;
         this.fechaHoraVac = fechaHoraVac;
         this.nroSerieDosis = nroSerieDosis;
         this.estado=estado;
@@ -35,7 +35,7 @@ public class CitaVacunacion {
         this.dni = dni;
         this.codRefuerzo = codRefuerzo;
         this.fechaHoraCita = fechaHoraCita;
-        this.centroVacunacion = centroVacunacion;
+        this.codCentro = codCentro;
         this.fechaHoraVac = fechaHoraVac;
         this.nroSerieDosis = nroSerieDosis;
         this.estado= estado;
@@ -74,11 +74,11 @@ public class CitaVacunacion {
     }
 
     public int getCentroVacunacion() {
-        return centroVacunacion;
+        return codCentro;
     }
 
     public void setCentroVacunacion(int centroVacunacion) {
-        this.centroVacunacion = centroVacunacion;
+        this.codCentro = centroVacunacion;
     }
 
     public LocalDateTime getFechaHoraVac() {
@@ -123,7 +123,7 @@ public class CitaVacunacion {
     @Override
     public String toString() {
         return "CitaVacunacion{" + "codCita=" + codCita + ", dni=" + dni + ", codRefuerzo=" + codRefuerzo +", fechaHoraCita=" + 
-  fechaHoraCita + ", centroVacunacion=" + centroVacunacion + ", fechaHoraVac=" + fechaHoraVac + ", nroSerieDosis=" + nroSerieDosis + 
+  fechaHoraCita + ", centroVacunacion=" + codCentro + ", fechaHoraVac=" + fechaHoraVac + ", nroSerieDosis=" + nroSerieDosis + 
                 ", estado= " + estado + '}';
     }
 }

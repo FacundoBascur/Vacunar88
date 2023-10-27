@@ -373,6 +373,7 @@ public class CitaVacunacionData {
         return Duration.between(fechaProgramacion, fechaInoculacion);
     }
 
+    /*
     public boolean validarIntervaloDosis(int codCita, LocalDateTime fechaHoraCita, LocalDateTime fechaHoraVac) {
 
         CitaVacunacion citaExistente = BuscarCitaPorCodigo(codCita);
@@ -387,15 +388,16 @@ public class CitaVacunacionData {
         } else {
             return false;
         }
-    }
+    }*/
 
-    public CitaVacunacion BuscarCitaPorCodigo(int codCita) {
+    public CitaVacunacion BuscarCitaPorDniEstado(int dni, int codRe) {
         CitaVacunacion cita = null;
-        String sql = "SELECT * FROM citavacunacion WHERE codCita = ?";
+        String sql = "SELECT * FROM citavacunacion WHERE dni = ? AND estado = 0 AND codRefuerzo = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codCita);
+            ps.setInt(1, dni);
+            ps.setInt(2, codRe);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -404,8 +406,9 @@ public class CitaVacunacionData {
                 cita.setDni(rs.getInt("dni"));
                 cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
                 cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
-                cita.setCentroVacunacion(rs.getInt("centroVacunacion"));
-                cita.setFechaHoraVac(rs.getTimestamp("fechaHoraVac").toLocalDateTime());
+                cita.setCentroVacunacion(rs.getInt("codCentro"));
+                LocalDateTime fecha = rs.getTimestamp("fechaHoraVac").toLocalDateTime();
+                cita.setFechaHoraVac(fecha);
                 cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
                 cita.setEstado(rs.getBoolean("estado"));
             }
@@ -418,6 +421,7 @@ public class CitaVacunacionData {
         return cita;
     }
 
+    /*
     public void registrarColocacionDosis(int codCita, LocalDateTime fechaHoraVacunacion, int codRefuerzo) {
 
         CitaVacunacion cita = BuscarCitaPorCodigo(codCita);
@@ -455,11 +459,13 @@ public class CitaVacunacionData {
     } else {
         JOptionPane.showMessageDialog(null, "Error al registrar la dosis de vacuna.");
     }
-         */
-        JOptionPane.showMessageDialog(null, "Dosis de vacuna registrada con éxito.");
+     
+    JOptionPane.showMessageDialog (
+
+null, "Dosis de vacuna registrada con éxito.");
     }
 
-    /*
+    
     public List<CitaVacunacion> obtenerCitasVencidas() {
         List<CitaVacunacion> citasVencidas = new ArrayList<>();
         LocalDateTime fechaActual = LocalDateTime.now();

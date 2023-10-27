@@ -271,7 +271,7 @@ public class MainPrincipal extends javax.swing.JFrame {
         VerCitasReprogramar vc = new VerCitasReprogramar();
         vc.setVisible(true);
         vc.setFrameIcon(null);
-        vc.setLocation(331, 214);
+        vc.setLocation(129, 171);
         escritorio.add(vc);
         escritorio.add(imagEscr);
     }//GEN-LAST:event_busModCitasMouseClicked

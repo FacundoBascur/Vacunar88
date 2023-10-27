@@ -45,10 +45,21 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLCentroRegistrado" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLVacunasRegistradas" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLNroDosis" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="stock" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLCentroRegistrado" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLVacunasRegistradas" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLNroDosis" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -61,7 +72,7 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="114" max="32767" attributes="0"/>
+                                  <EmptySpace pref="102" max="32767" attributes="0"/>
                                   <Component id="rb1dosis" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -88,23 +99,34 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbCiudadanosRegistrados" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLPacienteRegistrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbCiudadanosRegistrados" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLPacienteRegistrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLCentroRegistrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="centroVac" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tipoVac" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLVacunasRegistradas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbVacunasRegistradas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="stock" min="-2" pref="24" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLCentroRegistrado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="centroVac" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tipoVac" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLVacunasRegistradas" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="cbVacunasRegistradas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLNroDosis" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -178,7 +200,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLNroDosis">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nro Dosis"/>
+            <Property name="text" type="java.lang.String" value="Nro Dosis:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jBCita">
@@ -212,13 +234,12 @@
         <Component class="javax.swing.JComboBox" name="tipoVac">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
-                <StringItem index="0" value="&lt;Seleccionar&gt;"/>
-                <StringItem index="1" value="Astrazeneca"/>
-                <StringItem index="2" value="Moderna"/>
-                <StringItem index="3" value="Sinopharm"/>
-                <StringItem index="4" value="Pfizer"/>
-                <StringItem index="5" value="Sputnik V"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Astrazeneca"/>
+                <StringItem index="1" value="Moderna"/>
+                <StringItem index="2" value="Sinopharm"/>
+                <StringItem index="3" value="Pfizer"/>
+                <StringItem index="4" value="Sputnik V"/>
               </StringArray>
             </Property>
           </Properties>
@@ -228,6 +249,23 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Stock:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="stock">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="66" green="66" red="66" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

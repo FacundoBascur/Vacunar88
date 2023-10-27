@@ -112,7 +112,7 @@ public class VacunaData {
         return lista;
     }
     
-     public void actualizarEstadoVacuna(int nroSerieDosis, boolean nuevoEstado) {
+    public void actualizarEstadoVacuna(int nroSerieDosis, boolean nuevoEstado) {
         String sql = "UPDATE vacuna SET colocada = ? WHERE nroSerieDosis = ?";
 
         try {
@@ -167,6 +167,27 @@ public class VacunaData {
 
         return vacuna;
     }
+   
+   public int contarXmarca(String marca){
+       int total=0;
+       String sql = "SELECT COUNT(*) FROM vacuna WHERE marca = ? and colocada = 0";
+       
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setString(1, marca);
+           
+           ResultSet resultado = ps.executeQuery();
+           
+           if (resultado.next()) {
+               total = resultado.getInt(1);
+           }
+           
+           
+       } catch (Exception e) {
+       }
+       
+       return total;
+   }
 
 
 }
