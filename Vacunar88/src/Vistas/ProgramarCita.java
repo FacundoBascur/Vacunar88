@@ -49,6 +49,8 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         stock = new javax.swing.JLabel();
 
+        setTitle("Programación de citas");
+
         cbCiudadanosRegistrados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCiudadanosRegistradosActionPerformed(evt);

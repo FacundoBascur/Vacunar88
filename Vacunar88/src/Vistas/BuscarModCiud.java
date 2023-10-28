@@ -38,6 +38,8 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
         altaBaja = new javax.swing.JButton();
         opciones = new javax.swing.JComboBox<>();
 
+        setTitle("Búsqueda y modificación de ciudadanos");
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("D.N.I");
 

@@ -33,7 +33,7 @@ public class BusqModifCentros extends javax.swing.JInternalFrame {
         jBSalir = new javax.swing.JButton();
         jCZonas = new javax.swing.JComboBox<>();
 
-        setTitle("                                     Búsqueda y Modificación de Centros Vacunatorios");
+        setTitle("      Búsqueda y Modificación de Centros Vacunatorios");
         setPreferredSize(new java.awt.Dimension(839, 424));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(837, 402));
