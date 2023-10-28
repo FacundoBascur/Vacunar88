@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 23:12:08
+-- Tiempo de generación: 28-10-2023 a las 20:21:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -68,11 +68,11 @@ CREATE TABLE `citavacunacion` (
 --
 
 INSERT INTO `citavacunacion` (`codCita`, `dni`, `codRefuerzo`, `fechaHoraCita`, `codCentro`, `fechaHoraVac`, `nroSerieDosis`, `estado`) VALUES
-(1, 40320738, 1, '2023-11-03 15:33', 1, '2023-10-27 15:34:26', 1, 0),
-(2, 40320738, 2, '2023-11-21 15:34', 1, '2023-10-27 15:35:53', 2, 0),
-(3, 40320738, 3, '2023-11-21 15:34', 1, '2023-10-27 15:37:09', 3, 0),
-(4, 19008833, 1, '2023-10-31 15:46', 3, '2023-10-27 15:46:27', 11, 0),
-(5, 19008833, 2, '2023-11-17 15:46', 3, '2023-10-27 15:49:05', 12, 0);
+(1, 11222333, 1, '2023-10-28 15:06', 1, NULL, 21, 1),
+(2, 23099111, 1, '2023-11-04 15:17', 3, '2023-11-04 15:17:00', 31, 0),
+(3, 23099111, 2, '2023-11-29 15:17', 3, '2023-11-29 15:17:00', 32, 0),
+(4, 23099111, 3, '2023-12-24 15:17', 3, '2023-12-24 15:17:00', 33, 0),
+(5, 19008833, 1, '2023-11-01 15:19', 3, NULL, 34, 1);
 
 -- --------------------------------------------------------
 
@@ -96,10 +96,11 @@ CREATE TABLE `ciudadano` (
 --
 
 INSERT INTO `ciudadano` (`dni`, `nombreCompleto`, `email`, `celular`, `zona`, `patologia`, `ambitoTrabajo`, `estado`) VALUES
+(11222333, 'Francisco Martin', 'fran@gmail.com', '00991122', 'Sur', 'S/P', 'Construccion', 1),
 (19008833, 'Rodriguez Sofia', 'rsof@gmail.com', '11234567', 'Oeste', 'Asma', 'Jubilado', 1),
+(23099111, 'Romero Lucas', 'rom@gmail.com', '9988111', 'Oeste', 'S/P', 'Emprendedor', 1),
 (37020921, 'Torres Valentina', 'val@gmail.com', '11776655', 'Este', 'Diabetes', 'Comercio', 1),
 (39000222, 'Martinez Esteban', 'est@gmail.com', '2984002211', 'Norte', 'S/P', 'Sector privado', 1),
-(40320738, 'Bascur Facundo', 'facund@gmail.com', '298310939', 'Sur', 'S/P', 'Construccion', 1),
 (40987225, 'Vargas Ismael', 'rsof@gmail.com', '11009922', 'Este', 'Asma', 'Estudiante', 1),
 (99222333, 'Ramirez Felipe', 'felipe@gmail.com', '2984567788', 'Sur', 'Artritis', 'Salud', 1);
 
@@ -159,8 +160,8 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada
 (8, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
 (9, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
 (10, 'Sputnik V', 0.5, '2024-04-27', 0, 30400238),
-(11, 'Moderna', 0.5, '2024-06-27', 1, 30123339),
-(12, 'Moderna', 0.5, '2024-06-27', 1, 30123339),
+(11, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
+(12, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
 (13, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
 (14, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
 (15, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
@@ -169,7 +170,7 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada
 (18, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
 (19, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
 (20, 'Moderna', 0.5, '2024-06-27', 0, 30123339),
-(21, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
+(21, 'Astrazeneca', 0.5, '2024-05-27', 1, 30117786),
 (22, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
 (23, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
 (24, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
@@ -179,10 +180,10 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada
 (28, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
 (29, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
 (30, 'Astrazeneca', 0.5, '2024-05-27', 0, 30117786),
-(31, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
-(32, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
-(33, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
-(34, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
+(31, 'Sinopharm', 0.5, '2024-05-27', 1, 30123456),
+(32, 'Sinopharm', 0.5, '2024-05-27', 1, 30123456),
+(33, 'Sinopharm', 0.5, '2024-05-27', 1, 30123456),
+(34, 'Sinopharm', 0.5, '2024-05-27', 1, 30123456),
 (35, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
 (36, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
 (37, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
