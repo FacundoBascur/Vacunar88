@@ -206,7 +206,8 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void tipoVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoVacActionPerformed
-
+         //al seleccionar una opcion del combo box 'tipoVac', se llena el combo box de 'vacunasRegistradas'
+         //Tambien se contabiliza el stock disponible de las mismas.
         String opcion = tipoVac.getSelectedItem().toString();
         if (opcion.equals("Astrazeneca")) {
             vacunasRegistradas = vd.listarVacunasXTipoYEstado(opcion, false);
@@ -234,9 +235,10 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tipoVacActionPerformed
 
     private void jBCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCitaActionPerformed
+        //obtengo ciudadano y vacuna que se seleeciono en los combo box.
         Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
         Vacuna vac = (Vacuna) cbVacunasRegistradas.getSelectedItem();
-        CentroVacunacion cv = (CentroVacunacion) cvd.centroXZona(ciu.getZona());
+        CentroVacunacion cv = (CentroVacunacion) cvd.centroXZona(ciu.getZona()); // el centro se setea auto
 
         String ambito = ciu.getAmbitoTrabajo();
         String pat = ciu.getPatologia();
@@ -244,19 +246,21 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
         String fechaCita = "";
 
         if (centroVac.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campo Centro de vacunacion vacio, seleccione un ciudadano para continuar.");
+            JOptionPane.showMessageDialog(null, "Campo Centro de vacunacion vacio, seleccione un ciudadano para continuar."); //el centro de vacunacion no puede ser vacio.
 
         } else if (cbVacunasRegistradas.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una vacuna para continuar.");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una vacuna para continuar."); // debe seleccionar vacuna.
         } else {
 
             if (codRefuerzo == 1) {
-
+                
+                // primer refuerzo, en cada caso verifica el ambito laboral del mismo y si tiene patologia. 
+                
                 if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
-                    LocalDateTime fecha = LocalDateTime.now().plusDays(4);
+                    LocalDateTime fecha = LocalDateTime.now(); // si tiene patologia y el ambito laboral requiere prioridad, la cita se programa a los 4 dias siguietes. sino a los 7 dias.
                     fechaCita = fecha.format(formato);
                 } else {
-                    LocalDateTime fecha = LocalDateTime.now().plusDays(7);
+                    LocalDateTime fecha = LocalDateTime.now();
                     fechaCita = fecha.format(formato);
                 }
             }
@@ -288,7 +292,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
             }
 
 
-            
+            // cartel para confirmar cita, y por ultimo genera un "ticket" con los datos.
             String[] list = {"Si", "No"};
             int opcion = JOptionPane.showOptionDialog(null, "Confirma Cita a paciente Dni : " + ciu.getDni(), "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
@@ -312,14 +316,15 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBCitaActionPerformed
 
     private void cbCiudadanosRegistradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadanosRegistradosActionPerformed
-
+        //al celeccionar el ciudadano en el combo box, el centro de vacunacion se setea automaticamente segun cual se encuentre en su zona.
         Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
         List<CitaVacunacion> cv = citaD.buscarCitasPorDNISA(ciu.getDni());
         centrosRegistradosZona = cvd.centroXZona(ciu.getZona());
         centroVac.setText(centrosRegistradosZona.toString());
         String fechaAc = LocalDateTime.now().format(formato);
         boolean ninguna = false;
-
+        
+        //las citas se buscan por el dni obtenido del ciudadano, si esta vacia quiere decir que le toca colocarce el primer refuerzo. La marca es eleccionada por el administrativo.
         if (cv.isEmpty()) {
             limpiarRb();
             rb1dosis.setSelected(true);
@@ -328,10 +333,11 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
             codRefuerzo = 1;
             JOptionPane.showMessageDialog(null, "El paciente no tiene dosis colocadas.");
         } else {
-
+            
+            //en este for se selecciona la vacuna automaticammente cuando el paciente ya tiene la primer dosis. los radio button tambien se seleccionan automatico para saber la vacuan que le toca.
+            
             for (CitaVacunacion ct : cv) {
                 if (ct.getCodRefuerzo() == 1 && !ct.isEstado()) {
-                    //JOptionPane.showMessageDialog(null, "El paciente ya tiene la primer dosis colocada.");
                     limpiarRb();
                     rb2dosis.setSelected(true);
                     rb1dosis.setEnabled(false);
@@ -340,7 +346,6 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                     codRefuerzo = 2;
                     
                 } else if (ct.getCodRefuerzo() == 2 && !ct.isEstado()) {
-                   /// JOptionPane.showMessageDialog(null, "El paciente ya tiene la segunda dosis colocada.");
                     limpiarRb();
                     rb3dosis.setSelected(true);
                     rb2dosis.setEnabled(false);
@@ -351,11 +356,11 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 } else if (ct.getCodRefuerzo() == 3 && !ct.isEstado()) {
                     JOptionPane.showMessageDialog(null, "El ciudadano ya completo su cronograma de vacunacion");
                     cancelarRb();
-                    codRefuerzo =4;
+                    codRefuerzo = 4;
 
                 } else {
 
-                    LocalDateTime fechacita = LocalDateTime.parse(ct.getFechaHoraCita(), formato);
+                    LocalDateTime fechacita = LocalDateTime.parse(ct.getFechaHoraCita(), formato); // si el ciudadano ya tiene cita, se verifica si hay que reprogramar o si todavia no concurrio.
 
                     if (fechacita.isBefore(LocalDateTime.now())) {
                         JOptionPane.showMessageDialog(null, "La fecha de la cita ya pasó, debe reprogramar la misma.");
@@ -370,7 +375,8 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 }
                 
             }
-            if (codRefuerzo<4) {
+            // si el refuezo es igual a 4, quiere decir que ya completo el cronograma de vacunacion.
+            if (codRefuerzo<4&&codRefuerzo>2) {
                 JOptionPane.showMessageDialog(null, "Paciente con la dosis N°: " + (codRefuerzo-1) + "colocada.\nCorresponde la "+codRefuerzo+" dosis." );
             }
             

@@ -271,20 +271,24 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_opcionesActionPerformed
 
     private void aplicadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicadaActionPerformed
-
+        // en este caso verifica que seleccione una fila y que la vacuna todavia no se aplico.
         if (tablaCita.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para continuar");
         } else {
+            String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();//obtengo la fecha de la cita para setearla en la fecha de vacunacion.
+            LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
             boolean estado = Boolean.parseBoolean(tablaCita.getValueAt(tablaCita.getSelectedRow(), 7).toString());
 
             if (!estado) {
                 JOptionPane.showMessageDialog(null, "La vacuna que selecciono ya fue aplicada.");
+            } else if (dateTime.isBefore(LocalDateTime.now())) {
+                JOptionPane.showMessageDialog(null, "Debe reprogramar la cita");
             } else {
                 aplicada.setSelected(true);
-                String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();
-                LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
+
                 Timestamp fecha = Timestamp.valueOf(dateTime);
 
+                //la fecha de vacuna se setea con al fecha de la sita, ya que es a modo funcional para el proyecto. 
                 if (tablaCita.getSelectedRow() == -1) {
                     JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para continuar");
                 } else {
@@ -301,10 +305,14 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_aplicadaActionPerformed
 
     private void reprogramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reprogramarActionPerformed
+        // si la cita se tiene que reprogramar, la misma 
         if (opciones.getSelectedItem().toString().equals("Reprogramar")) {
             int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
             int dni = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 1).toString());
-            String fechaNueva = LocalDateTime.now().plusDays(14).format(formato);
+
+            String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();//obtengo la fecha de la cita para reprogramar la cita.
+            LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
+            String fechaNueva = dateTime.plusDays(14).format(formato);
 
             String[] list = {"Si", "No"};
             int opcion = JOptionPane.showOptionDialog(null, "¿Reprogramar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
