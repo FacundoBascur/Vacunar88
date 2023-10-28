@@ -32,7 +32,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jTMarca = new javax.swing.JTextField();
 
-        setTitle("                                         Registro de Laboratorios");
+        setTitle("Registro de Laboratorios");
 
         jCEstado.setText("  Activo");
 

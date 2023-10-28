@@ -37,6 +37,8 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
         jbBuscar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        setTitle(" Listado de citas");
+
         tablaCita = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int columnIndex){
                 return columnIndex > 7;

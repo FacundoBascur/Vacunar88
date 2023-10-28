@@ -44,6 +44,9 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
         registrar = new javax.swing.JButton();
         zona = new javax.swing.JComboBox<>();
 
+        setResizable(true);
+        setTitle(" Registrar ciudadano");
+
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 13)); // NOI18N
         jLabel1.setText("D.N.I");
 

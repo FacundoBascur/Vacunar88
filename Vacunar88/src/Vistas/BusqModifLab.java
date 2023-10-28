@@ -34,7 +34,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
         jBSalir = new javax.swing.JButton();
         jBAltaBaja = new javax.swing.JButton();
 
-        setTitle("            Búsqueda y Modificación de Laboratorios");
+        setTitle("  Búsqueda y Modificación de Laboratorios");
 
         jCOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Activos", "CUIT", "Inactivos", "Marca", "Nombre", "País", "Todos" }));
         jCOpciones.addActionListener(new java.awt.event.ActionListener() {
