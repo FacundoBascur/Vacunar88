@@ -259,10 +259,10 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 // primer refuerzo, en cada caso verifica el ambito laboral del mismo y si tiene patologia. 
                 
                 if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
-                    LocalDateTime fecha = LocalDateTime.now(); // si tiene patologia y el ambito laboral requiere prioridad, la cita se programa a los 4 dias siguietes. sino a los 7 dias.
+                    LocalDateTime fecha = LocalDateTime.now().plusDays(4); // si tiene patologia y el ambito laboral requiere prioridad, la cita se programa a los 4 dias siguietes. sino a los 7 dias.
                     fechaCita = fecha.format(formato);
                 } else {
-                    LocalDateTime fecha = LocalDateTime.now();
+                    LocalDateTime fecha = LocalDateTime.now().plusDays(7);
                     fechaCita = fecha.format(formato);
                 }
             }
@@ -282,7 +282,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
             }
 
             if (codRefuerzo == 3) {
-                CitaVacunacion segCita = citaD.BuscarCitaPorDniEstado(ciu.getDni(), codRefuerzo - 2);
+                CitaVacunacion segCita = citaD.BuscarCitaPorDniEstado(ciu.getDni(), codRefuerzo - 1);
 
                 if (ambito.equalsIgnoreCase("Salud") || ambito.equalsIgnoreCase("Jubilado") || ambito.equalsIgnoreCase("Comercio") || ambito.equalsIgnoreCase("Educacion") || !pat.equals("S/P")) {
                     LocalDateTime fecha = segCita.getFechaHoraVac().plusDays(21);
@@ -378,7 +378,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
                 
             }
             // si el refuezo es igual a 4, quiere decir que ya completo el cronograma de vacunacion.
-            if (codRefuerzo<4&&codRefuerzo>2) {
+            if (codRefuerzo<4&&codRefuerzo>=2) {
                 JOptionPane.showMessageDialog(null, "Paciente con la dosis N°: " + (codRefuerzo-1) + "colocada.\nCorresponde la "+codRefuerzo+" dosis." );
             }
             
