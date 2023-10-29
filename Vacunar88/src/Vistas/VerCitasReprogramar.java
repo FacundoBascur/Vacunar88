@@ -279,12 +279,12 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
 
             }
 
-        } 
-        
+        }
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
-        if (opciones.getSelectedItem().toString().equals("Todos") || opciones.getSelectedItem().toString().equals("Pendientes") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramar")|| opciones.getSelectedItem().toString().equals("Canceladas")) {
+        if (opciones.getSelectedItem().toString().equals("Todos") || opciones.getSelectedItem().toString().equals("Pendientes") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramar") || opciones.getSelectedItem().toString().equals("Canceladas")) {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
@@ -381,23 +381,32 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
             int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
             int dni = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 1).toString());
             int nroSerie = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 6).toString());
+            boolean estado = Boolean.parseBoolean(tablaCita.getValueAt(tablaCita.getSelectedRow(), 7).toString());
+            String cance = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();
 
-            
-            String[] list = {"Si", "No"};
-                int opcion = JOptionPane.showOptionDialog(null, "¿Cancelar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+            if (tablaCita.getValueAt(tablaCita.getSelectedRow(), 5) == null) {
 
-                if (opcion == 0) {
-                    cvd.cancelarCita(codCita, dni);
-                    vcd.actualizarEstadoVacuna(nroSerie, true);
-                    JOptionPane.showMessageDialog(null, "Cita Cancelada ");
-
+                if (!estado && cance.equalsIgnoreCase("cancelada")) {
+                    JOptionPane.showMessageDialog(null, "La cita ya fue cancelada.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cia no cancelada");
+
+                    String[] list = {"Si", "No"};
+                    int opcion = JOptionPane.showOptionDialog(null, "¿Cancelar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                    if (opcion == 0) {
+                        cvd.cancelarCita(codCita, dni);
+                        vcd.actualizarEstadoVacuna(nroSerie, true);
+                        JOptionPane.showMessageDialog(null, "Cita Cancelada ");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Cita no cancelada");
+                    }
+
                 }
-            
-            
-            
-            
+            } else {
+                JOptionPane.showMessageDialog(null, "El ciudadano ya asistio a la cita.");
+
+            }
 
         }
 
