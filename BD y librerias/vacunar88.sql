@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2023 a las 20:21:24
+-- Tiempo de generación: 29-10-2023 a las 18:48:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -72,7 +72,8 @@ INSERT INTO `citavacunacion` (`codCita`, `dni`, `codRefuerzo`, `fechaHoraCita`, 
 (2, 23099111, 1, '2023-11-04 15:17', 3, '2023-11-04 15:17:00', 31, 0),
 (3, 23099111, 2, '2023-11-29 15:17', 3, '2023-11-29 15:17:00', 32, 0),
 (4, 23099111, 3, '2023-12-24 15:17', 3, '2023-12-24 15:17:00', 33, 0),
-(5, 19008833, 1, '2023-11-01 15:19', 3, NULL, 34, 1);
+(5, 19008833, 1, '2023-11-01 15:19', 3, '2023-11-01 15:19:00', 34, 0),
+(6, 19008833, 2, 'CANCELADA', 3, NULL, 35, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,7 @@ ALTER TABLE `centrovacunacion`
 -- AUTO_INCREMENT de la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

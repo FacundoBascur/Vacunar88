@@ -123,7 +123,7 @@ public class VacunaData {
             int result = ps.executeUpdate();
 
             if (result == 1) {
-                JOptionPane.showMessageDialog(null, "Dosis programada.");
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo programar.");
             }
