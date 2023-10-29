@@ -318,7 +318,7 @@ public class ProgramarCita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBCitaActionPerformed
 
     private void cbCiudadanosRegistradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadanosRegistradosActionPerformed
-        //al celeccionar el ciudadano en el combo box, el centro de vacunacion se setea automaticamente segun cual se encuentre en su zona.
+        //al seleccionar el ciudadano en el combo box, el centro de vacunacion se setea automaticamente segun cual se encuentre en su zona.
         Ciudadano ciu = (Ciudadano) cbCiudadanosRegistrados.getSelectedItem();
         List<CitaVacunacion> cv = citaD.buscarCitasPorDNISA(ciu.getDni());
         centrosRegistradosZona = cvd.centroXZona(ciu.getZona());

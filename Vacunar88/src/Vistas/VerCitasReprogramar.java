@@ -2,6 +2,7 @@ package Vistas;
 
 import Entidades.CitaVacunacion;
 import Persistencias.CitaVacunacionData;
+import Persistencias.VacunaData;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     CitaVacunacionData cvd = new CitaVacunacionData();
+    VacunaData vcd = new VacunaData();
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public VerCitasReprogramar() {
@@ -36,6 +38,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
         jtDni = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        citaCance = new javax.swing.JButton();
 
         setTitle(" Listado de citas");
 
@@ -72,7 +75,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
             }
         });
 
-        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Todos", "Por DNI", "Pendientes", "Realizadas", "Reprogramar", " ", " ", " ", " " }));
+        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Todos", "Por DNI", "Pendientes", "Realizadas", "Reprogramar", "Canceladas", " ", " ", " ", " " }));
         opciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opcionesActionPerformed(evt);
@@ -92,6 +95,13 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        citaCance.setText("Cancelar cita");
+        citaCance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                citaCanceActionPerformed(evt);
             }
         });
 
@@ -118,10 +128,12 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
                         .addGap(48, 48, 48))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aplicada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(citaCance)
+                .addGap(18, 18, 18)
                 .addComponent(reprogramar)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
+                .addComponent(aplicada)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(16, 16, 16))
         );
@@ -143,7 +155,8 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aplicada)
                     .addComponent(reprogramar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(citaCance))
                 .addGap(17, 17, 17))
         );
 
@@ -249,11 +262,29 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
 
             }
 
-        }
+        } else if (opcion.equals("Canceladas")) {
+            tabla.setRowCount(0);
+            reprogramar.setEnabled(false);
+            aplicada.setEnabled(false);
+            List<CitaVacunacion> lista = cvd.citasCanceladas();
+
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encuentran citas canceladas actualmente");
+            } else {
+
+                for (CitaVacunacion ct : lista) {
+                    tabla.addRow(new Object[]{ct.getCodCita(), ct.getDni(), ct.getCodRefuerzo(), ct.getFechaHoraCita(), ct.getCentroVacunacion(), ct.getFechaHoraVac(), ct.getnroSerieDosis(), ct.isEstado()});
+
+                }
+
+            }
+
+        } 
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void opcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesActionPerformed
-        if (opciones.getSelectedItem().toString().equals("Todos") || opciones.getSelectedItem().toString().equals("Pendientes") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramar")) {
+        if (opciones.getSelectedItem().toString().equals("Todos") || opciones.getSelectedItem().toString().equals("Pendientes") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramar")|| opciones.getSelectedItem().toString().equals("Canceladas")) {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
@@ -309,29 +340,69 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
     private void reprogramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reprogramarActionPerformed
         // si la cita se tiene que reprogramar, la misma 
         if (opciones.getSelectedItem().toString().equals("Reprogramar")) {
-            int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
-            int dni = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 1).toString());
 
-            String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();//obtengo la fecha de la cita para reprogramar la cita.
-            LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
-            String fechaNueva = dateTime.plusDays(14).format(formato);
-
-            String[] list = {"Si", "No"};
-            int opcion = JOptionPane.showOptionDialog(null, "¿Reprogramar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
-
-            if (opcion == 0) {
-                cvd.reprogramarFecha(fechaNueva, codCita);
-                JOptionPane.showMessageDialog(null, "Cita Reprogramada.\nFecha/hora: " + fechaNueva);
-
+            if (tablaCita.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fila correcta para continuar.");
             } else {
-                JOptionPane.showMessageDialog(null, "Reprogramacion cancelada");
+
+                int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
+                int dni = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 1).toString());
+
+                String fechaS = tablaCita.getValueAt(tablaCita.getSelectedRow(), 3).toString();//obtengo la fecha de la cita para reprogramar la cita.
+                LocalDateTime dateTime = LocalDateTime.parse(fechaS, formato);
+                String fechaNueva = dateTime.plusDays(14).format(formato);
+
+                String[] list = {"Si", "No"};
+                int opcion = JOptionPane.showOptionDialog(null, "¿Reprogramar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                if (opcion == 0) {
+                    cvd.reprogramarFecha(fechaNueva, codCita);
+                    JOptionPane.showMessageDialog(null, "Cita Reprogramada.\nFecha/hora: " + fechaNueva);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Reprogramacion cancelada");
+                }
+                jbBuscarActionPerformed(evt);
+
             }
-            jbBuscarActionPerformed(evt);
+
         } else {
 
             JOptionPane.showMessageDialog(null, "Debe seleccionar opcion valida para continuar");
         }
     }//GEN-LAST:event_reprogramarActionPerformed
+
+    private void citaCanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citaCanceActionPerformed
+        // Si la cita fue cancelada
+        if (tablaCita.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila correcta para continuar.");
+        } else {
+
+            int codCita = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 0).toString());
+            int dni = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 1).toString());
+            int nroSerie = Integer.parseInt(tablaCita.getValueAt(tablaCita.getSelectedRow(), 6).toString());
+
+            
+            String[] list = {"Si", "No"};
+                int opcion = JOptionPane.showOptionDialog(null, "¿Cancelar cita? \nPaciente DNI: " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+
+                if (opcion == 0) {
+                    cvd.cancelarCita(codCita, dni);
+                    vcd.actualizarEstadoVacuna(nroSerie, true);
+                    JOptionPane.showMessageDialog(null, "Cita Cancelada ");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cia no cancelada");
+                }
+            
+            
+            
+            
+
+        }
+
+
+    }//GEN-LAST:event_citaCanceActionPerformed
 
     public void cabeceraTabla() {
 
@@ -341,6 +412,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aplicada;
+    private javax.swing.JButton citaCance;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

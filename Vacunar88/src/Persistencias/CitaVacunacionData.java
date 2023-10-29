@@ -70,12 +70,14 @@ public class CitaVacunacionData {
 
     }
 
-    public void cancelarCita(int codCita) {
-        String sql = "UPDATE citavacunacion SET estado = 0 WHERE codCita = ? AND estado IN (1, 2)"; // 1 para "pendiente" y 2 para "activa", les parece?
+    public void cancelarCita(int codCita,int dni) {
+        String sql = "UPDATE citavacunacion SET fechaHoraCita = 'CANCELADA', estado = false WHERE codCita = ? AND dni = ?"; // 1 para "pendiente" y 2 para "activa", les parece?
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codCita);
+            ps.setInt(2, dni);
+            
 
             int result = ps.executeUpdate();
 
@@ -192,7 +194,7 @@ public class CitaVacunacionData {
 
     public List<CitaVacunacion> buscarCitasPorDNISA(int dni) {
         List<CitaVacunacion> citas = new ArrayList<>();
-        String sql = "SELECT * FROM citavacunacion WHERE dni = ?";
+        String sql = "SELECT * FROM citavacunacion WHERE dni = ? AND fechaHoraCita != 'CANCELADA'";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -345,32 +347,39 @@ public class CitaVacunacionData {
         return ciudadano;
     }
 
-    public long DiferenciaEntreDias(int codCita) {
-        String sql = "SELECT fechaHoraCita, fechaHoraVac FROM citavacunacion WHERE codCita = ?";
-        long diferenciaDias = -1;
-
-        try {
+    public List<CitaVacunacion> citasCanceladas(){
+        List<CitaVacunacion> canceladas = new ArrayList<>();
+        String sql = "SELECT * FROM citavacunacion WHERE fechaHoraCita = 'CANCELADA'";
+    
+    try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codCita);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                LocalDateTime fechaProgramacion = LocalDateTime.parse(rs.getString("fechaHoraCita"));
-                LocalDateTime fechaInoculacion = rs.getTimestamp("fechaHoraVac").toLocalDateTime();
-
-                diferenciaDias = ChronoUnit.DAYS.between(fechaProgramacion, fechaInoculacion);
+            while (rs.next()) {
+                CitaVacunacion cita = new CitaVacunacion();
+                cita.setCodCita(rs.getInt("codCita"));
+                cita.setDni(rs.getInt("dni"));
+                cita.setCodRefuerzo(rs.getInt("codRefuerzo"));
+                cita.setFechaHoraCita(rs.getString("fechaHoraCita"));
+                cita.setCentroVacunacion(rs.getInt("codCentro"));
+                if (rs.getTimestamp("fechaHoraVac") == null) {
+                    cita.setFechaHoraVac(null);
+                } else {
+                    LocalDateTime fecha = rs.getTimestamp("fechaHoraVac").toLocalDateTime();
+                    cita.setFechaHoraVac(fecha);
+                }
+                cita.setnroSerieDosis(rs.getInt("nroSerieDosis"));
+                cita.setEstado(rs.getBoolean("estado"));
+                canceladas.add(cita);
             }
 
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al calcular la diferencia de fechas.");
+            JOptionPane.showMessageDialog(null, "Error al listar las citas pendientes.");
         }
 
-        return diferenciaDias;
-    }
-
-    public Duration calcularDiferenciaFechas(LocalDateTime fechaProgramacion, LocalDateTime fechaInoculacion) {
-        return Duration.between(fechaProgramacion, fechaInoculacion);
+        return canceladas;
+    
     }
 
     public CitaVacunacion BuscarCitaPorDniEstado(int dni, int codRe) {
