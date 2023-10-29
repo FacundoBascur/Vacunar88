@@ -434,7 +434,7 @@ public class CitaVacunacionData {
     public List<CitaVacunacion> citaXcentro(int codCentro) {
         List<CitaVacunacion> lista = new ArrayList<>();
         CitaVacunacion cita = null;
-        String sql = "SELECT * FROM citavacunacion WHERE codCentro = ? AND estado = 0";
+        String sql = "SELECT * FROM citavacunacion WHERE codCentro = ? AND estado = 0 AND fechaHoraVac IS NOT NULL";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

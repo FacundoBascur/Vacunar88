@@ -129,7 +129,7 @@ public class InformeDiario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
     private void armarTabla() {
         String[] titulos = new String[]{"Codigo Centro", "Centro Vacunatorio", "Cantidad de vacunaciones"};
-        String[] titulos2 = new String[]{"DNI", "Numero de serie"};
+        String[] titulos2 = new String[]{"DNI", "N° serie vacuna"};
         tabla.setColumnIdentifiers(titulos);
         tabla2.setColumnIdentifiers(titulos2);
         jTabladiaria.setModel(tabla);

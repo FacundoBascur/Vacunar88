@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2023 a las 18:48:50
+-- Tiempo de generación: 29-10-2023 a las 19:02:03
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -73,7 +73,8 @@ INSERT INTO `citavacunacion` (`codCita`, `dni`, `codRefuerzo`, `fechaHoraCita`, 
 (3, 23099111, 2, '2023-11-29 15:17', 3, '2023-11-29 15:17:00', 32, 0),
 (4, 23099111, 3, '2023-12-24 15:17', 3, '2023-12-24 15:17:00', 33, 0),
 (5, 19008833, 1, '2023-11-01 15:19', 3, '2023-11-01 15:19:00', 34, 0),
-(6, 19008833, 2, 'CANCELADA', 3, NULL, 35, 0);
+(6, 19008833, 2, 'CANCELADA', 3, NULL, 35, 0),
+(7, 40987225, 1, '2023-11-02 14:59', 2, '2023-11-02 14:59:00', 41, 0);
 
 -- --------------------------------------------------------
 
@@ -191,7 +192,7 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada
 (38, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
 (39, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
 (40, 'Sinopharm', 0.5, '2024-05-27', 0, 30123456),
-(41, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(41, 'Pfizer', 0.5, '2024-05-27', 1, 30213339),
 (42, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (43, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (44, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
@@ -254,7 +255,7 @@ ALTER TABLE `centrovacunacion`
 -- AUTO_INCREMENT de la tabla `citavacunacion`
 --
 ALTER TABLE `citavacunacion`
-  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `codCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
