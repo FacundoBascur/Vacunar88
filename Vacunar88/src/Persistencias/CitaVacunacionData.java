@@ -415,7 +415,7 @@ public class CitaVacunacionData {
 
     public int contarVacunasXCentro(int cod) {
         int total = 0;
-        String sql = "SELECT COUNT(*) FROM citavacunacion WHERE codCentro = ? AND estado = 0";
+        String sql = "SELECT COUNT(*) FROM citavacunacion WHERE codCentro = ? AND estado = 0 AND fechaHoraCita != 'CANCELADA'";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -434,7 +434,7 @@ public class CitaVacunacionData {
     public List<CitaVacunacion> citaXcentro(int codCentro) {
         List<CitaVacunacion> lista = new ArrayList<>();
         CitaVacunacion cita = null;
-        String sql = "SELECT * FROM citavacunacion WHERE codCentro = ? AND estado = 0 AND fechaHoraVac IS NOT NULL";
+        String sql = "SELECT * FROM citavacunacion WHERE codCentro = ? AND estado = 0 AND fechaHoraVac IS NOT NULL AND fechaHoraCita != 'CANCELADA'";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
