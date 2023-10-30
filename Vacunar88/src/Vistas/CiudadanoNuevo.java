@@ -261,7 +261,7 @@ public class CiudadanoNuevo extends javax.swing.JInternalFrame {
                
                 
                 if (verificar(nombreCompleto.getText())) {
-                    JOptionPane.showMessageDialog(null, "Campo 'Apellido y Nombreo' en formato incorrecto, verifique.");
+                    JOptionPane.showMessageDialog(null, "Campo 'Apellido y Nombre' en formato incorrecto, verifique.");
                     correcto = false;
                 }
                 if (!verificar(dni.getText())||dni.getText().length() != 8) {

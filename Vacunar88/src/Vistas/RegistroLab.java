@@ -153,7 +153,7 @@ public class RegistroLab extends javax.swing.JInternalFrame {
                 jTCuit.setText("");
                 correcto = false;
             }
-            if (!verificar(jTCuit.getText()) && jTCuit.getText().length() != 11) {
+            if (!verificar(jTCuit.getText()) && jTCuit.getText().length() != 8) {
                 JOptionPane.showMessageDialog(null, "Cantidad de dígitos en Cuit fuera del rango permitido.");
 
                 jTCuit.setText("");

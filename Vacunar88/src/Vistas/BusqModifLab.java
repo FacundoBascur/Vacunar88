@@ -2,6 +2,10 @@ package Vistas;
 
 import Entidades.Laboratorio;
 import Persistencias.LaboratorioData;
+import Persistencias.VacunaData;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -12,12 +16,16 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     LaboratorioData lab = new LaboratorioData();
+    VacunaData vd = new VacunaData();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     long cuitViejo;
 
     public BusqModifLab() {
         initComponents();
         armarTabla();
         jTBusq.setEnabled(false);
+        jbGenerarVacunas.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,6 +41,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
         jBModificar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
         jBAltaBaja = new javax.swing.JButton();
+        jbGenerarVacunas = new javax.swing.JButton();
 
         setTitle("  Búsqueda y Modificación de Laboratorios");
 
@@ -97,6 +106,13 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
             }
         });
 
+        jbGenerarVacunas.setText("Generar vacunas");
+        jbGenerarVacunas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGenerarVacunasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,7 +133,9 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                                 .addComponent(jBModificar)
                                 .addGap(43, 43, 43)
                                 .addComponent(jBAltaBaja)
-                                .addGap(444, 444, 444)
+                                .addGap(41, 41, 41)
+                                .addComponent(jbGenerarVacunas)
+                                .addGap(326, 326, 326)
                                 .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(20, Short.MAX_VALUE))))
@@ -136,7 +154,8 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBModificar)
                     .addComponent(jBAltaBaja)
-                    .addComponent(jBSalir))
+                    .addComponent(jBSalir)
+                    .addComponent(jbGenerarVacunas))
                 .addGap(16, 16, 16))
         );
 
@@ -155,12 +174,13 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-
+        jbGenerarVacunas.setEnabled(true);
+        tabla.setRowCount(0);
         String opcion = jCOpciones.getSelectedItem().toString();
 
         if (jTBusq.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar el campo de texto.");
-            tabla.setRowCount(0);
+
         } else {
 
             if (opcion.equals("CUIT")) {
@@ -168,7 +188,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     if (!verificar(jTBusq.getText()) && jTBusq.getText().length() > 0) {
                         JOptionPane.showMessageDialog(null, "El CUIT del laboratorio no puede contener letras.");
                         jTBusq.setText("");
-                    } else if (verificar(jTBusq.getText()) && jTBusq.getText().length() != 11) {
+                    } else if (verificar(jTBusq.getText()) && jTBusq.getText().length() != 8) {
                         JOptionPane.showMessageDialog(null, "Cantidad de dígitos fuera del rango de CUIT.");
                         jTBusq.setText("");
                     } else {
@@ -259,59 +279,54 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     }
 
                 }
-                
 
-            if (nom.isEmpty()|| pais.isEmpty()|| dom.isEmpty()|| mar.isEmpty() || String.valueOf(cuit).isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
-                correcto = false;
-                if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                    jCOpcionesActionPerformed(evt);
-                } else {
-                    jBBuscarActionPerformed(evt);
-                }
-
-            }
-
-            if (correcto) {
-                if (cuitViejo != cuit && cuitViejo != 0) {
-                    String[] list = {"Si", "No"};
-                    int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
-                    if (opcion == 0) {
-                        lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
-                       
+                if (nom.isEmpty() || pais.isEmpty() || dom.isEmpty() || mar.isEmpty() || String.valueOf(cuit).isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "El campo a modificar no puede quedar vacío.");
+                    correcto = false;
+                    if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+                        jCOpcionesActionPerformed(evt);
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se realizó modificación del CUIT.");
-                        lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
+                        jBBuscarActionPerformed(evt);
                     }
 
-                } else {
-                    lab.modficarLab(cuit, nom, pais, dom, mar, cuit);
                 }
 
-                if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-                    jCOpcionesActionPerformed(evt);
-                } else {
-                    jBBuscarActionPerformed(evt);
+                if (correcto) {
+                    if (cuitViejo != cuit && cuitViejo != 0) {
+                        String[] list = {"Si", "No"};
+                        int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del CUIT = " + cuitViejo + " a \nCUIT = " + cuit, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
+                        if (opcion == 0) {
+                            lab.modficarLab(cuit, nom, pais, dom, mar, cuitViejo);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se realizó modificación del CUIT.");
+                            lab.modficarLab(cuitViejo, nom, pais, dom, mar, cuitViejo);
+                        }
+
+                    } else {
+                        lab.modficarLab(cuit, nom, pais, dom, mar, cuit);
+                    }
+
+                    if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+                        jCOpcionesActionPerformed(evt);
+                    } else {
+                        jBBuscarActionPerformed(evt);
+                    }
+                    cuitViejo = 0;
                 }
-                cuitViejo = 0;
+
+            }
+
+        } catch (NullPointerException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al realizar la modificación, el CUIT debe contener 11 dígitos númericos.");
+
+            if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
+                jCOpcionesActionPerformed(evt);
+            } else {
+                jBBuscarActionPerformed(evt);
             }
 
         }
-
-    }
-    catch (NullPointerException | NumberFormatException e
-
-    
-        ) {
-            JOptionPane.showMessageDialog(null, "Error al realizar la modificación, el CUIT debe contener 11 dígitos númericos.");
-
-        if (op.equals("Todos") || op.equals("Activos") || op.equals("Inactivos")) {
-            jCOpcionesActionPerformed(evt);
-        } else {
-            jBBuscarActionPerformed(evt);
-        }
-
-    }
 
     }//GEN-LAST:event_jBModificarActionPerformed
 
@@ -321,7 +336,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Laboratorio para continuar.");
         } else {
 
-           long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
+            long cuit = Long.parseLong(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
             String nom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 1).toString();
             String pais = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 2).toString();
             String dom = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 3).toString();
@@ -372,9 +387,11 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
         tabla.setRowCount(0);
         jTBusq.setText("");
         String opcion = jCOpciones.getSelectedItem().toString();
+
         if (opcion.equals("<Seleccionar>")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un criterio de búsqueda.");
             jTBusq.setEnabled(false);
+            jbGenerarVacunas.setEnabled(false);
 
         } else if (opcion.equals("Todos")) {
             tabla.setRowCount(0);
@@ -385,6 +402,7 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                     lb.getMarca(), lb.isEstado()});
             }
             jTBusq.setEnabled(false);
+            jbGenerarVacunas.setEnabled(true);
         } else if (opcion.equals("Activos")) {
             tabla.setRowCount(0);
             jTBusq.setText("");
@@ -393,8 +411,11 @@ public class BusqModifLab extends javax.swing.JInternalFrame {
                 tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                     lb.getMarca(), lb.isEstado()});
             }
-jTBusq.setEnabled(false);
+            jbGenerarVacunas.setEnabled(true);
+            jTBusq.setEnabled(false);
         } else if (opcion.equals("Inactivos")) {
+            jbGenerarVacunas.setEnabled(false);
+
             tabla.setRowCount(0);
             jTBusq.setText("");
             List<Laboratorio> lista = lab.listarPorEstado(false);
@@ -402,19 +423,57 @@ jTBusq.setEnabled(false);
                 tabla.addRow(new Object[]{lb.getCuit(), lb.getNombreLab(), lb.getPais(), lb.getDomicilioCom(),
                     lb.getMarca(), lb.isEstado()});
             }
-jTBusq.setEnabled(false);
-        }else if (opcion.equals("CUIT") || opcion.equals("Nombre") || opcion.equals("País") || opcion.equals("Marca")) {
-        tabla.setRowCount(0);
-        jTBusq.setText("");
-        jTBusq.setEnabled(true);
+            jTBusq.setEnabled(false);
+        } else if (opcion.equals("CUIT") || opcion.equals("Nombre") || opcion.equals("País") || opcion.equals("Marca")) {
+            jbGenerarVacunas.setEnabled(false);
+            tabla.setRowCount(0);
+            jTBusq.setText("");
+            jTBusq.setEnabled(true);
         }
     }//GEN-LAST:event_jCOpcionesActionPerformed
 
     private void jTTablaLabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTablaLabsMouseClicked
-      // if (jTTablaLabs.getSelectedColumn() == 0 ){
+        // if (jTTablaLabs.getSelectedColumn() == 0 ){
         obtenerCuit();
-       
+
     }//GEN-LAST:event_jTTablaLabsMouseClicked
+
+    private void jbGenerarVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGenerarVacunasActionPerformed
+
+        if (jTTablaLabs.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila correcta para continuar.");
+        } else {
+            String cant = JOptionPane.showInputDialog("Ingrese la cantidad solicitada");
+
+            if (verificar(cant) && !cant.isEmpty()) {
+
+                int canti = Integer.parseInt(cant);
+
+                if (canti > 0) {
+                    int nroSerie = vd.obtenerUltimoNroSerie() + 1;
+                    int limite = nroSerie + canti;
+                    int cuit = Integer.parseInt(jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString());
+                    String marca = jTTablaLabs.getValueAt(jTTablaLabs.getSelectedRow(), 4).toString();
+                    String f = LocalDate.now().plusMonths(7).format(formato);
+
+                    while (nroSerie < limite) {
+                        vd.registrarVac(nroSerie, marca, 0.5, Date.valueOf(f), false, cuit);
+                        nroSerie++;
+                    }
+                    JOptionPane.showMessageDialog(null, "Vacunas generadas exitosamente.");
+
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "No se admite numeros negativos y cero.");
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se admiten letras ni caracteres.");
+            }
+
+        }
+    }//GEN-LAST:event_jbGenerarVacunasActionPerformed
     private void armarTabla() {
         String[] titulos = new String[]{"CUIT", "Nombre", "País", "Domicilio Comercial", "Marca", "Estado"};
         tabla.setColumnIdentifiers(titulos);
@@ -430,19 +489,18 @@ jTBusq.setEnabled(false);
         }
     }
 
-
     public void obtenerCuit() {
-        
+
         jTTablaLabs.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
-        public void valueChanged(ListSelectionEvent lse) {
+            public void valueChanged(ListSelectionEvent lse) {
                 if (jTTablaLabs.getSelectedColumn() == 0 && jTTablaLabs.getSelectedRow() != -1) {
-                  String  cuit =tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
-                
-                  cuitViejo=Long.parseLong(cuit);
-                  
-                }else{
-                cuitViejo=0;
+                    String cuit = tabla.getValueAt(jTTablaLabs.getSelectedRow(), 0).toString();
+
+                    cuitViejo = Long.parseLong(cuit);
+
+                } else {
+                    cuitViejo = 0;
                 }
             }
         });
@@ -458,5 +516,6 @@ jTBusq.setEnabled(false);
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTBusq;
     private javax.swing.JTable jTTablaLabs;
+    private javax.swing.JButton jbGenerarVacunas;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,7 +54,9 @@
                                   <Component id="jBModificar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                   <Component id="jBAltaBaja" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="jbGenerarVacunas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
                                   <Component id="jBSalir" min="-2" pref="81" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane1" min="-2" pref="794" max="-2" attributes="0"/>
@@ -81,6 +83,7 @@
                       <Component id="jBModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBAltaBaja" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbGenerarVacunas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
@@ -174,6 +177,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAltaBajaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbGenerarVacunas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Generar vacunas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGenerarVacunasActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

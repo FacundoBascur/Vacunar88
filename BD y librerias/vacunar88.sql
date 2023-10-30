@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2023 a las 19:02:03
+-- Tiempo de generación: 30-10-2023 a las 02:10:58
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -196,12 +196,13 @@ INSERT INTO `vacuna` (`nroSerieDosis`, `marca`, `medida`, `fechaVenc`, `colocada
 (42, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (43, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (44, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
-(45, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
+(45, 'Pfizer', 0.5, '2023-09-27', 0, 30213339),
 (46, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (47, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (48, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
 (49, 'Pfizer', 0.5, '2024-05-27', 0, 30213339),
-(50, 'Pfizer', 0.5, '2024-05-27', 0, 30213339);
+(50, 'Pfizer', 0.5, '2023-10-27', 0, 30213339),
+(51, 'Sputnik V', 0.5, '2024-05-29', 0, 30400238);
 
 --
 -- Índices para tablas volcadas

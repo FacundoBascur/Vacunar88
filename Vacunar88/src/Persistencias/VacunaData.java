@@ -19,8 +19,27 @@ public class VacunaData {
         con = Conexion.getConexion();
     }
 
+    
+    public int obtenerUltimoNroSerie(){
+    int ultimo=0;
+    String sql = "SELECT MAX(nroSerieDosis) FROM vacuna";
+    
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultado = ps.executeQuery();
+           
+           if (resultado.next()) {
+               ultimo = resultado.getInt(1);
+           }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error, tabla vacuna.");
+        }
+    
+        return ultimo;
+    } 
+    
     public void registrarVac(int nroSerieDosis, String marca, double medida, Date fechaVenc,
-            boolean colocada, String cuit) {
+            boolean colocada, int cuit) {
 
         Vacuna vac = null;
 
@@ -34,7 +53,7 @@ public class VacunaData {
             ps.setDouble(3, medida);
             ps.setDate(4, fechaVenc);
             ps.setBoolean(5, colocada);
-            ps.setString(6, cuit);
+            ps.setInt(6, cuit);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -84,7 +103,7 @@ public class VacunaData {
 
         try {
 
-            String sql = "SELECT * FROM vacuna WHERE marca = ? AND colocada = ?";
+            String sql = "SELECT * FROM vacuna WHERE marca = ? AND colocada = ? AND fechaVenc > CURDATE()";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, marca);
             ps.setBoolean(2, colocada);
@@ -170,7 +189,7 @@ public class VacunaData {
    
    public int contarXmarca(String marca){
        int total=0;
-       String sql = "SELECT COUNT(*) FROM vacuna WHERE marca = ? and colocada = 0";
+       String sql = "SELECT COUNT(*) FROM vacuna WHERE marca = ? and colocada = 0 AND fechaVenc > CURDATE()";
        
        try {
            PreparedStatement ps = con.prepareStatement(sql);
