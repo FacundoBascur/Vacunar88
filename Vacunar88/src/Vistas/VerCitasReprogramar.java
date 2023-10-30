@@ -77,7 +77,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
             }
         });
 
-        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Todos", "Por DNI", "Pendientes", "Realizadas", "Reprogramadas", "Canceladas", " ", " ", " ", " " }));
+        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Todos", "Por DNI", "Pendientes", "Realizadas", "Reprogramar", "Canceladas", " ", " ", " ", " " }));
         opciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opcionesActionPerformed(evt);
@@ -244,7 +244,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
                 }
 
             }
-        } else if (opcion.equals("Reprogramadas")) {
+        } else if (opcion.equals("Reprogramar")) {
 
             tabla.setRowCount(0);
             reprogramar.setEnabled(true);
@@ -296,7 +296,7 @@ public class VerCitasReprogramar extends javax.swing.JInternalFrame {
             aplicada.setEnabled(true);
             citaCance.setEnabled(true);
 
-        } else if (opciones.getSelectedItem().toString().equals("< Seleccionar >") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramadas")) {
+        } else if (opciones.getSelectedItem().toString().equals("< Seleccionar >") || opciones.getSelectedItem().toString().equals("Realizadas") || opciones.getSelectedItem().toString().equals("Reprogramar")) {
             tabla.setRowCount(0);
             jtDni.setText("");
             jtDni.setEnabled(false);
