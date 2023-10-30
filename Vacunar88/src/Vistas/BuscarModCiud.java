@@ -361,20 +361,32 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                         int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del Dni = " + dniViejo + " a \nDni = " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                         if (opcion == 0) {
-                            ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
-                            JOptionPane.showMessageDialog(null, "Dni modificado");
+                            boolean ver = ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+
+                            if (ver) {
+                                JOptionPane.showMessageDialog(null, "Dni modificado");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El dni no se puede modificar, ya que tiene una cita previa registrada.");
+                            }
+
                         } else {
-                            JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
-                            ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+
+                            boolean ver = ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+
+                            if (ver) {
+                                JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
+                            }
                         }
+                        
                     } else {
 
                         ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
+                        JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
                     }
 
-                    JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
-                    jbBuscarActionPerformed(evt);
                     
+                    jbBuscarActionPerformed(evt);
+
                 }
             }
         } catch (NullPointerException | NumberFormatException e) {
