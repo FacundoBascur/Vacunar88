@@ -384,7 +384,7 @@ public class MainPrincipal extends javax.swing.JFrame {
        escritorio.removeAll();
        escritorio.repaint();
        escritorio.add(jPanel1);
-       InformeDiario inf= new InformeDiario();
+       InformesVacunaciones inf= new InformesVacunaciones();
        inf.setVisible(true);
        inf.setFrameIcon(null);
        inf.setLocation(367, 112);
