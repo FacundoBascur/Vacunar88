@@ -183,9 +183,9 @@ public class CiudadanoData {
         }
     }
 
-    public boolean modificarCiudadano(int dniNuevo, String nombreCompleto, String email, String celular,
+    public void modificarCiudadano(int dniNuevo, String nombreCompleto, String email, String celular,
             String zona, String patologia, String ambitoTrabajo, int dni) {
-        boolean bien = true;
+        
         Ciudadano ciu = null;
         String sql = "UPDATE ciudadano SET dni=?, nombreCompleto=?, email=?, celular=?,"
                 + "zona=?, patologia=?, ambitoTrabajo=? WHERE dni=?";
@@ -208,9 +208,9 @@ public class CiudadanoData {
             }
 
         } catch (SQLException ex) {
-
-            bien = false;
+            JOptionPane.showMessageDialog(null, "Error en base de datos.");
+            
         }
-        return bien;
+        
     }
 }

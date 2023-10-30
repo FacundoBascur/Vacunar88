@@ -13,6 +13,7 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
 
     DefaultTableModel tabla = new DefaultTableModel();
     CiudadanoData ciuData = new CiudadanoData();
+    CitaVacunacionData cvd = new CitaVacunacionData();
 
     int dniViejo = 0;
 
@@ -361,30 +362,33 @@ public class BuscarModCiud extends javax.swing.JInternalFrame {
                         int opcion = JOptionPane.showOptionDialog(null, "Confirma modificacion del Dni = " + dniViejo + " a \nDni = " + dni, "", 0, JOptionPane.QUESTION_MESSAGE, null, list, "");
 
                         if (opcion == 0) {
-                            boolean ver = ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
 
-                            if (ver) {
+                            if (cvd.buscarCitasPorDNISA(dniViejo).isEmpty()) {
                                 JOptionPane.showMessageDialog(null, "Dni modificado");
+                                ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
                             } else {
-                                JOptionPane.showMessageDialog(null, "El dni no se puede modificar, ya que tiene una cita previa registrada.");
+                                JOptionPane.showMessageDialog(null, "El dni de este ciudadano no se puede modificar, ya que tiene una cita previa registrada.");
                             }
 
                         } else {
 
-                            boolean ver = ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
+                            ciuData.modificarCiudadano(dniViejo, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dniViejo);
 
-                            if (ver) {
-                                JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
-                            }
+                            JOptionPane.showMessageDialog(null, "No se realizo modificacion del Dni");
+
                         }
-                        
+
                     } else {
 
                         ciuData.modificarCiudadano(dni, apNomNu, emailNu, celNu, zona, patoNu, ambitoNu, dni);
-                        JOptionPane.showMessageDialog(null, "Modificaciones realizadas con exito.");
+
+                    }
+                    if (dniViejo == 0) {
+                        JOptionPane.showMessageDialog(null, "Seleccione correctamente la celda.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Demas modificaciones realizadas con exito.");
                     }
 
-                    
                     jbBuscarActionPerformed(evt);
 
                 }
